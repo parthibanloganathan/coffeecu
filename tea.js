@@ -46,6 +46,14 @@ if (Meteor.isClient) {
               sunday_times);
         }
   });
+
+  Template.people.events({
+    "click .person": function () {
+      console.log("clicked!");
+      var personDiv = event.currentTarget;
+      Session.set("personClicked", event.target.checked);
+    }
+  });
 }
 
 // Common
