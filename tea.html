@@ -14,10 +14,16 @@
 <template name="people">
   {{#each people}}
   <div class="person">
-    Person
-    <p>{{name}}</p>
-    <p>{{display_name}}</p>
-    <p>{{about}}</p>
+    {{#if personSelected}}
+      <p>{{name}}</p>
+      <p>{{school}}</p>
+      <p>{{about}}</p>
+      <a href="{{facebook}}"><i class="fa fa-facebook-square"></i></a>
+      <a href="{{twitter}}"><i class="fa fa-twitter-square"></i></a>    
+      <a href="{{linkedin}}"><i class="fa fa-linkedin-square"></i></a>
+    {{else}}
+      <p>{{display_name}}</p>
+    {{/if}}
   </div>
   {{/each}}
 </template>
