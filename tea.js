@@ -49,14 +49,33 @@ if (Meteor.isClient) {
 
   Template.people.events({
     "click .person": function () {
-      console.log("clicked!");
-      var personDiv = event.currentTarget;
-      Session.set("personClicked", event.target.checked);
+      if (Session.get("personInFocus") != this._id._str) {
+        Session.set("personInFocus", this._id._str);
+      } else {
+        Session.set("personInFocus", "");        
+      }
+    }
+  });
+
+  Template.people.helpers({
+    'personSelected': function() {
+      return this._id._str == Session.get("personInFocus");
     }
   });
 }
 
 // Common
+
+//Router
+Router.route('/', {
+    template: 'home'
+});
+
+Router.route('/', {
+    template: 'home'
+});
+
+
 PeopleCollection = new Mongo.Collection("people");
 AvailabilityCollection = new Mongo.Collection("availability");
 

@@ -1,15 +1,17 @@
-<head>
-  <title>tea</title>
-</head>
+<template name="home">
+  <head>
+    <title>Tea</title>
+  </head>
 
-<body>
-  <h1>Tea with Seniors</h1>
-  {{> loginButtons}}
-  {{> people}}
-  {{#if currentUser}}
-    {{> profile}}
-  {{/if}}
-</body>
+  <body>
+    <h1>Tea with Seniors</h1>
+    {{> loginButtons}}
+    {{> people}}
+    {{#if currentUser}}
+      {{> profile}}
+    {{/if}}
+  </body>
+</template>
 
 <template name="people">
   {{#each people}}
