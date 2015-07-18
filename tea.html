@@ -5,10 +5,9 @@
 
   <body>
     <h1>Tea with Seniors</h1>
-    {{> loginButtons}}
     {{> people}}
     {{#if currentUser}}
-      {{> profile}}
+      {{> userprofile}}
     {{/if}}
   </body>
 </template>
@@ -30,24 +29,7 @@
   {{/each}}
 </template>
 
-<template name="profile">
-  Logged in as {{username}}
-  Name: <input type="text" name="name" placeholder="Your full name" />
-  Display Name: <input type="text" name="display_name" placeholder="Your first name or whatever you go by" />
-  School and Year: <input type="text" name="school" placeholder="eg: SEAS '16 or CC '16" />
-  About: <textarea type="text" name="about" placeholder="2-3 lines about yourself" ></textarea>
-  UNI: <input type="text" name="uni" placeholder="eg: abc1234" />
-  Twitter: <input type="text" name="twitter" placeholder="Link to your Twitter page" />
-  Facebook: <input type="text" name="facebook" placeholder="Link to your Facebook profile" />
-  LinkedIn: <input type="text" name="linkedin" placeholder="Public link to your LinkedIn profile" />
-   <button class="update">Update Profile</button>
-   <button class="delete">Delete Profile</button>
+<template name="userprofile">
+  Id: {{_id}}
+  <a href="{{pathFor route='user'}}">Go to {{username}} profile</a>
 </template>
-
-<template name="time-picker">
-  Pick times when you're free: <input type="text" name="text" placeholder="date/time" />
-</template>
-
-<template name="header">
-</template>
-

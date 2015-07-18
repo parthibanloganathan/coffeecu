@@ -12,7 +12,7 @@ if (Meteor.isClient) {
     passwordSignupFields: "USERNAME_ONLY"
   });
 
-  Template.profile.helpers({
+  Template.profileupdate.helpers({
     'insert': function(name,
         display_name,
         school,
@@ -62,19 +62,34 @@ if (Meteor.isClient) {
       return this._id._str == Session.get("personInFocus");
     }
   });
+
+  Template.main.helpers({
+    'currentYear': function() {
+      return new Date().getFullYear();
+    }
+  });
 }
 
 // Common
 
 //Router
-Router.route('/', {
-    template: 'home'
+Router.configure({
+    layoutTemplate: 'main'
 });
 
 Router.route('/', {
+    name: 'home',
     template: 'home'
 });
 
+Router.route('/user/:_id', {
+  name: 'user',
+  template: 'user',
+  data: function() {
+    var currentUser = this.params._id;
+    return PeopleCollection.findOne({ _id: currentUser });
+  }
+});
 
 PeopleCollection = new Mongo.Collection("people");
 AvailabilityCollection = new Mongo.Collection("availability");
