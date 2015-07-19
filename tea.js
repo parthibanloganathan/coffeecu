@@ -3,7 +3,7 @@ if (Meteor.isClient) {
   Meteor.subscribe("people");
 
   Template.people.helpers({
-    'people': function() {
+    'people': function () {
       return PeopleCollection.find().fetch();
     }
   });
@@ -12,15 +12,48 @@ if (Meteor.isClient) {
     passwordSignupFields: "USERNAME_ONLY"
   });
 
+  Template.userprofile.helpers({
+    'id': function () {
+      return Meteor.userId();
+    },
+    'user': function () {
+      return PeopleCollection.find({owner: Meteor.userId()}).fetch();
+    }
+  });
+
   Template.profileupdate.helpers({
-    'insert': function(name,
-        display_name,
-        school,
-        about,
-        uni,
-        twitter,
-        facebook,
-        linkedin) {
+    'user': function () {
+      return PeopleCollection.find({owner: Meteor.userId()}).fetch();
+    },
+    'set-availability': function () {
+      Meteor.call("setAvailability", 
+          Meteor.userId(),
+          Meteor.user().username,        
+          monday_times,
+          tuesday_times,
+          wednesday_times,
+          thursday_times,
+          friday_times,
+          saturday_times,
+          sunday_times);
+    }
+  });
+
+  Template.profileupdate.events({
+    "submit form": function (event) {
+      console.log("Submit update called");
+      console.log(event);
+      event.preventDefault();
+
+      var name = event.target.name.value;
+      var display_name = event.target.display_name.value;
+      var school = event.target.school.value;
+      var about = event.target.about.value;
+      var uni = event.target.uni.value;
+      var twitter = event.target.twitter.value;
+      var facebook = event.target.facebook.value;
+      var linkedin = event.target.linkedin.value;
+
       Meteor.call("insertUser",
           Meteor.userId(),
           Meteor.user().username,
@@ -33,18 +66,10 @@ if (Meteor.isClient) {
           facebook,
           linkedin);
     },
-        'set-availability': function() {
-          Meteor.call("setAvailability", 
-              Meteor.userId(),
-              Meteor.user().username,        
-              monday_times,
-              tuesday_times,
-              wednesday_times,
-              thursday_times,
-              friday_times,
-              saturday_times,
-              sunday_times);
-        }
+    'click #deleteprofile': function(){
+      console.log('Deleting user');
+      Meteor.call("deleteUser", Meteor.userId());
+    }
   });
 
   Template.people.events({
@@ -58,13 +83,13 @@ if (Meteor.isClient) {
   });
 
   Template.people.helpers({
-    'personSelected': function() {
+    'personSelected': function () {
       return this._id._str == Session.get("personInFocus");
     }
   });
 
   Template.main.helpers({
-    'currentYear': function() {
+    'currentYear': function () {
       return new Date().getFullYear();
     }
   });
@@ -74,20 +99,22 @@ if (Meteor.isClient) {
 
 //Router
 Router.configure({
-    layoutTemplate: 'main'
+  layoutTemplate: 'main'
 });
 
 Router.route('/', {
-    name: 'home',
-    template: 'home'
+  name: 'home',
+  template: 'home'
 });
 
-Router.route('/user/:_id', {
-  name: 'user',
+Router.route('/user/:userid', {
   template: 'user',
-  data: function() {
-    var currentUser = this.params._id;
-    return PeopleCollection.findOne({ _id: currentUser });
+  data: function () {
+    var currentUser = this.params.userid;
+    console.log(currentUser);
+    var p = PeopleCollection.findOne({ owner: currentUser });
+    console.log(p);
+    return p;
   }
 });
 
@@ -109,18 +136,21 @@ Meteor.methods({
       throw new Meteor.Error("not-authorized");
     }
 
-    PeopleCollection.insert({
-      owner: id, 
-      username: username,        
-      name: name,
-      display_name: display_name,
-      school: school,
-      about: about,
-      uni: uni,
-      twitter: twitter,
-      facebook: facebook,
-      linkedin: linkedin
-    });
+    PeopleCollection.update(
+        {owner: id},
+        {$set: {
+                 owner: id, 
+                 username: username,        
+                 name: name,
+                 display_name: display_name,
+                 school: school,
+                 about: about,
+                 uni: uni,
+                 twitter: twitter,
+                 facebook: facebook,
+                 linkedin: linkedin
+               }},
+        {upsert: true});
   },
   deleteUser: function (id) {
     if (!Meteor.userId()) {

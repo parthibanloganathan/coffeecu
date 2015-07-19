@@ -15,17 +15,19 @@
 </template>
 
 <template name="profileupdate">
+  <form>
   <p>
-  Logged in as <h1>{{username}}</h1>
-  Name: <input type="text" name="name" value="{{name}}" placeholder="Your full name" />
-  Display Name: <input type="text" name="display_name" value={{display_name}} placeholder="Your first name or whatever you go by" />
-  School and Year: <input type="text" name="school" placeholder="eg: SEAS '16 or CC '16" />
-  About: <textarea type="text" name="about" placeholder="2-3 lines about yourself" ></textarea>
-  UNI: <input type="text" name="uni" placeholder="eg: abc1234" />
-  Twitter: <input type="text" name="twitter" placeholder="Link to your Twitter page" />
-  Facebook: <input type="text" name="facebook" placeholder="Link to your Facebook profile" />
-  LinkedIn: <input type="text" name="linkedin" placeholder="Public link to your LinkedIn profile" />
-  <input type="button" name="updateprofile" value="Update Profile" />
-  <input type="button" name="deleteprofile" value="Delete Profile" />
+  Logged in as <h1>{{user.name}}</h1>
+  Name: <input type="text" name="name" value="{{user.name}}" placeholder="Your full name" />
+  Display Name: <input type="text" name="display_name" value={{user.display_name}} placeholder="Your first name or whatever you go by" />
+  School and Year: <input type="text" name="school" value="{{user.school}}" placeholder="eg: SEAS '16 or CC '16" />
+  About: <textarea type="text" name="about" value="{{user.about}}" placeholder="2-3 lines about yourself" ></textarea>
+  UNI: <input type="text" name="uni" value="{{user.uni}}" placeholder="eg: abc1234" />
+  Twitter: <input type="text" name="twitter" value="{{usre.twitter}}" placeholder="Link to your Twitter page" />
+  Facebook: <input type="text" name="facebook" value="{{user.facebook}}" placeholder="Link to your Facebook profile" />
+  LinkedIn: <input type="text" name="linkedin" value="{{user.linkedin}}" placeholder="Public link to your LinkedIn profile" />
+  <input type="submit" value="Update Profile" />
+  <input type="button" id="deleteprofile" value="Delete Profile" />
   </p>
+  </form>
 </template>
