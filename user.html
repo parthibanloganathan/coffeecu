@@ -6,11 +6,12 @@
   <body>
     {{#if currentUser}}
       {{> profileupdate}}
+      {{> timepicker}}
     {{/if}}
   </body>
 </template>
 
-<template name="time-picker">
+<template name="timepicker">
   Pick times when you're free: <input type="text" name="text" placeholder="date/time" />
 </template>
 
@@ -26,6 +27,8 @@
   Twitter: <input type="text" name="twitter" value="{{usre.twitter}}" placeholder="Link to your Twitter page" />
   Facebook: <input type="text" name="facebook" value="{{user.facebook}}" placeholder="Link to your Facebook profile" />
   LinkedIn: <input type="text" name="linkedin" value="{{user.linkedin}}" placeholder="Public link to your LinkedIn profile" />
+  Upload photo: <input type="button" id="uploadphoto" value="Upload Photo" />
+  <img src="{{user.image_url}}" height="90px" width="90px" />
   <input type="submit" value="Update Profile" />
   <input type="button" id="deleteprofile" value="Delete Profile" />
   </p>
