@@ -1,5 +1,13 @@
 // Client
 if (Meteor.isClient) {
+  // Load filepicker js library
+  Session.set("filepicker", false);
+  Meteor.startup( function () {
+    $.getScript('//api.filepicker.io/v2/filepicker.js', function () {
+        Session.set("filepicker", true);
+        });
+  });
+
   Meteor.subscribe("people");
 
   Template.people.helpers({
@@ -23,7 +31,7 @@ if (Meteor.isClient) {
 
   Template.profileupdate.helpers({
     'user': function () {
-      return PeopleCollection.find({owner: Meteor.userId()}).fetch();
+      return PeopleCollection.find({owner: Meteor.userId()}).fetch()[0];
     },
     'set-availability': function () {
       Meteor.call("setAvailability", 
@@ -41,8 +49,6 @@ if (Meteor.isClient) {
 
   Template.profileupdate.events({
     "submit form": function (event) {
-      console.log("Submit update called");
-      console.log(event);
       event.preventDefault();
 
       var name = event.target.name.value;
@@ -53,6 +59,13 @@ if (Meteor.isClient) {
       var twitter = event.target.twitter.value;
       var facebook = event.target.facebook.value;
       var linkedin = event.target.linkedin.value;
+      var image_url = event.target.image_url.src;
+      console.log(image_url);
+      if (Session.get("UploadedImageUrl")) {
+        image_url = Session.get("UploadedImageUrl");
+      }
+      Session.set("UploadedImageUrl", "");      
+      var availability_notes = event.target.availability_notes.value;
 
       Meteor.call("insertUser",
           Meteor.userId(),
@@ -64,11 +77,16 @@ if (Meteor.isClient) {
           uni,
           twitter,
           facebook,
-          linkedin);
+          linkedin,
+          image_url,
+          availability_notes
+          );
     },
     'click #deleteprofile': function(){
-      console.log('Deleting user');
       Meteor.call("deleteUser", Meteor.userId());
+    },
+    'click #uploadphoto': function(){
+      openFilePicker();
     }
   });
 
@@ -111,10 +129,7 @@ Router.route('/user/:userid', {
   template: 'user',
   data: function () {
     var currentUser = this.params.userid;
-    console.log(currentUser);
-    var p = PeopleCollection.findOne({ owner: currentUser });
-    console.log(p);
-    return p;
+    return PeopleCollection.findOne({ owner: currentUser });
   }
 });
 
@@ -131,7 +146,9 @@ Meteor.methods({
                   uni,
                   twitter,
                   facebook,
-                  linkedin) {
+                  linkedin,
+                  image_url,
+                  availability_notes) {
     if (!Meteor.userId()) {
       throw new Meteor.Error("not-authorized");
     }
@@ -148,9 +165,11 @@ Meteor.methods({
                  uni: uni,
                  twitter: twitter,
                  facebook: facebook,
-                 linkedin: linkedin
+                 linkedin: linkedin,
+                 image_url: image_url,
+                 availability_notes: availability_notes
                }},
-        {upsert: true});
+               {upsert: true});
   },
   deleteUser: function (id) {
     if (!Meteor.userId()) {
@@ -192,3 +211,22 @@ if (Meteor.isServer) {
     return PeopleCollection.find();
   });
 }
+
+var openFilePicker = function () {
+  filepicker.setKey(Meteor.settings.public.filepicker.key);
+  filepicker.pick(
+      {
+        mimetype: 'image/*',
+                          services: ['BOX', 'CLOUDDRIVE', 'COMPUTER', 'DROPBOX', 'FACEBOOK', 'GOOGLE_DRIVE', 'FLICKR', 'GMAIL', 'INSTAGRAM', 'SKYDRIVE', 'IMAGE_SEARCH', 'URL'],
+                          imageMax: [1024, 1024],
+                          cropDim: [300, 300],
+                          cropForce: true
+                          },
+                          function (Blob) {
+                          Session.set("UploadedImageUrl", Blob.url);
+                          },
+                          function (FPError) {
+                          console.log(FPError.toString());
+                          }
+                          );
+                          };
