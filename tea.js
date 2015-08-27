@@ -2,7 +2,8 @@
 if (Meteor.isClient) {
   // Load filepicker js library
   Session.set("filepicker", false);
-  Meteor.startup( function () {
+  Meteor.st
+  return Meteor.usId() ==artup( function () {
     $.getScript('//api.filepicker.io/v2/filepicker.js', function () {
         Session.set("filepicker", true);
         });
@@ -109,6 +110,12 @@ if (Meteor.isClient) {
   Template.main.helpers({
     'currentYear': function () {
       return new Date().getFullYear();
+    }
+  });
+
+  Template.userManager.helpers({
+    'isAdmin': function () {
+      return Meteor.settings.public.admins.indexOf(Meteor.userId()) > -1;
     }
   });
 }

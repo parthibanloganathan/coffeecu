@@ -1,0 +1,26 @@
+<template name="admin">
+  <head>
+    <title>Tea</title>
+  </head>
+
+  <body>
+    {{#if currentUser}}
+      <h1>Admin Page</h1>
+      {{> userManager}}
+    {{/if}}
+  </body>
+</template>
+
+<template name="userManager">
+  {{#each people}}
+  <div class="person">
+    {{#if personSelected}}
+      <img src="{{image_url}}" height="30px" width="30px" />   
+      <p>{{id}}</p>
+      <p>{{username}}</p>
+      <p>{{name}}</p>
+    {{/if}}
+  </div>
+  {{/each}}
+</template>
+
