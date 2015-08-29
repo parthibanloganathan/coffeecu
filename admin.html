@@ -1,26 +1,48 @@
-<template name="admin">
+<template name="Admin">
   <head>
     <title>Tea</title>
   </head>
 
   <body>
-    {{#if currentUser}}
+    {{#if userIsAdmin}}
       <h1>Admin Page</h1>
+      Users:
       {{> userManager}}
     {{/if}}
   </body>
 </template>
 
 <template name="userManager">
-  {{#each people}}
+  {{> displayPendingPeople}}
+  {{> displayPeople}}
+</template>
+
+<template name="displayPendingPeople">
+  {{#each pendingPeople}}
   <div class="person">
-    {{#if personSelected}}
-      <img src="{{image_url}}" height="30px" width="30px" />   
-      <p>{{id}}</p>
-      <p>{{username}}</p>
-      <p>{{name}}</p>
-    {{/if}}
+    <img src="{{image_url}}" height="30px" width="30px" />   
+    <p>{{id}}</p>
+    <p>{{username}}</p>
+    <p>{{name}}</p>
+    <p>{{display_name}}</p>
+    <p>{{school}}</p>
+    <p>{{uni}}</p>
+    <p>{{twitter}}</p>
+    <p>{{linkedin}}</p>
+    <p>{{facebook}}</p>
+    <p>{{availability}}</p>
+    <p>{{about}}</p>
   </div>
   {{/each}}
 </template>
 
+<template name="displayPeople">
+  {{#each people}}
+  <div class="person">
+    <p>{{id}}</p>
+    <p>{{username}}</p>
+    <p>{{name}}</p>
+    <input type="button" id="deleteprofile" value="Delete" />
+  </div>
+  {{/each}}
+</template>
