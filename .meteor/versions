@@ -18,6 +18,7 @@ ejson@1.0.6
 email@1.0.6
 fastclick@1.0.3
 fortawesome:fontawesome@4.3.0
+fourseven:scss@3.2.0
 geojson-utils@1.0.3
 html-tools@1.0.4
 htmljs@1.0.4
@@ -62,6 +63,7 @@ spacebars-compiler@1.0.6
 srp@1.0.3
 templating@1.1.1
 tracker@1.0.7
+udondan:googlefonts@1.1.3
 ui@1.0.6
 underscore@1.0.3
 url@1.0.4

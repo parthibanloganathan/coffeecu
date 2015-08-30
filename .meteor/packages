@@ -12,3 +12,5 @@ accounts-ui
 accounts-password
 iron:router
 fortawesome:fontawesome
+udondan:googlefonts
+fourseven:scss
