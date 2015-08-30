@@ -10,9 +10,14 @@ if (Meteor.isClient) {
 
   Meteor.subscribe('people');
 
+  // Home
+
   Template.people.helpers({
     'people': function () {
       return PeopleCollection.find().fetch();
+    },
+    'personSelected': function () {
+      return this._id == Session.get('personInFocus');
     }
   });
 
@@ -25,6 +30,25 @@ if (Meteor.isClient) {
       return Meteor.userId();
     }
   });
+
+  Template.people.events({
+    'click .person': function () {
+      if (Session.get('personInFocus') != this._id) {
+        Session.set('personInFocus', this._id);
+      } else {
+        Session.set('personInFocus', '');        
+      }
+    }
+  });
+
+  Template.main.helpers({
+    'currentYear': function () {
+      return new Date().getFullYear();
+    }
+  });
+
+  // User
+  Session.set('message', 'default');
 
   Template.profileupdate.helpers({
     'user': function () {
@@ -79,39 +103,25 @@ if (Meteor.isClient) {
                   image_url,
                   availability_notes
                  );
+      Session.set('message', 'Your profile is currently under review and will be posted once approved.');
     },
-    'click #deleteprofile': function(){
+    'click #deleteprofile': function() {
       Meteor.call('deleteUser', Meteor.userId());
+      Session.set('message', 'Your profile has successfully been deleted.');
     },
-    'click #uploadphoto': function(){
+    'click #uploadphoto': function() {
       openFilePicker();
     }
   });
 
-  Template.people.events({
-    'click .person': function () {
-      if (Session.get('personInFocus') != this._id._str) {
-        Session.set('personInFocus', this._id._str);
-      } else {
-        Session.set('personInFocus', '');        
-      }
-    }
-  });
-
-  Template.people.helpers({
-    'personSelected': function () {
-      return this._id._str == Session.get('personInFocus');
-    }
-  });
-
-  Template.main.helpers({
-    'currentYear': function () {
-      return new Date().getFullYear();
+  Template.message.helpers({
+    'message': function () {
+      return Session.get('message');
     }
   });
 
   // Admin
-  
+
   Template.Admin.helpers({
     'userIsAdmin': function () {
       return Meteor.settings.public.admins.indexOf(Meteor.userId()) > -1;
@@ -127,6 +137,17 @@ if (Meteor.isClient) {
   Template.displayPeople.helpers({
     'people': function () {
       return PeopleCollection.find().fetch();
+    }
+  });
+
+  Template.displayPendingPeople.events({
+    'click #reject': function () {
+      var id = this.owner;
+      Meteor.call('deleteUser', id);
+    },
+    'click #accept': function () {
+      var id = this.owner;
+      Meteor.call('copyUserToMaster', id);
     }
   });
 }
@@ -205,9 +226,9 @@ Meteor.methods({
                             {upsert: true});
                         },
                         copyUserToMaster: function (id) {
-                          var userToMove = PendingPeopleCollection.find({owner: id});
+                          var userToMove = PendingPeopleCollection.findOne({owner: id});
                           PeopleCollection.insert(userToMove);
-                          PendingPeopleCollection.remove(userToMove);
+                          PendingPeopleCollection.remove({owner: id});
                         },
                         deleteUser: function (id) {
                           if (!Meteor.userId()) {
@@ -250,7 +271,7 @@ if (Meteor.isServer) {
   Meteor.publish('people-master', function () {
     return PeopleCollection.find();
   });
-  
+
   Meteor.publish('people-pending', function () {
     return PendingPeopleCollection.find();
   });

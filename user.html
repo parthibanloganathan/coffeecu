@@ -7,6 +7,7 @@
     {{#if currentUser}}
       {{> profileupdate}}
       {{> timepicker}}
+      {{> message}}
     {{/if}}
   </body>
 </template>
@@ -34,4 +35,8 @@
   <input type="button" id="deleteprofile" value="Delete Profile" />
   </p>
   </form>
+</template>
+
+<template name="message">
+  {{message}}
 </template>

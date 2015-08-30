@@ -18,7 +18,8 @@
 </template>
 
 <template name="displayPendingPeople">
-  {{#each pendingPeople}}
+  Pending:
+  {{#each people}}
   <div class="person">
     <img src="{{image_url}}" height="30px" width="30px" />   
     <p>{{id}}</p>
@@ -32,11 +33,14 @@
     <p>{{facebook}}</p>
     <p>{{availability}}</p>
     <p>{{about}}</p>
+    <input type="button" id="reject" value="Reject" />
+    <input type="button" id="accept" value="Accept" />
   </div>
   {{/each}}
 </template>
 
 <template name="displayPeople">
+  Public:
   {{#each people}}
   <div class="person">
     <p>{{id}}</p>
