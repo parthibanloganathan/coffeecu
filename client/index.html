@@ -1,0 +1,13 @@
+<template name="main">
+  {{> header}}
+  {{> yield}}
+  {{> footer}}
+</template>
+
+<template name="header">
+  {{> loginButtons}}
+</template>
+
+<template name="footer">
+  &copy; {{currentYear}} Parthiban Loganathan.
+</template>
