@@ -38,6 +38,17 @@ if (Meteor.isClient) {
       } else {
         Session.set('personInFocus', '');        
       }
+    },
+    'click .person #contact': function () {
+      var receiverUni = this.uni;
+      var receiverName = this.name.split(' ')[0];
+
+      // Prompt with modal
+      bootbox.prompt("What is your UNI?", function (senderUni) {                
+        if (senderUni !== null && VerifyUni(this, senderUni)) {
+          SendEmail(senderUni, receiverUni, receiverName);
+        }
+      });
     }
   });
 
@@ -103,7 +114,7 @@ if (Meteor.isClient) {
                   image_url,
                   availability_notes
                  );
-      Session.set('message', 'Your profile is currently under review and will be posted once approved.');
+                 Session.set('message', 'Your profile is currently under review and will be posted once approved.');
     },
     'click #deleteprofile': function() {
       Meteor.call('deleteUser', Meteor.userId());
@@ -165,6 +176,27 @@ var SearchPeopleCollection = function (query) {
   }
 };
 
+var SendEmail = function (senderUni, receiverUni, receiverName) {
+  var firstname = GetFirstName(senderUni);
+  Meteor.call('sendEmail',
+              'do-not-reply@teaatcolumbia.com',
+              senderUni + '@columbia.edu',
+              'Tea at Columbia: Send Request',
+              'Hi ' + firstname + ', Please click on this link to send a meeting request to ' + receiverName + '.');
+};
+
+var VerifyUni = function (context, uni) {
+  context.unblock();
+  return Meteor.http.call('GET', 'http://uniatcu.herokuapp.com/exists?uni=' + uni);
+};
+
+var GetFirstName = function (context, uni) {
+  context.unblock();
+  var result = Meteor.http.call('GET', 'http://uniatcu.herokuapp.com/info?uni=' + uni);
+  var firstname = result.data.name.split(' ')[0];
+  return firstname;
+};
+
 //Router
 Router.configure({
   layoutTemplate: 'main'
@@ -189,6 +221,8 @@ Router.route('/admin', function () {
 PeopleCollection = new Mongo.Collection('people-master');
 PendingPeopleCollection = new Mongo.Collection('people-pending');
 AvailabilityCollection = new Mongo.Collection('availability');
+LinksCollection = new Mongo.Collection('links');
+UniCollection = new Mongo.Collection('uni');
 
 Meteor.methods({
   insertUser: function (id,
@@ -263,7 +297,11 @@ Meteor.methods({
                                                        saturday: saturday_times,
                                                        sunday: sunday_times,
                                                      });
-                                                   }
+                                                   },
+insertUni: function (theirUni, theirName) {
+  UniCollection.insert({uni: theirUni, name: theirName})
+}
+
 });
 
 // Server
@@ -276,6 +314,24 @@ if (Meteor.isServer) {
     return PendingPeopleCollection.find();
   });
 }
+
+Meteor.methods({
+  sendEmail: function (to, from, subject, text) {
+    check([to, from, subject, text], [String]);
+
+    // Let other method calls from the same client start running,
+    // without waiting for the email sending to complete.
+    this.unblock();
+
+    Email.send({
+      to: to,
+      from: from,
+      subject: subject,
+      text: text
+    });
+  }
+});
+
 
 var openFilePicker = function () {
   filepicker.setKey(Meteor.settings.public.filepicker.key);
