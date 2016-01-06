@@ -1,170 +1,3 @@
-// Client
-if (Meteor.isClient) {
-  // Load filepicker js library
-  Session.set('filepicker', false);
-  Meteor.startup( function () {
-    $.getScript('//api.filepicker.io/v2/filepicker.js', function () {
-      Session.set('filepicker', true);
-    });
-  });
-
-  Meteor.subscribe('people');
-
-  // Home
-
-  Template.people.helpers({
-    'people': function () {
-      return PeopleCollection.find().fetch();
-    },
-    'personSelected': function () {
-      return this._id == Session.get('personInFocus');
-    }
-  });
-
-  Accounts.ui.config({
-    passwordSignupFields: 'USERNAME_ONLY'
-  });
-
-  Template.userprofile.helpers({
-    'id': function () {
-      return Meteor.userId();
-    }
-  });
-
-  Template.people.events({
-    'click .person': function () {
-      if (Session.get('personInFocus') != this._id) {
-        Session.set('personInFocus', this._id);
-      } else {
-        Session.set('personInFocus', '');        
-      }
-    },
-    'click .person #contact': function () {
-      var receiverUni = this.uni;
-      var receiverName = this.name.split(' ')[0];
-
-      // Prompt with modal
-      bootbox.prompt("What is your UNI?", function (senderUni) {                
-        if (senderUni !== null && VerifyUni(this, senderUni)) {
-          SendEmail(senderUni, receiverUni, receiverName);
-        }
-      });
-    }
-  });
-
-  Template.main.helpers({
-    'currentYear': function () {
-      return new Date().getFullYear();
-    }
-  });
-
-  // User
-  Session.set('message', 'default');
-
-  Template.profileupdate.helpers({
-    'user': function () {
-      var user = SearchPeopleCollection({owner: Meteor.userId()});      
-      return user[0];
-    },
-    'set-availability': function () {
-      Meteor.call('setAvailability', 
-                  Meteor.userId(),
-                  Meteor.user().username,        
-                  monday_times,
-                  tuesday_times,
-                  wednesday_times,
-                  thursday_times,
-                  friday_times,
-                  saturday_times,
-                  sunday_times);
-    }
-  });
-
-  Template.profileupdate.events({
-    'submit form': function (event) {
-      event.preventDefault();
-
-      var name = event.target.name.value;
-      var display_name = event.target.display_name.value;
-      var school = event.target.school.value;
-      var about = event.target.about.value;
-      var uni = event.target.uni.value;
-      var twitter = event.target.twitter.value;
-      var facebook = event.target.facebook.value;
-      var linkedin = event.target.linkedin.value;
-      var image_url = event.target.image_url.src;
-      console.log(image_url);
-      if (Session.get('UploadedImageUrl')) {
-        image_url = Session.get('UploadedImageUrl');
-      }
-      Session.set('UploadedImageUrl', '');      
-      var availability_notes = event.target.availability_notes.value;
-
-      Meteor.call('insertUser',
-                  Meteor.userId(),
-                  Meteor.user().username,
-                  name,
-                  display_name,
-                  school,
-                  about,
-                  uni,
-                  twitter,
-                  facebook,
-                  linkedin,
-                  image_url,
-                  availability_notes
-                 );
-                 Session.set('message', 'Your profile is currently under review and will be posted once approved.');
-    },
-    'click #deleteprofile': function() {
-      Meteor.call('deleteUser', Meteor.userId());
-      Session.set('message', 'Your profile has successfully been deleted.');
-    },
-    'click #uploadphoto': function() {
-      openFilePicker();
-    }
-  });
-
-  Template.message.helpers({
-    'message': function () {
-      return Session.get('message');
-    }
-  });
-
-  // Admin
-
-  Template.Admin.helpers({
-    'userIsAdmin': function () {
-      return Meteor.settings.public.admins.indexOf(Meteor.userId()) > -1;
-    }
-  });
-
-  Template.displayPendingPeople.helpers({
-    'people': function () {
-      return PendingPeopleCollection.find().fetch();
-    }
-  });
-
-  Template.displayPeople.helpers({
-    'people': function () {
-      return PeopleCollection.find().fetch();
-    }
-  });
-
-  Template.displayPendingPeople.events({
-    'click #reject': function () {
-      var id = this.owner;
-      Meteor.call('deleteUser', id);
-    },
-    'click #accept': function () {
-      var id = this.owner;
-      Meteor.call('copyUserToMaster', id);
-    }
-  });
-}
-
-// Common
-
 // Utility
 var SearchPeopleCollection = function (query) {
   var people_master = PeopleCollection.find(query).fetch();
@@ -176,26 +9,6 @@ var SearchPeopleCollection = function (query) {
   }
 };
 
-var SendEmail = function (senderUni, receiverUni, receiverName) {
-  var firstname = GetFirstName(senderUni);
-  Meteor.call('sendEmail',
-              'do-not-reply@teaatcolumbia.com',
-              senderUni + '@columbia.edu',
-              'Tea at Columbia: Send Request',
-              'Hi ' + firstname + ', Please click on this link to send a meeting request to ' + receiverName + '.');
-};
-
-var VerifyUni = function (context, uni) {
-  context.unblock();
-  return Meteor.http.call('GET', 'http://uniatcu.herokuapp.com/exists?uni=' + uni);
-};
-
-var GetFirstName = function (context, uni) {
-  context.unblock();
-  var result = Meteor.http.call('GET', 'http://uniatcu.herokuapp.com/info?uni=' + uni);
-  var firstname = result.data.name.split(' ')[0];
-  return firstname;
-};
 
 //Router
 Router.configure({
@@ -211,7 +24,7 @@ Router.route('/user/:userid', function () {
     data: function () {
       return SearchPeopleCollection({ owner: this.params.userid })[0];
     }
-  })
+  });
 });
 
 Router.route('/admin', function () {
@@ -221,14 +34,12 @@ Router.route('/admin', function () {
 PeopleCollection = new Mongo.Collection('people-master');
 PendingPeopleCollection = new Mongo.Collection('people-pending');
 AvailabilityCollection = new Mongo.Collection('availability');
-LinksCollection = new Mongo.Collection('links');
 UniCollection = new Mongo.Collection('uni');
 
 Meteor.methods({
   insertUser: function (id,
                         username,
                         name,
-                        display_name,
                         school,
                         about,
                         uni,
@@ -247,7 +58,6 @@ Meteor.methods({
                               owner: id, 
                               username: username,        
                               name: name,
-                              display_name: display_name,
                               school: school,
                               about: about,
                               uni: uni,
@@ -298,40 +108,11 @@ Meteor.methods({
                                                        sunday: sunday_times,
                                                      });
                                                    },
-insertUni: function (theirUni, theirName) {
-  UniCollection.insert({uni: theirUni, name: theirName})
-}
+                                                   insertUni: function (theirUni, theirName) {
+                                                     UniCollection.insert({uni: theirUni, name: theirName});
+                                                   }
 
 });
-
-// Server
-if (Meteor.isServer) {
-  Meteor.publish('people-master', function () {
-    return PeopleCollection.find();
-  });
-
-  Meteor.publish('people-pending', function () {
-    return PendingPeopleCollection.find();
-  });
-}
-
-Meteor.methods({
-  sendEmail: function (to, from, subject, text) {
-    check([to, from, subject, text], [String]);
-
-    // Let other method calls from the same client start running,
-    // without waiting for the email sending to complete.
-    this.unblock();
-
-    Email.send({
-      to: to,
-      from: from,
-      subject: subject,
-      text: text
-    });
-  }
-});
-
 
 var openFilePicker = function () {
   filepicker.setKey(Meteor.settings.public.filepicker.key);
