@@ -10,30 +10,39 @@ Meteor.methods({
   processSendRequest: function (senderUni, receiverUni, receiverName) {
     console.log("Got this far");
 
-    // Check UNI cache fir
-    var uni_details = PeopleCollection.find(query).fetch();
-    UniCollection.insert({uni: theirUni, name: theirName});    
+    if (senderUni !== null) {
+      // Check UNI cache first
+      var uni_details = UniCollection.find( {uni: senderUni} ).fetch();
 
-    if (senderUni !== null && VerifyUni(senderUni)) {
-      this.unblock();
-      SendEmailToUni(senderUni, receiverUni, receiverName);
-    } else {
-      console.log("Failed");
+      if (uni_details.length > 0) {
+        senderName = uni_details[0].name;
+        
+        this.unblock();
+        SendEmailToUni(senderUni, senderName, receiverUni, receiverName);        
+      } else {
+        if (VerifyUni(senderUni)) {
+          this.unblock();
+
+          var senderName = GetFirstName(senderUni);
+          UniCollection.insert({uni: senderUni, name: senderName});   
+
+          SendEmailToUni(senderUni, senderName, receiverUni, receiverName);
+        } else {
+          console.log("Failed to send email");
+        }
+      }
     }
   }
 });
 
-var SendEmailToUni = function (senderUni, receiverUni, receiverName) {
-  var senderName = GetFirstName(senderUni);
-
+var SendEmailToUni = function (senderUni, senderName, receiverUni, receiverName) {
   var to = receiverUni + '@columbia.edu';
   var cc = senderUni + '@columbia.edu';
   var from = 'do-not-reply@teaatcolumbia.com';
   var subject = 'Tea at Columbia: Meeting Request';
   var body = "Hi " + receiverName + ",\n\n" + 
-              senderName + "(cc'ed) would like to grab coffee or tea with you. Please respond to them if you have the time to chat.\n\n" + 
-              "Hope both of you have fun!\n\n" + 
-              "Note that if you would like to stop receiving these coffee requests, please delete your account at teaatcolumbia.com or contact Parthi at pl2487@columbia.edu.";
+    senderName + "(cc'ed) would like to grab coffee or tea with you. Please respond to them if you have the time to chat. Hope both of you have fun!\n\n" + 
+    "Note that if you would like to stop receiving these coffee requests, please delete your account at teaatcolumbia.info or contact Parthi at pl2487@columbia.edu.";
 
   SendEmail(to, cc, from, subject, body);
 };
@@ -49,7 +58,7 @@ var SendEmail = function (to, cc, from, subject, body) {
 
   console.log("Sending email");
 
-  Email.send({
+  Meteor.Mailgun.send({
     to: to,
     cc: cc,
     from: from,

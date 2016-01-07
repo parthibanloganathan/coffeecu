@@ -104,11 +104,7 @@ Meteor.methods({
 
                           PeopleCollection.remove({owner: id});
                           PendingPeopleCollection.remove({owner: id});
-                        },
-                        insertUni: function (theirUni, theirName) {
-                          UniCollection.insert({uni: theirUni, name: theirName});
                         }
-
 });
 
 var openFilePicker = function () {
