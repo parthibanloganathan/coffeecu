@@ -1,5 +1,5 @@
 // Utility
-var SearchPeopleCollection = function (query) {
+SearchPeopleCollection = function (query) {
   var people_master = PeopleCollection.find(query).fetch();
 
   if (people_master.length > 0) {
@@ -33,8 +33,31 @@ Router.route('/admin', function () {
 
 PeopleCollection = new Mongo.Collection('people-master');
 PendingPeopleCollection = new Mongo.Collection('people-pending');
-AvailabilityCollection = new Mongo.Collection('availability');
 UniCollection = new Mongo.Collection('uni');
+
+PeopleCollection.deny({
+  update: function() {
+    return true;
+  },
+  insert: function() {
+    return true;
+  },
+  remove: function() {
+    return true;
+  }
+});
+
+PendingPeopleCollection.deny({
+  update: function() {
+    return true;
+  },
+  insert: function() {
+    return true;
+  },
+  remove: function() {
+    return true;
+  }
+});
 
 Meteor.methods({
   insertUser: function (id,
@@ -81,36 +104,10 @@ Meteor.methods({
 
                           PeopleCollection.remove({owner: id});
                           PendingPeopleCollection.remove({owner: id});
-                          AvailabilityCollection.remove({owner: id});
                         },
-                        setAvailability: function (id,
-                                                   username,
-                                                   monday_times,
-                                                   tuesday_times,
-                                                   wednesday_times,
-                                                   thursday_times,
-                                                   friday_times,
-                                                   saturday_times,
-                                                   sunday_times) {
-                                                     if (!Meteor.userId()) {
-                                                       throw new Meteor.Error('not-authorized');
-                                                     }
-
-                                                     AvailabilityCollection.update({
-                                                       owner: id,
-                                                       username: username,        
-                                                       monday: monday_times,
-                                                       tuesday: tuesday_times,
-                                                       wednesday: wednesday_times,
-                                                       thursday: thursday_times,
-                                                       friday: friday_times,
-                                                       saturday: saturday_times,
-                                                       sunday: sunday_times,
-                                                     });
-                                                   },
-                                                   insertUni: function (theirUni, theirName) {
-                                                     UniCollection.insert({uni: theirUni, name: theirName});
-                                                   }
+                        insertUni: function (theirUni, theirName) {
+                          UniCollection.insert({uni: theirUni, name: theirName});
+                        }
 
 });
 

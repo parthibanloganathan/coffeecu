@@ -55,7 +55,7 @@ Template.people.events({
   }
 });
 
-Template.main.helpers({
+Template.footer.helpers({
   'currentYear': function () {
     return new Date().getFullYear();
   }
@@ -68,18 +68,6 @@ Template.profileupdate.helpers({
   'user': function () {
     var user = SearchPeopleCollection({owner: Meteor.userId()});      
     return user[0];
-  },
-  'set-availability': function () {
-    Meteor.call('setAvailability', 
-                Meteor.userId(),
-                Meteor.user().username,        
-                monday_times,
-                tuesday_times,
-                wednesday_times,
-                thursday_times,
-                friday_times,
-                saturday_times,
-                sunday_times);
   }
 });
 

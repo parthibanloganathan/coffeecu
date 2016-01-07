@@ -10,6 +10,10 @@ Meteor.methods({
   processSendRequest: function (senderUni, receiverUni, receiverName) {
     console.log("Got this far");
 
+    // Check UNI cache fir
+    var uni_details = PeopleCollection.find(query).fetch();
+    UniCollection.insert({uni: theirUni, name: theirName});    
+
     if (senderUni !== null && VerifyUni(senderUni)) {
       this.unblock();
       SendEmailToUni(senderUni, receiverUni, receiverName);
