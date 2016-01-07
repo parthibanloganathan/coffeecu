@@ -1,0 +1,36 @@
+<template name="Home">
+  <head>
+    <title>Tea</title>
+  </head>
+
+  <body>
+    <h1>Tea with Seniors</h1>
+    {{> people}}
+    {{#if currentUser}}
+    {{> userprofile}}
+    {{/if}}
+  </body>
+</template>
+
+<template name="people">
+  {{#each people}}
+  <div class="person">
+    {{#if personSelected}}
+    <img src="{{image_url}}" height="90px" width="90px" />    
+    <p>{{name}}</p>
+    <p>{{school}}</p>
+    <p>{{about}}</p>
+    <a href="{{facebook}}"><i class="fa fa-facebook-square"></i></a>
+    <a href="{{twitter}}"><i class="fa fa-twitter-square"></i></a>    
+    <a href="{{linkedin}}"><i class="fa fa-linkedin-square"></i></a>
+    <input type="button" id="contact" value="Contact" />
+    {{else}}
+    <p>{{name}}</p>
+    {{/if}}
+  </div>
+  {{/each}}
+</template>
+
+<template name="userprofile">
+  <a href="user/{{id}}">Go to your profile</a>
+</template>
