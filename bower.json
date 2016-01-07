@@ -1,0 +1,22 @@
+{
+  "name": "tea",
+  "homepage": "teaatcolumbia.info",
+  "authors": [
+    "Parthiban Loganathan <parthibanloganathan@users.noreply.github.com>"
+  ],
+  "description": "tea@columbia",
+  "main": "",
+  "moduleType": [],
+  "license": "Apache License 2.0",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.2.0"
+  }
+}
