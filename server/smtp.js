@@ -6,7 +6,4 @@ Meteor.startup(function(){
     username: username,
     password: password
   });
-
-  //process.env.MAIL_URL = 'smtp://' + username + ':' + password + '@smtp.sendgrid.net:587';
-  //  process.env.MAIL_URL = 'smtp://' + username + ':' + password + '@smtp.gmail.com:465';
 });
