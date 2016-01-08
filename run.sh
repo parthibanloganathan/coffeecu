@@ -1,1 +1,1 @@
-VULCANIZE=true meteor --settings settings.json
+meteor --settings settings.json
