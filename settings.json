@@ -1,0 +1,20 @@
+{
+  "public": {
+    "filepicker": {
+      "key": "ALP4ncnWzRmPwLH8tAOw4z"
+    },
+    "admins": [
+      "hi4vfDwQdGNd6DjwY"
+    ]
+  },
+  "private": {
+    "sendgrid": {
+      "username": [
+        "postmaster@teaatcolumbia.info"
+      ],
+      "password": [
+        "9f35b24dd7ae28685ee96746f68d934a"
+      ]
+    }
+  }
+}
