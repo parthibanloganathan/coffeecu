@@ -1,5 +1,12 @@
-/* CSS declarations go here */
+body {
+  margin: 10px;
+}
 
 .person {
-  background-color: #B0D9EB
+  width: 300px;
+  min-width: 300px;
+}
+
+.person profilepic {
+  width: 100px;
 }

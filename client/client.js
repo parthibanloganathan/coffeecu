@@ -13,6 +13,13 @@ Accounts.ui.config({
   passwordSignupFields: 'USERNAME_ONLY'
 });
 
+Template.welcomeMessage.helpers({
+  'welcome': function() {
+    var message = data.welcome;
+    return message;
+  }
+});
+
 Template.people.helpers({
   'people': function () {
     return PeopleCollection.find().fetch();

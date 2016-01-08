@@ -31,3 +31,5 @@ spacebars
 check
 http
 cunneen:mailgun
+semantic:ui
+flemay:less-autoprefixer
