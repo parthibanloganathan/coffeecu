@@ -34,6 +34,7 @@ Router.route('/admin', function () {
 PeopleCollection = new Mongo.Collection('people-master');
 PendingPeopleCollection = new Mongo.Collection('people-pending');
 UniCollection = new Mongo.Collection('uni');
+MeetingsCollection = new Mongo.Collection('meetings');
 
 PeopleCollection.deny({
   update: function() {
@@ -48,6 +49,18 @@ PeopleCollection.deny({
 });
 
 PendingPeopleCollection.deny({
+  update: function() {
+    return true;
+  },
+  insert: function() {
+    return true;
+  },
+  remove: function() {
+    return true;
+  }
+});
+
+MeetingsCollection.deny({
   update: function() {
     return true;
   },

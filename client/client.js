@@ -26,6 +26,12 @@ Template.welcomeMessage.helpers({
   }
 });
 
+Template.meetingsMade.helpers({
+  'meetings': function() {
+    return MeetingsCollection.find().fetch().length; 
+  }
+})
+
 Template.people.helpers({
   'people': function () {
     return PeopleCollection.find().fetch();
@@ -127,7 +133,19 @@ Template.profileupdate.events({
   }
 });
 
-Template.message.helpers({
+Template.formMessage.events({
+  'click .message .close': function (event) {
+    $(event.target)
+    .closest('.message')
+    .transition('fade');
+    Session.set('message', 'default');
+  }
+});
+
+Template.formMessage.helpers({
+  'isMessageSet': function () {
+    return Session.get('message') != 'default';
+  },
   'message': function () {
     return Session.get('message');
   }

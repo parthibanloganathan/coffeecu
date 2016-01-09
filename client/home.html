@@ -9,6 +9,8 @@
 
     <p>{{>welcomeMessage}}</p>
 
+    {{>meetingsMade}}
+
     {{> people}}
   </body>
 </template>
@@ -17,32 +19,45 @@
   {{welcome}}
 </template>
 
-<template name="people">
-  <div class="ui accordion">
-    {{#each people}}
-    <div class="person ui blue raised padded segment">
+<template name="meetingsMade">
+  <div class="ui statistic">
+    <div class="value">
+      {{meetings}}
+    </div>
+    <div class="label">
+      meetings made
+    </div>
+  </div>
+</template>
 
-      <div class="title">
-        <div class="ui center aligned grid">
-          <div class="column">
-            <img src="{{image_url}}" class="profilepic ui medium rounded image"/>
-            <h2>{{name}}</h2>
+<template name="people">
+  <div class="ui grid">
+    <div class="ui accordion">
+      {{#each people}}
+      <div class="person ui blue raised padded segment">
+
+        <div class="title">
+          <div class="ui center aligned grid">
+            <div class="column">
+              <img src="{{image_url}}" class="profilepic ui medium rounded image"/>
+              <h2>{{name}}</h2>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="content">
-        <p>{{school}}</p>
-        <b>About:</b> <p>{{about}}</p>
-        <b>Likes:</b>
-        <b>Talk to me about:</b>
-        <a href="{{facebook}}"><i class="fa fa-facebook-square"></i></a>
-        <a href="{{twitter}}"><i class="fa fa-twitter-square"></i></a>    
-        <a href="{{linkedin}}"><i class="fa fa-linkedin-square"></i></a>
-        <button id="contact" class="ui primary button">Contact</button>
-      </div>
+        <div class="content">
+          <p>{{school}}</p>
+          <b>About:</b> <p>{{about}}</p>
+          <b>Likes:</b>
+          <b>Talk to me about:</b>
+          <a href="{{facebook}}"><i class="fa fa-facebook-square"></i></a>
+          <a href="{{twitter}}"><i class="fa fa-twitter-square"></i></a>    
+          <a href="{{linkedin}}"><i class="fa fa-linkedin-square"></i></a>
+          <button id="contact" class="ui primary button">Contact</button>
+        </div>
 
+      </div>
+      {{/each}}
     </div>
-    {{/each}}
   </div>
 </template>

@@ -5,37 +5,58 @@
 
   <body>
     {{#if currentUser}}
-      {{> profileupdate}}
-      {{> timepicker}}
-      {{> message}}
+    {{> profileupdate}}
+    {{> formMessage}}
     {{/if}}
   </body>
 </template>
 
-<template name="timepicker">
-  Pick times when you're free: <input type="text" name="text" placeholder="date/time" />
-</template>
-
 <template name="profileupdate">
-  <form>
-    <p>
-  Logged in as <h1>{{user.name}}</h1>
-  Name: <input type="text" name="name" value="{{user.name}}" placeholder="Your name" />
-  School and Year: <input type="text" name="school" value="{{user.school}}" placeholder="eg: SEAS '16 or CC '16" />
-  About: <textarea type="text" name="about" value="{{user.about}}" placeholder="2-3 lines about yourself" ></textarea>
-  UNI: <input type="text" name="uni" value="{{user.uni}}" placeholder="eg: abc1234" />
-  Twitter: <input type="text" name="twitter" value="{{user.twitter}}" placeholder="Link to your Twitter page" />
-  Facebook: <input type="text" name="facebook" value="{{user.facebook}}" placeholder="Link to your Facebook profile" />
-  LinkedIn: <input type="text" name="linkedin" value="{{user.linkedin}}" placeholder="Public link to your LinkedIn profile" />
-  Upload photo: <input type="button" id="uploadphoto" value="Upload Photo" />
-  <img src="{{user.image_url}}" name="image_url" height="90px" width="90px" />
-  Availability Notes: <textarea type="text" name="availability_notes" value="{{user.availability_notes}}" placeholder="Notes on when you're generally available. eg: Fridays between 11 am and 1 pm. Any time before 4 pm on Saturday."></textarea>
-  <input type="submit" value="Update Profile" />
-  <input type="button" id="deleteprofile" value="Delete Profile" />
-  </p>
+  <form class="ui form">
+
+    Logged in as <h1>{{user.name}}</h1>
+
+    <label> Name</label>
+    <input type="text" name="name" value="{{user.name}}" placeholder="Roaree TheLion" />
+
+    <label>School and Year</label>
+    <input type="text" name="school" value="{{user.school}}" placeholder="SEAS '16" />
+
+    <label>About</label>
+    <textarea type="text" name="about" value="{{user.about}}" placeholder="football, marching band, stuffy costumes, financial markets, plato, scala" ></textarea>
+
+    <label>UNI</label>
+    <input type="text" name="uni" value="{{user.uni}}" placeholder="rt1234" />
+
+    <label>Twitter</label>
+    <input type="text" name="twitter" value="{{user.twitter}}" placeholder="Link to your Twitter page" />
+
+    <label>Facebook</label>
+    <input type="text" name="facebook" value="{{user.facebook}}" placeholder="Link to your Facebook profile" />
+
+    <label>LinkedIn</label>
+    <input type="text" name="linkedin" value="{{user.linkedin}}" placeholder="Public link to your LinkedIn profile" />
+
+    <label>Upload Photo</label>
+    <button class="ui button" id="uploadphoto">Upload Photo</button>
+    <img src="{{user.image_url}}" name="image_url" height="90px" width="90px" />
+
+    <label>When are you generally free?</label>
+    <textarea type="text" name="availability_notes" value="{{user.availability_notes}}" placeholder="Fridays between 11 am and 1 pm. Any time before 4 pm on Saturday."></textarea>
+
+    <button class="ui button" type="submit">Update Profile</button>
+    <button class="ui button" id="deleteprofile">Delete Profile</button>
+
   </form>
 </template>
 
-<template name="message">
-  {{message}}
+<template name="formMessage">
+  {{#if isMessageSet}}
+  <div class="ui message" id="pukipsi">
+    <i class="close icon"></i>
+    <div class="header">
+      {{message}}
+    </div>
+  </div>
+  {{/if}}
 </template>

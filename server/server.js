@@ -10,6 +10,11 @@ Meteor.methods({
   processSendRequest: function (senderUni, receiverUni, receiverName) {
     console.log("Got this far");
 
+    if (MeetingsCollection.find({sender_uni: senderUni, receiver_uni: receiverUni}).fetch().length > 0) {
+      console.log("Meeting already made");
+      return;
+    }
+
     if (senderUni !== null) {
       // Check UNI cache first
       var uni_details = UniCollection.find( {uni: senderUni} ).fetch();
@@ -45,6 +50,8 @@ var SendEmailToUni = function (senderUni, senderName, receiverUni, receiverName)
     "Note that if you would like to stop receiving these coffee requests, please delete your account at teaatcolumbia.info or contact Parthi at parthiban.loganathan@columbia.edu.";
 
   SendEmail(to, cc, from, subject, body);
+
+  LogMeeting(senderUni, receiverUni);
 };
 
 var VerifyUni = function (uni) {
@@ -72,4 +79,8 @@ var GetFirstName = function (uni) {
     resultOfAsyncToSync = convertAsyncToSync('http://uniatcu.herokuapp.com/info?uni=' + uni, {});
   var firstname = resultOfAsyncToSync.data.data.name.split(' ')[0];
   return firstname;
+};
+
+var LogMeeting = function(senderUni, receiverUni) {
+  MeetingsCollection.insert({sender_uni: uni1, receiver_uni: uni2});
 };
