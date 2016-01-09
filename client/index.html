@@ -1,13 +1,15 @@
 <template name="main">
   {{> header}}
-  {{> yield}}
-  {{> footer}}
+  <div class="ui grid container">
+    {{> yield}}
+    {{> footer}}
+  </div>
 </template>
 
 <template name="header">
   {{> loginButtons}}
   {{#if currentUser}}
-    {{> userprofile}}
+  {{> userprofile}}
   {{/if}}
 </template>
 
@@ -16,6 +18,10 @@
 </template>
 
 <template name="footer">
-  &copy; {{currentYear}} Parthiban Loganathan.
+  <div class="ui one column center aligned grid container">
+    <div class="sixteen wide column">
+      &copy; {{currentYear}} Parthiban Loganathan
+    </div>
+  </div>
 </template>
 
