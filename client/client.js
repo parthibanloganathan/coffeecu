@@ -13,6 +13,12 @@ Accounts.ui.config({
   passwordSignupFields: 'USERNAME_ONLY'
 });
 
+Template.people.rendered = function () {
+  $(document).ready(function(){
+    $('.ui.accordion').accordion({exclusive: true});
+  });
+};
+
 Template.welcomeMessage.helpers({
   'welcome': function() {
     var message = data.welcome;

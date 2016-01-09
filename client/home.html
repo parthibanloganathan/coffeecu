@@ -7,9 +7,7 @@
       </div>
     </h1>
 
-    <p>
-    {{>welcomeMessage}}
-    </p>
+    <p>{{>welcomeMessage}}</p>
 
     {{> people}}
   </body>
@@ -20,20 +18,20 @@
 </template>
 
 <template name="people">
-  {{#each people}}
-  <div class="person ui raised padded segment">
-    <div class="ui accordion">
+  <div class="ui accordion">
+    {{#each people}}
+    <div class="person ui blue raised padded segment">
+
       <div class="title">
-        <i class="dropdown icon"></i>
         <div class="ui center aligned grid">
           <div class="column">
-            <img src="{{image_url}}" class="profilepic"/> 
+            <img src="{{image_url}}" class="profilepic ui medium rounded image"/>
             <h2>{{name}}</h2>
           </div>
         </div>
       </div>
+
       <div class="content">
-        {{#if personSelected}}
         <p>{{school}}</p>
         <b>About:</b> <p>{{about}}</p>
         <b>Likes:</b>
@@ -42,9 +40,9 @@
         <a href="{{twitter}}"><i class="fa fa-twitter-square"></i></a>    
         <a href="{{linkedin}}"><i class="fa fa-linkedin-square"></i></a>
         <button id="contact" class="ui primary button">Contact</button>
-        {{/if}}
       </div>
+
     </div>
+    {{/each}}
   </div>
-  {{/each}}
 </template>
