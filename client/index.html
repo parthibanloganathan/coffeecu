@@ -1,20 +1,40 @@
 <template name="main">
-  {{> header}}
   <div class="ui grid container">
+    {{> header}}
     {{> yield}}
     {{> footer}}
   </div>
 </template>
 
 <template name="header">
-  {{> loginButtons}}
-  {{#if currentUser}}
-  {{> userprofile}}
-  {{/if}}
+  <div class="ui tabular menu">
+    <a class="active item" data-tab="home" href="/">
+      <i class="home"></i>
+    </a>
+    <a class="item" data-tab="login">
+      {{> loginButtons}}
+    </a>
+    {{#if currentUser}}
+    <a class="item" data-tab="profile">
+      {{> userprofile}}
+    </a>
+    {{/if}}
+  </div>
+
+  <div class="ui bottom attached tab segment active" data-tab="home">
+    Home
+  </div>
+  <div class="ui bottom attached tab segment" data-tab="login">
+    Login
+  </div>
+  <div class="ui bottom attached tab segment" data-tab="profile">
+    Profile
+  </div>
+
 </template>
 
 <template name="userprofile">
-  <a href="user/{{id}}">Go to your profile</a>
+  <a href="user/{{id}}">Your Profile</a>
 </template>
 
 <template name="footer">
