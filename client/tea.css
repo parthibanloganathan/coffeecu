@@ -6,6 +6,21 @@ body {
   margin: 10px;
 }
 
+.menu {
+  width: 100%;
+  font-size: 1.5em;
+}
+
+.menu a {
+  color: black;
+  text-decoration: none;
+}
+
+.menu a:hover {
+  color: black;
+  text-decoration: none;
+}
+
 .person {
   width: 300px;
   min-width: 300px;

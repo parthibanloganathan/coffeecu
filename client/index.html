@@ -7,30 +7,21 @@
 </template>
 
 <template name="header">
-  <div class="ui tabular menu">
-    <a class="active item" data-tab="home" href="/">
-      <i class="home"></i>
-    </a>
-    <a class="item" data-tab="login">
-      {{> loginButtons}}
+  <div class="ui secondary menu">
+    <a class="item">
+      Home
     </a>
     {{#if currentUser}}
-    <a class="item" data-tab="profile">
+    <a class="item">
       {{> userprofile}}
     </a>
     {{/if}}
+    <div class="right menu">
+      <a class="item">
+        {{> loginButtons}}
+      </a>
+    </div>
   </div>
-
-  <div class="ui bottom attached tab segment active" data-tab="home">
-    Home
-  </div>
-  <div class="ui bottom attached tab segment" data-tab="login">
-    Login
-  </div>
-  <div class="ui bottom attached tab segment" data-tab="profile">
-    Profile
-  </div>
-
 </template>
 
 <template name="userprofile">
