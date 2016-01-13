@@ -9,7 +9,7 @@
 <template name="header">
   <div class="ui secondary menu">
     <a class="item">
-      Home
+      <a href="/">Home</a>
     </a>
     {{#if currentUser}}
     <a class="item">
@@ -17,9 +17,7 @@
     </a>
     {{/if}}
     <div class="right menu">
-      <a class="item">
-        {{> atNavButton}}
-      </a>
+      {{> atNavButton}}
     </div>
   </div>
 </template>

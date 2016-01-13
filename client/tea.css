@@ -8,17 +8,7 @@ body {
 
 .menu {
   width: 100%;
-  font-size: 1.5em;
-}
-
-.menu a {
-  color: black;
-  text-decoration: none;
-}
-
-.menu a:hover {
-  color: black;
-  text-decoration: none;
+  font-size: 20px;
 }
 
 .person {
