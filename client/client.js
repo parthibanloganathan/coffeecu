@@ -43,12 +43,6 @@ Template.people.helpers({
   }
 });
 
-Template.userprofile.helpers({
-  'id': function () {
-    return Meteor.userId();
-  }
-});
-
 Template.people.events({
   'click .person': function () {
     if (Session.get('personInFocus') != this._id) {

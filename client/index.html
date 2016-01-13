@@ -17,8 +17,18 @@
     </a>
     {{/if}}
     <div class="right menu">
-      {{> atNavButton}}
+    {{#if currentUser}}
+    {{> logout}}
+    {{else}}
+      <a href="/login">Sign In</a>
+    {{/if}}
     </div>
+  </div>
+</template>
+
+<template name="logout">
+  <div class="logout">
+    Sign Out
   </div>
 </template>
 
