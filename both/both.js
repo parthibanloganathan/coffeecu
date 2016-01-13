@@ -9,7 +9,6 @@ SearchPeopleCollection = function (query) {
   }
 };
 
-
 PeopleCollection = new Mongo.Collection('people-master');
 PendingPeopleCollection = new Mongo.Collection('people-pending');
 UniCollection = new Mongo.Collection('uni');
@@ -55,65 +54,51 @@ Meteor.methods({
   insertUser: function (id,
                         username,
                         name,
-                        school,
-                        about,
                         uni,
+                        school,
+                        major,
+                        about,
+                        likes,
+                        availability,
                         twitter,
                         facebook,
                         linkedin,
-                        image_url,
-                        availability_notes) {
-                          if (!Meteor.userId()) {
-                            throw new Meteor.Error('not-authorized');
-                          }
+                        image
+                       ) {
+                         if (!Meteor.userId()) {
+                           throw new Meteor.Error('not-authorized');
+                         }
 
-                          PendingPeopleCollection.update(
-                            {owner: id},
-                            {$set: {
-                              owner: id, 
-                              username: username,        
-                              name: name,
-                              school: school,
-                              about: about,
-                              uni: uni,
-                              twitter: twitter,
-                              facebook: facebook,
-                              linkedin: linkedin,
-                              image_url: image_url,
-                              availability_notes: availability_notes
-                            }},
-                            {upsert: true});
-                        },
-                        copyUserToMaster: function (id) {
-                          var userToMove = PendingPeopleCollection.findOne({owner: id});
-                          PeopleCollection.insert(userToMove);
-                          PendingPeopleCollection.remove({owner: id});
-                        },
-                        deleteUser: function (id) {
-                          if (!Meteor.userId()) {
-                            throw new Meteor.Error('not-authorized');
-                          }
+                         PendingPeopleCollection.update(
+                           {owner: id},
+                           {$set: {
+                             owner: id, 
+                             username: username,        
+                             name: name,
+                             uni: uni,
+                             school: school,
+                             major: major,
+                             about: about,
+                             likes: likes,
+                             availability: availability,
+                             twitter: twitter,
+                             facebook: facebook,
+                             linkedin: linkedin,
+                             image: image,
+                           }},
+                           {upsert: true});
+                       },
+                       copyUserToMaster: function (id) {
+                         var userToMove = PendingPeopleCollection.findOne({owner: id});
+                         PeopleCollection.insert(userToMove);
+                         PendingPeopleCollection.remove({owner: id});
+                       },
+                       deleteUser: function (id) {
+                         if (!Meteor.userId()) {
+                           throw new Meteor.Error('not-authorized');
+                         }
 
-                          PeopleCollection.remove({owner: id});
-                          PendingPeopleCollection.remove({owner: id});
-                        }
+                         PeopleCollection.remove({owner: id});
+                         PendingPeopleCollection.remove({owner: id});
+                       }
 });
-
-var openFilePicker = function () {
-  filepicker.setKey(Meteor.settings.public.filepicker.key);
-  filepicker.pick(
-    {
-      mimetype: 'image/*',
-      services: ['BOX', 'CLOUDDRIVE', 'COMPUTER', 'DROPBOX', 'FACEBOOK', 'GOOGLE_DRIVE', 'FLICKR', 'GMAIL', 'INSTAGRAM', 'SKYDRIVE', 'IMAGE_SEARCH', 'URL'],
-      imageMax: [1024, 1024],
-      cropDim: [300, 300],
-      cropForce: true
-    },
-    function (Blob) {
-      Session.set('UploadedImageUrl', Blob.url);
-    },
-    function (FPError) {
-      console.log(FPError.toString());
-    }
-  );
-};

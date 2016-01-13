@@ -8,13 +8,6 @@ Meteor.startup( function () {
 
 Meteor.subscribe('people');
 
-// Home
-/**
-Accounts.ui.config({
-  passwordSignupFields: 'USERNAME_ONLY'
-});
-**/
-
 Template.people.rendered = function () {
   $(document).ready(function(){
     $('.ui.accordion').accordion({exclusive: true});
@@ -70,115 +63,7 @@ Template.people.events({
   }
 });
 
-Template.footer.helpers({
-  'currentYear': function () {
-    return new Date().getFullYear();
-  }
-});
-
-// User
-Session.set('message', 'default');
-
-Template.profileupdate.helpers({
-  'user': function () {
-    var user = SearchPeopleCollection({owner: Meteor.userId()});      
-    return user[0];
-  }
-});
-
-Template.profileupdate.events({
-  'submit form': function (event) {
-    event.preventDefault();
-
-    var name = event.target.name.value;
-    var school = event.target.school.value;
-    var about = event.target.about.value;
-    var uni = event.target.uni.value;
-    var twitter = event.target.twitter.value;
-    var facebook = event.target.facebook.value;
-    var linkedin = event.target.linkedin.value;
-    var image_url = event.target.image_url.src;
-    console.log(image_url);
-    if (Session.get('UploadedImageUrl')) {
-      image_url = Session.get('UploadedImageUrl');
-    }
-    Session.set('UploadedImageUrl', '');      
-    var availability_notes = event.target.availability_notes.value;
-
-    Meteor.call('insertUser',
-                Meteor.userId(),
-                Meteor.user().username,
-                name,
-                school,
-                about,
-                uni,
-                twitter,
-                facebook,
-                linkedin,
-                image_url,
-                availability_notes
-               );
-               Session.set('message', 'Your profile is currently under review and will be posted once approved.');
-  },
-  'click #deleteprofile': function() {
-    Meteor.call('deleteUser', Meteor.userId());
-    Session.set('message', 'Your profile has successfully been deleted.');
-  },
-  'click #uploadphoto': function() {
-    openFilePicker();
-  }
-});
-
-Template.formMessage.events({
-  'click .message .close': function (event) {
-    $(event.target)
-    .closest('.message')
-    .transition('fade');
-    Session.set('message', 'default');
-  }
-});
-
-Template.formMessage.helpers({
-  'isMessageSet': function () {
-    return Session.get('message') != 'default';
-  },
-  'message': function () {
-    return Session.get('message');
-  }
-});
-
-// Admin
-Template.Admin.helpers({
-  'userIsAdmin': function () {
-    return true;
-    //return Meteor.settings.public.admins.indexOf(Meteor.userId()) > -1;
-  }
-});
-
-Template.displayPendingPeople.helpers({
-  'people': function () {
-    return PendingPeopleCollection.find().fetch();
-  }
-});
-
-Template.displayPeople.helpers({
-  'people': function () {
-    return PeopleCollection.find().fetch();
-  }
-});
-
-Template.displayPendingPeople.events({
-  'click #reject': function () {
-    var id = this.owner;
-    Meteor.call('deleteUser', id);
-  },
-  'click #accept': function () {
-    var id = this.owner;
-    Meteor.call('copyUserToMaster', id);
-  }
-});
-
-var openFilePicker = function () {
+openFilePicker = function () {
   filepicker.setKey(Meteor.settings.public.filepicker.key);
   filepicker.pick(
     {

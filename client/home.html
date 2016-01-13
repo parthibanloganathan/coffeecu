@@ -32,10 +32,10 @@
 
 <template name="people">
   <div class="ui accordion">
-    <div class="ui grid stackable container">
+    <div class="ui four column doubling stackable grid container">
       {{#each people}}
-      <div class="five wide column">
-        <div class="person ui raised padded segment">
+      <div class="four wide column">
+        <div class="person ui blue raised padded segment">
 
           <div class="title">
             <div class="ui center aligned grid">
@@ -48,9 +48,10 @@
 
           <div class="content">
             <p>{{school}}</p>
+            <b>Studies:</b> <p>{{major}}</p>
             <b>About:</b> <p>{{about}}</p>
-            <b>Likes:</b>
-            <b>Talk to me about:</b>
+            <b>Likes:</b> <p>{{likes}}</p>
+            <b>Contact me for:</b> <p>{{contactfor}}</p>
             <a href="{{facebook}}"><i class="fa fa-facebook-square"></i></a>
             <a href="{{twitter}}"><i class="fa fa-twitter-square"></i></a>    
             <a href="{{linkedin}}"><i class="fa fa-linkedin-square"></i></a>

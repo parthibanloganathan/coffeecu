@@ -12,17 +12,48 @@
 
     Logged in as <h1>{{user.name}}</h1>
 
-    <label> Name</label>
+    <label>Name</label>
     <input type="text" name="name" value="{{user.name}}" placeholder="Roaree TheLion" />
 
-    <label>School and Year</label>
-    <input type="text" name="school" value="{{user.school}}" placeholder="SEAS '16" />
-
-    <label>About</label>
-    <textarea type="text" name="about" value="{{user.about}}" placeholder="football, marching band, stuffy costumes, financial markets, plato, scala" ></textarea>
-
     <label>UNI</label>
-    <input type="text" name="uni" value="{{user.uni}}" placeholder="rt1234" />
+    <input type="text" name="uni" value="{{user.uni}}" placeholder="rtl1234" />
+
+    <label>School</label>
+    <div class="inline fields">
+      <div class="field">
+        <div class="ui radio checkbox">
+          <input type="radio" name="school" value="SEAS">
+          <label>SEAS</label>
+        </div>
+      </div>
+      <div class="field">
+        <div class="ui radio checkbox">
+          <input type="radio" name="school" value="CC">
+          <label>CC</label>
+        </div>
+      </div>
+      <div class="field">
+        <div class="ui radio checkbox">
+          <input type="radio" name="school" value="GS">
+          <label>GS</label>
+        </div>
+      </div>
+    </div>
+
+    <label>What do you study?</label>
+    <input type="text" name="major" value="{{user.major}}" placeholder="Economics" />
+
+    <label>Tell the world a little bit about yourself (250 chars)</label>
+    <textarea type="text" name="about" value="{{user.about}}" placeholder="2-3 lines about yourself."></textarea>
+
+    <label>What do you like? (100 chars)</label>
+    <textarea type="text" name="likes" value="{{user.likes}}" placeholder="football, marching band, stuffy costumes, epistemology, scala, taqueria y fonda, value investing" ></textarea>
+
+    <label>What are some things people should contact you for? (150 chars)</label>
+    <textarea type="text" name="contactfor" value="{{user.contactfor}}" placeholder="how to dance, career advice for prospective mascots, understanding relativistic quantum field theory"></textarea>
+
+    <label>When are you generally free?</label>
+    <textarea type="text" name="availability" value="{{user.availability}}" placeholder="Fridays between 11 am and 1 pm. Any time before 4 pm on Saturday."></textarea>
 
     <label>Twitter</label>
     <input type="text" name="twitter" value="{{user.twitter}}" placeholder="Link to your Twitter page" />
@@ -35,10 +66,12 @@
 
     <label>Upload Photo</label>
     <button class="ui button" id="uploadphoto">Upload Photo</button>
-    <img src="{{user.image_url}}" name="image_url" height="90px" width="90px" />
+    <img src="{{user.image}}" name="image" height="90px" width="90px" />
 
-    <label>When are you generally free?</label>
-    <textarea type="text" name="availability_notes" value="{{user.availability_notes}}" placeholder="Fridays between 11 am and 1 pm. Any time before 4 pm on Saturday."></textarea>
+    <div class="ui checkbox">
+      <input type="checkbox" name="agreement">      
+      <label>By checking this box, I understand that the profile information above will be publicly displayed and I will be able to receive emails from other Columbia students. I also understand that Roaree TheLion in the sample above is fictional and may not reflect the real Roaree.</label>
+    </div>
 
     <button class="ui button" type="submit">Update Profile</button>
     <button class="ui button" id="deleteprofile">Delete Profile</button>
@@ -48,7 +81,7 @@
 
 <template name="formMessage">
   {{#if isMessageSet}}
-  <div class="ui message" id="pukipsi">
+  <div class="ui message">
     <i class="close icon"></i>
     <div class="header">
       {{message}}
