@@ -10,27 +10,6 @@ SearchPeopleCollection = function (query) {
 };
 
 
-//Router
-Router.configure({
-  layoutTemplate: 'main'
-});
-
-Router.route('/', function () {
-  this.render('Home');
-});
-
-Router.route('/user/:userid', function () {
-  this.render('User', {
-    data: function () {
-      return SearchPeopleCollection({ owner: this.params.userid })[0];
-    }
-  });
-});
-
-Router.route('/admin', function () {
-  this.render('Admin');
-});
-
 PeopleCollection = new Mongo.Collection('people-master');
 PendingPeopleCollection = new Mongo.Collection('people-pending');
 UniCollection = new Mongo.Collection('uni');

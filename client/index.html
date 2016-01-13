@@ -1,4 +1,4 @@
-<template name="main">
+<template name="ApplicationLayout">
   <div class="ui grid container">
     {{> header}}
     {{> yield}}
@@ -18,14 +18,14 @@
     {{/if}}
     <div class="right menu">
       <a class="item">
-        {{> loginButtons}}
+        {{> atNavButton}}
       </a>
     </div>
   </div>
 </template>
 
 <template name="userprofile">
-  <a href="user/{{id}}">Your Profile</a>
+  <a href="/user/{{id}}">Your Profile</a>
 </template>
 
 <template name="footer">
@@ -36,3 +36,6 @@
   </div>
 </template>
 
+<template name="login">
+  {{> atForm}}
+</template>

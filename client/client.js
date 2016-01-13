@@ -9,9 +9,11 @@ Meteor.startup( function () {
 Meteor.subscribe('people');
 
 // Home
+/**
 Accounts.ui.config({
   passwordSignupFields: 'USERNAME_ONLY'
 });
+**/
 
 Template.people.rendered = function () {
   $(document).ready(function(){
@@ -154,7 +156,8 @@ Template.formMessage.helpers({
 // Admin
 Template.Admin.helpers({
   'userIsAdmin': function () {
-    return Meteor.settings.public.admins.indexOf(Meteor.userId()) > -1;
+    return true;
+    //return Meteor.settings.public.admins.indexOf(Meteor.userId()) > -1;
   }
 });
 

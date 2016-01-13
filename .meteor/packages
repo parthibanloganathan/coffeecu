@@ -6,8 +6,6 @@
 
 autopublish
 insecure
-bootstrap
-accounts-ui
 accounts-password
 iron:router
 fortawesome:fontawesome
@@ -33,3 +31,6 @@ http
 cunneen:mailgun
 semantic:ui
 flemay:less-autoprefixer
+useraccounts:materialize
+useraccounts:core
+useraccounts:iron-routing
