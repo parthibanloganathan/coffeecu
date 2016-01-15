@@ -12,7 +12,6 @@ Template.logout.events({
 
 Template.userprofile.helpers({
   'id': function () {
-    console.log("pinged " + Meteor.userId());
     return Meteor.userId();
   }
 });

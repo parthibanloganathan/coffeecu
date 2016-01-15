@@ -10,86 +10,89 @@
 <template name="profileupdate">
   <form class="ui form">
 
-    Logged in as <h1>{{user.name}}</h1>
-
-    <label>Name</label>
-    <input type="text" name="name" value="{{user.name}}" placeholder="Roaree TheLion" />
-
-    <label>UNI</label>
-    <input type="text" name="uni" value="{{user.uni}}" placeholder="rtl1234" />
-
-    <label>School</label>
-    <div class="inline fields">
-      <div class="field">
-        <div class="ui radio checkbox">
-          <input type="radio" name="school" value="SEAS">
-          <label>SEAS</label>
-        </div>
-      </div>
-      <div class="field">
-        <div class="ui radio checkbox">
-          <input type="radio" name="school" value="CC">
-          <label>CC</label>
-        </div>
-      </div>
-      <div class="field">
-        <div class="ui radio checkbox">
-          <input type="radio" name="school" value="GS">
-          <label>GS</label>
-        </div>
-      </div>
+    <div class="field">
+      <label>Name</label>
+      <input type="text" name="name" value="{{user.name}}" placeholder="Roaree TheLion" />
     </div>
 
-    <label>School</label>
-    <p>
+    <div class="field">
+      <label>UNI</label>
+      <input type="text" name="uni" value="{{user.uni}}" placeholder="rtl1234" />
+    </div>
+
+    <div class="field">
+      <label>School</label>
+      <p>
       <input class="blue darken-1 blue-text text-darken-1" name="school" type="radio" id="SEAS"/>
       <label for="SEAS">SEAS</label>
-    </p>
-    <p>
+      </p>
+      <p>
       <input name="school" type="radio" id="CC"/>
       <label for="CC">CC</label>
-    </p>
-    <p>
+      </p>
+      <p>
       <input name="school" type="radio" id="GS" />
       <label for="GS">GS</label>
-    </p>
-
-    <label>What do you study?</label>
-    <input type="text" name="major" value="{{user.major}}" placeholder="Economics" />
-
-    <label>Tell the world a little bit about yourself (250 chars)</label>
-    <textarea type="text" name="about" value="{{user.about}}" placeholder="2-3 lines about yourself."></textarea>
-
-    <label>What do you like? (100 chars)</label>
-    <textarea type="text" name="likes" value="{{user.likes}}" placeholder="football, marching band, stuffy costumes, epistemology, scala, taqueria y fonda, value investing" ></textarea>
-
-    <label>What are some things people should contact you for? (150 chars)</label>
-    <textarea type="text" name="contactfor" value="{{user.contactfor}}" placeholder="how to dance, career advice for prospective mascots, understanding relativistic quantum field theory"></textarea>
-
-    <label>When are you generally free?</label>
-    <textarea type="text" name="availability" value="{{user.availability}}" placeholder="Fridays between 11 am and 1 pm. Any time before 4 pm on Saturday."></textarea>
-
-    <label>Twitter</label>
-    <input type="text" name="twitter" value="{{user.twitter}}" placeholder="Link to your Twitter page" />
-
-    <label>Facebook</label>
-    <input type="text" name="facebook" value="{{user.facebook}}" placeholder="Link to your Facebook profile" />
-
-    <label>LinkedIn</label>
-    <input type="text" name="linkedin" value="{{user.linkedin}}" placeholder="Public link to your LinkedIn profile" />
-
-    <label>Upload Photo</label>
-    <div id="uploadphoto" class="waves-effect waves-light blue darken-1 btn">Upload Photo</div>
-    <img src="{{user.image}}" name="image" height="90px" width="90px" />
-
-    <div class="ui checkbox">
-      <input type="checkbox" name="agreement">      
-      <label>By checking this box, I understand that the profile information above will be publicly displayed and I will be able to receive emails from other Columbia students. I also understand that Roaree TheLion in the sample above is fictional and may not reflect the real Roaree.</label>
+      </p>
     </div>
 
+    <div class="field">
+      <label>What do you study?</label>
+      <input type="text" name="major" value="{{user.major}}" placeholder="Economics" />
+    </div>
 
-    <div type="submit" class="waves-effect waves-light blue darken-1 btn">Update Profile</div>
-    <div id="deleteprofile" class="waves-effect waves-light red darken-1 btn">Delete Profile</div>
+    <div class="field">
+      <label for="about">Tell the world a little bit about yourself (250 chars)</label>
+      <textarea type="text" name="about" value="{{user.about}}" placeholder="2-3 lines about yourself."></textarea>
+    </div>
+
+    <div class="field">
+      <label>What do you like? (100 chars)</label>
+      <textarea type="text" name="likes" value="{{user.likes}}" placeholder="football, marching band, stuffy costumes, epistemology, scala, taqueria y fonda, value investing" ></textarea>
+    </div>
+
+    <div class="field">
+      <label>What are some things people should contact you for? (150 chars)</label>
+      <textarea type="text" name="contactfor" value="{{user.contactfor}}" placeholder="how to dance, career advice for prospective mascots, understanding relativistic quantum field theory"></textarea>
+    </div>
+
+    <div class="field">
+      <label>When are you generally free?</label>
+      <textarea type="text" name="availability" value="{{user.availability}}" placeholder="Fridays between 11 am and 1 pm. Any time before 4 pm on Saturday."></textarea>
+    </div>
+
+    <div class="field">
+      <label>Twitter</label>
+      <input type="text" name="twitter" value="{{user.twitter}}" placeholder="Link to your Twitter page" />
+    </div>
+
+    <div class="field">
+      <label>Facebook</label>
+      <input type="text" name="facebook" value="{{user.facebook}}" placeholder="Link to your Facebook profile" />
+    </div>
+
+    <div class="field">
+      <label>LinkedIn</label>
+      <input type="text" name="linkedin" value="{{user.linkedin}}" placeholder="Public link to your LinkedIn profile" />
+    </div>
+
+    <div class="field">
+      <label>Upload Photo</label>
+      <div id="uploadphoto" class="waves-effect waves-light blue darken-1 btn">Upload Photo</div>
+      <img src="{{user.image}}" name="image" height="90px" width="90px" />
+    </div>
+
+    <div class="field">
+      <div class="ui checkbox">
+        <input type="checkbox" name="agreement">      
+        <label>By checking this box, I understand that the profile information above will be publicly displayed and I will be able to receive emails from other Columbia students. I also understand that Roaree TheLion in the sample above is fictional and may not reflect the real Roaree.</label>
+      </div>
+    </div>
+
+    <div class="field">
+      <div type="submit" class="waves-effect waves-light blue darken-1 btn">Update Profile</div>
+      <div id="deleteprofile" class="waves-effect waves-light red darken-1 btn">Delete Profile</div>
+    </div>
 
   </form>
 </template>
