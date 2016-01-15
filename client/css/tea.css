@@ -20,3 +20,7 @@ body {
 .person profilepic {
   width: 100px;
 }
+
+nav a:hover {
+    color: white;
+}

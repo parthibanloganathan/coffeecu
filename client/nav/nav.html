@@ -1,21 +1,25 @@
 <template name="nav">
-  <nav class="blue lighten-2 blue-text text-lighten-4">
+  <nav class="blue lighten-2">
     <div class="nav-wrapper">
-      <a href="#" class="brand-logo"><i class="coffee icon"></i></a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="/">Home</a></li>
+      <a href="/" class="brand-logo"><i class="coffee icon"></i></a>
+      <ul id="nav-mobile" class="right">
+        <li>
+          <a href="/">Home</a>
+        </li>
+
         {{#if currentUser}}
           <li>
             {{> userprofile}}
           </li>
         {{/if}}
+
         <li>
         {{#if currentUser}}
             {{> logout}}
         {{else}}
             <a href="/login">Sign In</a>
         {{/if}}
-        </li>``
+        </li>     
       </ul>
     </div>
   </nav>
@@ -23,7 +27,7 @@
 
 <template name="logout">
   <div class="logout">
-    Sign Out
+    <a href="/">Sign Out</a>
   </div>
 </template>
 

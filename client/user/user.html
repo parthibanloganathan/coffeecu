@@ -40,6 +40,20 @@
       </div>
     </div>
 
+    <label>School</label>
+    <p>
+      <input class="blue darken-1 blue-text text-darken-1" name="school" type="radio" id="SEAS"/>
+      <label for="SEAS">SEAS</label>
+    </p>
+    <p>
+      <input name="school" type="radio" id="CC"/>
+      <label for="CC">CC</label>
+    </p>
+    <p>
+      <input name="school" type="radio" id="GS" />
+      <label for="GS">GS</label>
+    </p>
+
     <label>What do you study?</label>
     <input type="text" name="major" value="{{user.major}}" placeholder="Economics" />
 
@@ -65,7 +79,7 @@
     <input type="text" name="linkedin" value="{{user.linkedin}}" placeholder="Public link to your LinkedIn profile" />
 
     <label>Upload Photo</label>
-    <button class="ui button" id="uploadphoto">Upload Photo</button>
+    <div id="uploadphoto" class="waves-effect waves-light blue darken-1 btn">Upload Photo</div>
     <img src="{{user.image}}" name="image" height="90px" width="90px" />
 
     <div class="ui checkbox">
@@ -73,8 +87,9 @@
       <label>By checking this box, I understand that the profile information above will be publicly displayed and I will be able to receive emails from other Columbia students. I also understand that Roaree TheLion in the sample above is fictional and may not reflect the real Roaree.</label>
     </div>
 
-    <button class="ui button" type="submit">Update Profile</button>
-    <button class="ui button" id="deleteprofile">Delete Profile</button>
+
+    <div type="submit" class="waves-effect waves-light blue darken-1 btn">Update Profile</div>
+    <div id="deleteprofile" class="waves-effect waves-light red darken-1 btn">Delete Profile</div>
 
   </form>
 </template>
