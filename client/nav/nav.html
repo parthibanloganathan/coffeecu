@@ -1,0 +1,36 @@
+<template name="nav">
+    <nav>
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo"><i class="coffee icon"></i></a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="/">Home</a></li>
+        {{#if currentUser}}
+          <li>
+            {{> userprofile}}
+          </li>
+        {{/if}}
+        <li>
+        {{#if currentUser}}
+            {{> logout}}
+        {{else}}
+            <a href="/login">Sign In</a>
+        {{/if}}
+        </li>``
+      </ul>
+    </div>
+  </nav>
+</template>
+
+<template name="logout">
+  <div class="logout">
+    Sign Out
+  </div>
+</template>
+
+<template name="userprofile">
+  <a href="/user/{{id}}">Your Profile</a>
+</template>
+
+<template name="login">
+  {{> atForm}}
+</template>
