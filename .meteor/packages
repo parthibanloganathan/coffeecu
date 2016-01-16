@@ -34,5 +34,4 @@ flemay:less-autoprefixer
 useraccounts:core
 useraccounts:iron-routing
 useraccounts:materialize
-materialize:materialize
 accounts-google

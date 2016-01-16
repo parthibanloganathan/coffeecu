@@ -22,5 +22,36 @@ body {
 }
 
 nav a:hover {
-    color: white;
+  color: white;
+}
+
+/* User */
+form {
+  padding: 20px;
+}
+
+.form textarea {
+  height: auto;
+}
+
+.form .helptext {
+  margin: 20px;
+}
+
+.form .photo object {
+  height: 250px;
+  width: 250px;
+}
+
+.form .photo img {
+  height: 250px;
+  width: 250px;
+}
+
+.form .agreement .card {
+  margin: 30px 0 30px 0;
+}
+
+.form .gutter {
+  width: 15px;
 }
