@@ -1,31 +1,3 @@
-.intro-text {
-  font-size: 1.4em;
-}
-
-body {
-  margin: 10px;
-}
-
-.menu {
-  width: 100%;
-  font-size: 20px;
-}
-
-.person {
-  width: 300px;
-  min-width: 300px;
-  padding: 0 50px 0 50px; 
-}
-
-.person profilepic {
-  width: 100px;
-}
-
-nav a:hover {
-  color: white;
-}
-
-/* User */
 form {
   padding: 20px;
 }
