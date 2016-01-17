@@ -184,7 +184,7 @@ Template.profileupdate.events({
 
     Meteor.call('insertPendingUser',
                 Meteor.userId(),
-                Meteor.user().email,
+                Meteor.user().emails[0],
                 name,
                 uni,
                 school,

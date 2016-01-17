@@ -2,23 +2,19 @@ SearchCollectionsToPopulateProfile = function (id) {
   // Check rejected first
   var person = RejectedPeopleCollection.findOne({owner: id});
 
-  if (people.length > 0) {
-    console.log("found in rejected");
+  if (person) {
     return person;
   } else {
     // then check pending
     person = PendingPeopleCollection.findOne({owner: id});
   }
 
-  if (people.length > 0) {
-    console.log("found in pending");
+  if (person) {
     return person;
   } else {
     // finally check master
     person = PeopleCollection.findOne({owner: id});
   }
-  console.log("found in master");
-  console.log(person);
   return person;
 };
 
