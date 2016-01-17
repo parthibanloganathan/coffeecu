@@ -14,21 +14,9 @@ Template.people.rendered = function () {
   });
 };
 
-Template.welcomeMessage.rendered = function () {
-  $(document).ready(function () {
-    $('.parallax').parallax();
-  });
-};
-
-Template.welcomeMessage.helpers({
+Template.Home.helpers({
   'welcome': function () {
-    var message = data.welcome;
-    return message;
-  },
-  'randomParallaxImage': function () {
-    var images = new Array('butler', 'butlerwithalma', 'engineer', 'lion', 'low', 'seas150', 'wallach', 'yule');
-    var randNum = Math.floor(Math.random() * images.length);
-    return images[randNum];
+    return data.welcome;
   }
 });
 
@@ -36,7 +24,7 @@ Template.meetingsMade.helpers({
   'meetings': function() {
     return MeetingsCollection.find().fetch().length; 
   }
-})
+});
 
 Template.people.helpers({
   'people': function () {
@@ -56,20 +44,48 @@ Template.people.events({
     }
   },
   'click .person #contact': function () {
+    $('.ui.modal')
+    .modal({
+      onDeny: function () {
+        return true;
+      }
+    }).modal('show');
+  /*
+     var receiverUni = this.uni;
+     var receiverName = this.name.split(' ')[0];
+
+  // Prompt with modal
+  bootbox.prompt("What is your UNI?", function (senderUni) {
+  Meteor.call('processSendRequest', senderUni, receiverUni, receiverName, function (error, response) {
+  if (error) {
+  console.log("Failed to process UNI.");
+  console.log(error);
+  } else {
+  console.log("Received from process:");
+  console.log(response);
+  }
+  });
+  });
+  */
+}
+});
+
+Template.uniPrompt.events({
+  'submit form': function (event) {
+    event.preventDefault();
+
     var receiverUni = this.uni;
     var receiverName = this.name.split(' ')[0];
+    var senderUni = event.target.uni.value;
 
-    // Prompt with modal
-    bootbox.prompt("What is your UNI?", function (senderUni) {
-      Meteor.call('processSendRequest', senderUni, receiverUni, receiverName, function (error, response) {
-        if (error) {
-          console.log("Failed to process UNI.");
-          console.log(error);
-        } else {
-          console.log("Received from process:");
-          console.log(response);
-        }
-      });
+    Meteor.call('processSendRequest', senderUni, receiverUni, receiverName, function (error, response) {
+      if (error) {
+        console.log("Failed to process UNI.");
+        console.log(error);
+      } else {
+        console.log("Received from process:");
+        console.log(response);
+      }
     });
   }
 });

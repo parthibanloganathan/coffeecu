@@ -1,0 +1,12 @@
+.darken-parallax {
+  position: absolute;
+  width: 100%;
+  height: 400px;
+  z-index: 1;
+  background-color: black;
+  opacity: 0.8;
+}
+
+.parallax-container {
+  height: 400px;
+}

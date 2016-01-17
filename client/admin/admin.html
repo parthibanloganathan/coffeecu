@@ -1,10 +1,8 @@
 <template name="Admin">
-  <body>
-    {{#if userIsAdmin}}
-    <h1 class="ui header">Admin Page</h1>
-    {{> userManager}}
-    {{/if}}
-  </body>
+  {{#if userIsAdmin}}
+  <h1 class="ui header">Admin Page</h1>
+  {{> userManager}}
+  {{/if}}
 </template>
 
 <template name="userManager">
@@ -14,11 +12,12 @@
 
 <template name="displayPendingPeople">
   <h2 class="ui dividing header">Pending:</h2>
+
   {{#each people}}
   <div class="ui segment">
     <form class="ui form">
       <div class="fields">
-        <div class="one wide field">
+        <div class="two wide field">
           <img src="{{image}}" height="100px" width="100px" />
         </div>
 
@@ -29,7 +28,7 @@
           <b>UNI:</b> <p>{{uni}}</p>
         </div>
 
-        <div class="four wide field">
+        <div class="five wide field">
           <b>Twitter:</b> <p>{{twitter}}</p>
           <b>LinkedIn:</b> <p>{{linkedin}}</p>
           <b>Facebook:</b> <p>{{facebook}}</p>
@@ -38,7 +37,7 @@
           <a href="{{linkedin}}"><i class="fa fa-linkedin-square"></i></a>
         </div>
 
-        <div class="nine wide field">
+        <div class="seven wide field">
           <b>About:</b> <p>{{about}}</p>
           <b>Likes:</b> <p>{{likes}}</p>
           <b>Contact for:</b> <p>{{contactfor}}</p>
@@ -52,8 +51,8 @@
       </div>
 
       <div class="field">
-        <button type="submit" id="reject" class="ui negative button">Reject</button>
         <button id="accept" class="ui positive button">Accept</button>
+        <button type="submit" id="reject" class="ui negative button">Reject</button>
       </div>
     </form>
   </div>
@@ -62,11 +61,16 @@
 
 <template name="displayPeople">
   <h2 class="ui dividing header">Public:</h2>
-  {{#each people}}
-  <div class="ui segment person">
-    <b>ID:</b> <p>{{owner}}</p>
-    <b>Name:</b> <p>{{name}}</p>
-    <button id="delete" class="ui negative button">Delete</button>
+
+  <div class="ui four column doubling stackable grid container">
+    {{#each people}}
+    <div class="four wide column">
+      <div class="ui segment person">
+        <b>ID:</b> <p>{{owner}}</p>
+        <b>Name:</b> <p>{{name}}</p>
+        <button id="delete" class="ui negative button">Delete</button>
+      </div>
+    </div>
+    {{/each}}
   </div>
-  {{/each}}
 </template>

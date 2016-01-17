@@ -1,5 +1,11 @@
+.overlay-on-parallax {
+  z-index: 2;
+  height: 400px;
+}
+
 .intro-text {
   font-size: 1.3em;
+  color: white;
 }
 
 .person {
@@ -11,4 +17,3 @@
 .person profilepic {
   width: 100px;
 }
-

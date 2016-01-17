@@ -1,6 +1,7 @@
 <template name="Home">
-  <body>
-    {{> welcomeMessage}}
+  {{> parallax}}
+
+  <div class="overlay-on-parallax">
     <h1 class="ui center aligned icon header">
       <i class="coffee icon"></i>
       <div class="content title-text">
@@ -8,17 +9,21 @@
       </div>
     </h1>
 
-    <div class="intro-text"></div>
+    <div class="intro-text">
+      {{welcome}}
+    </div>
+  </div>
 
-    {{>meetingsMade}}
+  {{>meetingsMade}}
 
-    {{> people}}
-  </body>
+  {{> people}}
 </template>
 
-<template name="welcomeMessage">
-  <div class="parallax-container">
-    <div class="parallax"><img src="https://upload.wikimedia.org/wikipedia/commons/0/0c/GoldenGateBridge-001.jpg"></div>
+<template name="parallax">
+  <div class="darken-parallax">
+    <div class="parallax-container">
+      <div class="parallax"><img src="/img/parallax/{{randomParallaxImage}}.jpg"></div>
+    </div>
   </div>
 </template>
 
@@ -40,7 +45,7 @@
     <div class="ui four column doubling stackable grid container">
       {{#each people}}
       <div class="four wide column">
-        <div class="person ui raised padded segment">
+        <div class="ui raised padded segment person">
 
           <div class="title">
             <div class="ui center aligned grid">
@@ -60,12 +65,32 @@
             <a href="{{facebook}}"><i class="fa fa-facebook-square"></i></a>
             <a href="{{twitter}}"><i class="fa fa-twitter-square"></i></a>    
             <a href="{{linkedin}}"><i class="fa fa-linkedin-square"></i></a>
-            <button id="contact" class="ui primary button">Contact</button>
+            <button id="contact" class="waves-effect waves-light btn">Contact</button>
+            {{> uniPrompt}}
           </div>
 
         </div>
       </div>
       {{/each}}
+    </div>
+  </div>
+</template>
+
+<template name="uniPrompt">
+  <div id="uni-modal" class="ui modal">
+    <i class="close icon"></i>    
+    <div class="header">What is your UNI?</div>
+    <div class="content">
+      <form class="ui form">
+        <div class="field">
+          <input type="text" name="uni" />
+          <label for="uni">UNI</label>
+        </div>
+        <div class="actions">
+          <div class="ui red cancel button">Cancel</div>
+          <div type="submit" class="ui blue button">Send Request</div>
+        </div>
+      </form>
     </div>
   </div>
 </template>

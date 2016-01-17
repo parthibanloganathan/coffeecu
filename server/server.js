@@ -66,7 +66,7 @@ Meteor.methods({
                                     var from = 'do-not-reply@teaatcolumbia.com';
                                     var subject = 'Tea@Columbia: Profile update declined';
                                     var body = "Hi,\n\n" + 
-                                      "Your recent profile update request to Tea@Columbia was rejected.\n\nWhy was it declined: " + reason + "\n\nPlease correct your request and request an update to your profile again. " + 
+                                      "Your recent profile update request to Tea@Columbia was rejected.\n\nWhy was it declined: " + reason + "\n\nPlease make the above changes and request an update to your profile again. " + 
                                       "If you have any questions about teaatcolumbia.info, please contact Parthi at parthiban.loganathan@columbia.edu.\n\nThank you!";
                                     SendEmail(to, "", from, subject, body); 
   }
