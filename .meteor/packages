@@ -35,3 +35,4 @@ useraccounts:iron-routing
 useraccounts:materialize
 accounts-google
 seba:minifiers-autoprefixer
+selaias:avatar-upload
