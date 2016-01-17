@@ -9,7 +9,7 @@ Router.route('/', function () {
 Router.route('/user/:userid', function () {
   this.render('User', {
     data: function () {
-      return SearchPeopleCollection({ owner: this.params.userid })[0];
+      return SearchPeopleCollections({ owner: this.params.userid })[0];
     }
   });
 });

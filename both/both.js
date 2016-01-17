@@ -1,11 +1,11 @@
 // Utility
-SearchPeopleCollection = function (query) {
-  var people_master = PeopleCollection.find(query).fetch();
+SearchPeopleCollections = function (query) {
+  var people = PendingPeopleCollection.find(query).fetch();
 
-  if (people_master.length > 0) {
-    return people_master;
+  if (people.length > 0) {
+    return people;
   } else {
-    return PendingPeopleCollection.find(query).fetch();
+    return PeopleCollection.find(query).fetch();
   }
 };
 

@@ -1,31 +1,151 @@
 Session.set('message', 'default');
 
 Template.profileupdate.rendered = function () {
-  $('.ui .checkbox').checkbox();
-  $('.ui .checkbox').checkbox();
-
   $('.ui .form')
   .form({
+    inline: true,
+    on: 'blur',
     fields: {
-      name         : ['maxLength[40]', 'empty'],
-      uni          : ['maxLength[7]', 'empty'],
-      major        : ['maxLength[40]', 'empty'],
-      about        : ['maxLength[250]', 'empty'],
-      likes        : ['maxLength[100]', 'empty'],
-      contactfor   : ['maxLength[150]', 'empty'],
-      availability : ['maxLength[100]', 'empty'],
-      twitter      : 'url',
-      facebook     : 'url',
-      linkedin     : 'url',
-      image        : 'url',
-      agreement    : 'checked'
+      name: {
+        identifier  : 'name',
+        rules: [
+          {
+            type   : 'empty',
+            prompt : 'Please enter your name.'
+          },
+          {
+            type   : 'maxLength[40]',
+            prompt : "Woah! That's a long name. Try using a shorter nickname that is under 41 characters."
+          }
+        ]
+      },
+      uni: {
+        identifier  : 'uni',
+        rules: [
+          {
+            type   : 'empty',
+            prompt : 'Please enter your UNI.'
+          },
+          {
+            type   : 'maxLength[7]',
+            prompt : 'Valid UNIs are at most 7 characters.'
+          }
+        ]
+      },
+      major: {
+        identifier  : 'major',
+        rules: [
+          {
+            type   : 'empty',
+            prompt : 'Please enter your major.'
+          },
+          {
+            type   : 'maxLength[40]',
+            prompt : "Wow, you must be smart! That's a lot of words to describe what you study. Try summing it up in under 41 characters."
+          }
+        ]
+      },
+      about: {
+        identifier  : 'about',
+        rules: [
+          {
+            type   : 'empty',
+            prompt : 'Please tell us something about yourself.'
+          },
+          {
+            type   : 'maxLength[250]',
+            prompt : "We're excited that you want to share so much about yourself! Please keep it to 250 characters though."
+          }
+        ]
+      },
+      likes: {
+        identifier  : 'likes',
+        rules: [
+          {
+            type   : 'empty',
+            prompt : 'Please tell us what you like.'
+          },
+          {
+            type   : 'maxLength[100]',
+            prompt : "You like a lot of things! Any chance you can you bring it down to 100 characters?"
+          }
+        ]
+      },
+      contactfor: {
+        identifier  : 'contactfor',
+        rules: [
+          {
+            type   : 'empty',
+            prompt : "Please tell us what people should definitely contact you about. You're clearly an expert in some areas or have words of wisdom to pass down. Share it!"
+          },
+          {
+            type   : 'maxLength[100]',
+            prompt : "You must be very wise to have so many things to be contacted for. Can you keep it to 150 characters?"
+          }
+        ]
+      },
+      availability: {
+        identifier  : 'availability',
+        rules: [
+          {
+            type   : 'empty',
+            prompt : "Please tell us when you're generally free to chat with folks."
+          },
+          {
+            type   : 'maxLength[100]',
+            prompt : "List your availability in 100 characters or less please."
+          }
+        ]
+      },
+      twitter: {
+        identifier  : 'twitter',
+        optional: true,
+        rules: [
+          {
+            type   : 'url',
+            prompt : "Please enter a valid URL (with the 'https://' part). eg - https://twitter.com/columbia"
+          }
+        ]
+      },
+      facebook: {
+        identifier  : 'facebook',
+        optional: true,
+        rules: [
+          {
+            type   : 'url',
+            prompt : "Please enter a valid URL (with the 'https://' part). eg - https://facebook.com/columbia"
+          }
+        ]
+      },
+      linkedin: {
+        identifier  : 'linkedin',
+        optional: true,
+        rules: [
+          {
+            type   : 'url',
+            prompt : "Please enter a valid URL (with the 'https://' part). eg - https://www.linkedin.com/in/barackobama"
+          }
+        ]
+      },
+      agreement: {
+        identifier  : 'agreement',
+        rules: [
+          {
+            type   : 'checked',
+            prompt : 'Please acknowledge the above note by checking the box'
+          }
+        ]
+      }
     }
   });
+
+  // Populate radio button
+  $('#' + this.data.school).prop('checked', true);
 };
 
 Template.profileupdate.helpers({
   'user': function () {
-    var user = SearchPeopleCollection({owner: Meteor.userId()});      
+    var user = SearchPeopleCollections({owner: Meteor.userId()});      
     return user[0];
   }
 });

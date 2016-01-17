@@ -24,7 +24,7 @@
         </div>
 
         <div class="field">
-          <div id="uploadphoto" class="waves-effect waves-light btn">Upload Photo</div>
+          <button id="uploadphoto" class="waves-effect waves-light btn">Upload Photo</button>
           <div class="ui label helptext">Please upload an image of at least 250x250 px resolution.</div>
         </div>
       </div>
@@ -45,19 +45,18 @@
           <input type="text" name="major" value="{{user.major}}" placeholder="Economics" />
         </div>
 
-        <div class="field">
+        <div class="field radio-inline">
           <label>School</label>
-          <input class="blue darken-1 blue-text text-darken-1" name="school" type="radio" id="SEAS" checked="checked"/>
+          <input name="school" type="radio" id="SEAS" value="SEAS" />
           <label for="SEAS">SEAS</label>
-          <input name="school" type="radio" id="CC"/>
+          <input name="school" type="radio" id="CC" value="CC" />
           <label for="CC">CC</label>
-          <input name="school" type="radio" id="GS"/>
+          <input name="school" type="radio" id="GS" value="GS" />
           <label for="GS">GS</label>
         </div>
       </div>
 
     </div>
-
 
     <h4 class="ui dividing header">More about you</h4>
 
@@ -114,9 +113,9 @@
     </div>
 
     <div class="fields">
-      <div type="submit" class="waves-effect waves-light btn">Update Profile</div>
+      <button type="submit" class="waves-effect waves-light btn">Update Profile</button>
       <div class="gutter"></div>
-      <div id="deleteprofile" class="waves-effect waves-light red darken-1 btn">Delete Profile</div>
+      <button id="deleteprofile" class="waves-effect waves-light red darken-1 btn">Delete Profile</button>
     </div>
 
   </form>
