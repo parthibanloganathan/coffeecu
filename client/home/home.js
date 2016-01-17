@@ -14,10 +14,21 @@ Template.people.rendered = function () {
   });
 };
 
+Template.welcomeMessage.rendered = function () {
+  $(document).ready(function () {
+    $('.parallax').parallax();
+  });
+};
+
 Template.welcomeMessage.helpers({
-  'welcome': function() {
+  'welcome': function () {
     var message = data.welcome;
     return message;
+  },
+  'randomParallaxImage': function () {
+    var images = new Array('butler', 'butlerwithalma', 'engineer', 'lion', 'low', 'seas150', 'wallach', 'yule');
+    var randNum = Math.floor(Math.random() * images.length);
+    return images[randNum];
   }
 });
 

@@ -13,7 +13,6 @@ udondan:googlefonts
 fourseven:scss
 mizzao:bootboxjs
 email
-standard-minifiers
 meteor-base
 mobile-experience
 mongo
@@ -35,3 +34,4 @@ useraccounts:core
 useraccounts:iron-routing
 useraccounts:materialize
 accounts-google
+seba:minifiers-autoprefixer

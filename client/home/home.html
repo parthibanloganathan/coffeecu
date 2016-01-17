@@ -1,13 +1,14 @@
 <template name="Home">
   <body>
+    {{> welcomeMessage}}
     <h1 class="ui center aligned icon header">
-      <img class="ui image" src="/img/tea_icon.png">
+      <i class="coffee icon"></i>
       <div class="content title-text">
         Tea@Columbia
       </div>
     </h1>
 
-    <p class="intro-text">{{>welcomeMessage}}</p>
+    <div class="intro-text"></div>
 
     {{>meetingsMade}}
 
@@ -16,7 +17,9 @@
 </template>
 
 <template name="welcomeMessage">
-  {{welcome}}
+  <div class="parallax-container">
+    <div class="parallax"><img src="https://upload.wikimedia.org/wikipedia/commons/0/0c/GoldenGateBridge-001.jpg"></div>
+  </div>
 </template>
 
 <template name="meetingsMade">
@@ -37,7 +40,7 @@
     <div class="ui four column doubling stackable grid container">
       {{#each people}}
       <div class="four wide column">
-        <div class="person ui blue raised padded segment">
+        <div class="person ui raised padded segment">
 
           <div class="title">
             <div class="ui center aligned grid">

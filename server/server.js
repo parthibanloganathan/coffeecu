@@ -21,7 +21,7 @@ Meteor.methods({
 
       if (uni_details.length > 0) {
         senderName = uni_details[0].name;
-        
+
         this.unblock();
         SendEmailToUni(senderUni, senderName, receiverUni, receiverName);        
       } else {
@@ -37,6 +37,38 @@ Meteor.methods({
         }
       }
     }
+  },
+  rejectPendingUser: function (id, reason) {
+    // Move to rejected users
+    var userToMove = PendingPeopleCollection.findOne({owner: id});
+    RejectedPeopleCollection.update({owner: id}, 
+                                    {$set: {
+                                      owner: id, 
+                                      username: userToMove.username,        
+                                      name: userToMove.name,
+                                      uni: userToMove.uni,
+                                      school: userToMove.school,
+                                      major: userToMove.major,
+                                      about: userToMove.about,
+                                      likes: userToMove.likes,
+                                      contactfor: userToMove.contactfor,
+                                      availability: userToMove.availability,
+                                      twitter: userToMove.twitter,
+                                      facebook: userToMove.facebook,
+                                      linkedin: userToMove.linkedin,
+                                      image: userToMove.image,
+                                    }},
+                                    {upsert: true});
+                                    PendingPeopleCollection.remove({owner: id});
+
+                                    // Send email
+                                    var to = Meteor.users.findOne({'_id': id}).emails[0].address;
+                                    var from = 'do-not-reply@teaatcolumbia.com';
+                                    var subject = 'Tea@Columbia: Profile update declined';
+                                    var body = "Hi,\n\n" + 
+                                      "Your recent profile update request to Tea@Columbia was rejected.\n\nWhy was it declined: " + reason + "\n\nPlease correct your request and request an update to your profile again. " + 
+                                      "If you have any questions about teaatcolumbia.info, please contact Parthi at parthiban.loganathan@columbia.edu.\n\nThank you!";
+                                    SendEmail(to, "", from, subject, body); 
   }
 });
 

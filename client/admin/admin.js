@@ -11,19 +11,31 @@ Template.displayPendingPeople.helpers({
   }
 });
 
+Template.displayPendingPeople.events({
+  'submit form': function (event) {
+    event.preventDefault();
+
+    var id = this.owner;
+    var reason = event.target.reason.value;
+   
+    Meteor.call('rejectPendingUser', id, reason);
+  },
+  'click #accept': function () {
+    var id = this.owner;
+    Meteor.call('moveUserToMaster', id);
+  }
+});
+
 Template.displayPeople.helpers({
   'people': function () {
     return PeopleCollection.find().fetch();
   }
 });
 
-Template.displayPendingPeople.events({
-  'click #reject': function () {
+Template.displayPeople.events({
+  'click #delete': function () {
     var id = this.owner;
     Meteor.call('deleteUser', id);
-  },
-  'click #accept': function () {
-    var id = this.owner;
-    Meteor.call('copyUserToMaster', id);
   }
 });
+

@@ -7,11 +7,7 @@ Router.route('/', function () {
 });
 
 Router.route('/user/:userid', function () {
-  this.render('User', {
-    data: function () {
-      return SearchPeopleCollections({ owner: this.params.userid })[0];
-    }
-  });
+  this.render('User');
 });
 
 Router.route('/admin', function () {

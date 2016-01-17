@@ -32,6 +32,15 @@ Template.profileupdate.rendered = function () {
           }
         ]
       },
+      school: {
+        identifier  : 'school',
+        rules: [
+          {
+            type   : 'checked',
+            prompt : 'Please select a school'
+          }
+        ]
+      },
       major: {
         identifier  : 'major',
         rules: [
@@ -140,13 +149,15 @@ Template.profileupdate.rendered = function () {
   });
 
   // Populate radio button
-  $('#' + this.data.school).prop('checked', true);
+  var user = SearchCollectionsToPopulateProfile(Meteor.userId());
+  if (user) {
+    $('#' + user.school).prop('checked', true);
+  }
 };
 
 Template.profileupdate.helpers({
   'user': function () {
-    var user = SearchPeopleCollections({owner: Meteor.userId()});      
-    return user[0];
+    return SearchCollectionsToPopulateProfile(Meteor.userId()) 
   }
 });
 
@@ -171,9 +182,9 @@ Template.profileupdate.events({
     }
     Session.set('UploadedImageUrl', '');      
 
-    Meteor.call('insertUser',
+    Meteor.call('insertPendingUser',
                 Meteor.userId(),
-                Meteor.user().username,
+                Meteor.user().email,
                 name,
                 uni,
                 school,
@@ -187,10 +198,13 @@ Template.profileupdate.events({
                 linkedin,
                 image
                );
+
+               Materialize.toast('Your profile is currently under review and will be posted once approved.', 4000)
                Session.set('message', 'Your profile is currently under review and will be posted once approved.');
   },
   'click #deleteprofile': function() {
     Meteor.call('deleteUser', Meteor.userId());
+    Materialize.toast('Your profile has been successfully deleted.', 4000)
     Session.set('message', 'Your profile has been successfully deleted.');
   },
   'click #uploadphoto': function() {

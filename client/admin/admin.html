@@ -1,9 +1,8 @@
 <template name="Admin">
   <body>
     {{#if userIsAdmin}}
-      <h1>Admin Page</h1>
-      Users:
-      {{> userManager}}
+    <h1 class="ui header">Admin Page</h1>
+    {{> userManager}}
     {{/if}}
   </body>
 </template>
@@ -14,34 +13,60 @@
 </template>
 
 <template name="displayPendingPeople">
-  Pending:
+  <h2 class="ui dividing header">Pending:</h2>
   {{#each people}}
-  <div class="person">
-    <img src="{{image_url}}" height="30px" width="30px" />   
-    <p>{{id}}</p>
-    <p>{{username}}</p>
-    <p>{{name}}</p>
-    <p>{{school}}</p>
-    <p>{{uni}}</p>
-    <p>{{twitter}}</p>
-    <p>{{linkedin}}</p>
-    <p>{{facebook}}</p>
-    <p>{{availability}}</p>
-    <p>{{about}}</p>
-    <input type="button" id="reject" value="Reject" />
-    <input type="button" id="accept" value="Accept" />
+  <div class="ui segment">
+    <form class="ui form">
+      <div class="fields">
+        <div class="one wide field">
+          <img src="{{image}}" height="100px" width="100px" />
+        </div>
+
+        <div class="two wide field">
+          <b>ID:</b> <p>{{owner}}</p>
+          <b>Name:</b> <p>{{name}}</p>
+          <b>School:</b> <p>{{school}}</p>
+          <b>UNI:</b> <p>{{uni}}</p>
+        </div>
+
+        <div class="four wide field">
+          <b>Twitter:</b> <p>{{twitter}}</p>
+          <b>LinkedIn:</b> <p>{{linkedin}}</p>
+          <b>Facebook:</b> <p>{{facebook}}</p>
+          <a href="{{facebook}}"><i class="fa fa-facebook-square"></i></a>
+          <a href="{{twitter}}"><i class="fa fa-twitter-square"></i></a>    
+          <a href="{{linkedin}}"><i class="fa fa-linkedin-square"></i></a>
+        </div>
+
+        <div class="nine wide field">
+          <b>About:</b> <p>{{about}}</p>
+          <b>Likes:</b> <p>{{likes}}</p>
+          <b>Contact for:</b> <p>{{contactfor}}</p>
+          <b>Availability:</b> <p>{{availability}}</p>
+        </div>
+      </div>
+
+      <div class="field">
+        <input type="text" name="reason" />
+        <label for="reason">Reason for rejection (if applicable)</label>
+      </div>
+
+      <div class="field">
+        <button type="submit" id="reject" class="ui negative button">Reject</button>
+        <button id="accept" class="ui positive button">Accept</button>
+      </div>
+    </form>
   </div>
   {{/each}}
 </template>
 
 <template name="displayPeople">
-  Public:
+  <h2 class="ui dividing header">Public:</h2>
   {{#each people}}
-  <div class="person">
-    <p>{{id}}</p>
-    <p>{{username}}</p>
-    <p>{{name}}</p>
-    <input type="button" id="deleteprofile" value="Delete" />
+  <div class="ui segment person">
+    <b>ID:</b> <p>{{owner}}</p>
+    <b>Name:</b> <p>{{name}}</p>
+    <button id="delete" class="ui negative button">Delete</button>
   </div>
   {{/each}}
 </template>
