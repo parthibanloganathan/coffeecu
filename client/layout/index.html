@@ -1,7 +1,9 @@
 <template name="ApplicationLayout">
   {{> nav}}
     <body>
+      <div class="ui grid container">
       {{> yield}}
+      </div>
     </body>
   {{> footer}}
 </template>

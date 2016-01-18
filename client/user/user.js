@@ -1,6 +1,8 @@
 Session.set('message', 'default');
 
 Template.profileupdate.rendered = function () {
+  console.log(Meteor.user().profile);
+
   $('.ui .form')
   .form({
     inline: true,

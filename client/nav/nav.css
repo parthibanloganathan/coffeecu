@@ -1,3 +1,14 @@
 nav a:hover {
   color: white;
+  text-decoration: none;  
+}
+
+nav a:active {
+  color: white;
+  text-decoration: none;  
+}
+
+nav a:visited {
+  color: white;
+  text-decoration: none;  
 }

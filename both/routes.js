@@ -45,7 +45,7 @@ AccountsTemplates.configure({
 
     // Redirects
     homeRoutePath: '/',
-    redirectTimeout: 4000,
+    redirectTimeout: 2000,
 
     // Texts
     texts: {
