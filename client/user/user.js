@@ -1,8 +1,6 @@
 Session.set('message', 'default');
 
 Template.profileupdate.rendered = function () {
-  console.log(Meteor.user().profile);
-
   $('.ui .form')
   .form({
     inline: true,
@@ -155,11 +153,25 @@ Template.profileupdate.rendered = function () {
   if (user) {
     $('#' + user.school).prop('checked', true);
   }
+
+  // Callback for photo url in meteor-uploads
+  Meteor.startup(function () {
+    Uploader.finished = function(index, fileInfo, templateContext) {
+      console.log(fileInfo.finalUrl);
+      Session.set('UploadedImageUrl', fileInfo.finalUrl);      
+    };
+  });
 };
 
 Template.profileupdate.helpers({
   'user': function () {
-    return SearchCollectionsToPopulateProfile(Meteor.userId()) 
+    return SearchCollectionsToPopulateProfile(Meteor.userId());
+  },
+  'userIdData': function () {
+    var user = SearchCollectionsToPopulateProfile(Meteor.userId());    
+    return {
+      id: user.owner
+    };
   }
 });
 
@@ -201,16 +213,13 @@ Template.profileupdate.events({
                 image
                );
 
-               Materialize.toast('Your profile is currently under review and will be posted once approved.', 4000)
+               Materialize.toast('Your profile is currently under review and will be posted once approved.', 4000);
                Session.set('message', 'Your profile is currently under review and will be posted once approved.');
   },
   'click #deleteprofile': function() {
     Meteor.call('deleteUser', Meteor.userId());
     Materialize.toast('Your profile has been successfully deleted.', 4000)
     Session.set('message', 'Your profile has been successfully deleted.');
-  },
-  'click #uploadphoto': function() {
-    openFilePicker();
   }
 });
 

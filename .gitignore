@@ -1,3 +1,4 @@
 settings.json
 *.swp
+.uploads/*
 .DS_Store

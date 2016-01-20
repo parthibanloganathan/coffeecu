@@ -13,7 +13,7 @@
 
     <div class="fields">
 
-      <div class="six wide field center aligned">
+      <div class="eight wide field center aligned">
         <div class="photo field">
           <label>Upload Photo</label>
           <object data="{{user.image}}" name="image">
@@ -22,12 +22,12 @@
         </div>
 
         <div class="field">
-          <button id="uploadphoto" class="waves-effect waves-light btn">Upload Photo</button>
+          {{> upload_semanticUI contentType='images' formData=userIdData }}
           <div class="ui label helptext">Please upload an image of at least 250x250 px resolution.</div>
         </div>
       </div>
 
-      <div class="ten wide field">
+      <div class="eight wide field">
         <div class="field">
           <label>Name</label>
           <input type="text" name="name" value="{{user.name}}" placeholder="Roaree TheLion" />

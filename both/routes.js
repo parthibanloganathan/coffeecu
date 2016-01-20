@@ -14,52 +14,57 @@ Router.route('/admin', function () {
   this.render('Admin');
 });
 
+Router.route('/uploads/:userid', function () {
+  var params = this.params; 
+  var id = params.userid; 
+});
+
 AccountsTemplates.configure({
-    // Behavior
-    confirmPassword: true,
-    enablePasswordChange: true,
-    forbidClientAccountCreation: false,
-    overrideLoginErrors: true,
-    sendVerificationEmail: true,
-    lowercaseUsername: false,
-    focusFirstInput: true,
+  // Behavior
+  confirmPassword: true,
+  enablePasswordChange: true,
+  forbidClientAccountCreation: false,
+  overrideLoginErrors: true,
+  sendVerificationEmail: true,
+  lowercaseUsername: false,
+  focusFirstInput: true,
 
-    // Appearance
-    showAddRemoveServices: false,
-    showForgotPasswordLink: true,
-    showLabels: true,
-    showPlaceholders: true,
-    showResendVerificationEmailLink: true,
+  // Appearance
+  showAddRemoveServices: false,
+  showForgotPasswordLink: true,
+  showLabels: true,
+  showPlaceholders: true,
+  showResendVerificationEmailLink: true,
 
-    // Client-side Validation
-    continuousValidation: true,
-    negativeFeedback: true,
-    negativeValidation: true,
-    positiveValidation: true,
-    positiveFeedback: true,
-    showValidating: true,
+  // Client-side Validation
+  continuousValidation: true,
+  negativeFeedback: true,
+  negativeValidation: true,
+  positiveValidation: true,
+  positiveFeedback: true,
+  showValidating: true,
 
-    // Privacy Policy and Terms of Use
-    privacyUrl: 'privacy',
-    termsUrl: 'terms-of-use',
+  // Privacy Policy and Terms of Use
+  privacyUrl: 'privacy',
+  termsUrl: 'terms-of-use',
 
-    // Redirects
-    homeRoutePath: '/',
-    redirectTimeout: 2000,
+  // Redirects
+  homeRoutePath: '/',
+  redirectTimeout: 2000,
 
-    // Texts
-    texts: {
-      button: {
-          signUp: "Sign up"
-      },
-      socialSignUp: "Register",
-      socialIcons: {
-          "meteor-developer": "fa fa-rocket"
-      },
-      title: {
-          forgotPwd: "Recover Your Password"
-      },
+  // Texts
+  texts: {
+    button: {
+      signUp: "Sign up"
     },
+    socialSignUp: "Register",
+    socialIcons: {
+      "meteor-developer": "fa fa-rocket"
+    },
+    title: {
+      forgotPwd: "Recover Your Password"
+    },
+  },
 });
 
 
