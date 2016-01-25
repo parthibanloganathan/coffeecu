@@ -1,5 +1,7 @@
 Meteor.subscribe('people');
 
+Session.set('currentlySelected', null);
+
 Template.people.rendered = function () {
   $(document).ready(function(){
     $('.ui.accordion').accordion({exclusive: true});
@@ -25,49 +27,25 @@ Template.people.helpers({
 });
 
 Template.people.events({
-  'click .person #contact': function () {
-    $('.ui.modal')
-    .modal({
-      onDeny: function () {
-        return true;
+  'click #contact': function () {
+    Session.set('currentlySelected', { uni: this.uni, name: this.name.split(' ')[0] });
+    $('.ui.modal').modal({
+      onApprove: function(event) {
+        var receiverUni = Session.get('currentlySelected').uni;
+        var receiverName = Session.get('currentlySelected').name;
+        var senderUni = $("#senderUni").val();
+
+        Meteor.call('processSendRequest', senderUni, receiverUni, receiverName, function (error, response) {
+          if (error) {
+            Materialize.toast('Failed to process your UNI', 4000);          
+            console.log(error);
+          } else {
+            Materialize.toast('Request sent!', 4000);            
+            console.log("Received from process:");
+            console.log(response);
+          }
+        });
       }
     }).modal('show');
-  /*
-     var receiverUni = this.uni;
-     var receiverName = this.name.split(' ')[0];
-
-  // Prompt with modal
-  bootbox.prompt("What is your UNI?", function (senderUni) {
-  Meteor.call('processSendRequest', senderUni, receiverUni, receiverName, function (error, response) {
-  if (error) {
-  console.log("Failed to process UNI.");
-  console.log(error);
-  } else {
-  console.log("Received from process:");
-  console.log(response);
-  }
-  });
-  });
-  */
-}
-});
-
-Template.uniPrompt.events({
-  'submit form': function (event) {
-    event.preventDefault();
-
-    var receiverUni = this.uni;
-    var receiverName = this.name.split(' ')[0];
-    var senderUni = event.target.uni.value;
-
-    Meteor.call('processSendRequest', senderUni, receiverUni, receiverName, function (error, response) {
-      if (error) {
-        console.log("Failed to process UNI.");
-        console.log(error);
-      } else {
-        console.log("Received from process:");
-        console.log(response);
-      }
-    });
   }
 });

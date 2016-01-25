@@ -3,11 +3,11 @@ Meteor.startup(function () {
   UploadServer.init({
     tmpDir: process.env.PWD + '/.uploads/tmp',
     uploadDir: process.env.PWD + '/.uploads/',
-    checkCreateDirectories: true, //create the directories for you
-    getFileName: function (fileInfo, formData) {
+    checkCreateDirectories: true, // create the directories if not present
+    getFileName: function (fileInfo, formData) { // rename files to <id>_dp.jpg 
       return formData.id + '_dp.jpg';
     },
-    finished: function (fileInfo, formFields) {
+    finished: function (fileInfo, formFields) { // construct final url baseUrl/uploads/<i>_dp.jpg
       fileInfo.finalUrl = fileInfo.baseUrl + 'profilePic' + fileInfo.path;
     },
     maxFileSize: 1000000, // 1 MB 

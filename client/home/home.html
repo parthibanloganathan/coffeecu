@@ -15,7 +15,6 @@
   </div>
 
   {{>meetingsMade}}
-
   {{> people}}
 </template>
 
@@ -58,15 +57,20 @@
 
           <div class="content">
             <p>{{school}}</p>
-            <b>Studies:</b> <p>{{major}}</p>
-            <b>About:</b> <p>{{about}}</p>
-            <b>Likes:</b> <p>{{likes}}</p>
-            <b>Contact me for:</b> <p>{{contactfor}}</p>
-            <a href="{{facebook}}"><i class="fa fa-facebook-square"></i></a>
-            <a href="{{twitter}}"><i class="fa fa-twitter-square"></i></a>    
-            <a href="{{linkedin}}"><i class="fa fa-linkedin-square"></i></a>
+            <p><b>Studies:</b> {{major}}</p>
+            <p><b>About:</b> {{about}}</p>
+            <p><b>Likes:</b> {{likes}}</p>
+            <p><b>Contact me for:</b> {{contactfor}}</p>
+            {{#if facebook}}
+            <button class="ui facebook button" href="{{facebook}}"><i class="facebook icon"></i></button>
+            {{/if}}
+            {{#if twitter}}
+            <button class="ui twitter button" href="{{twitter}}"><i class="twitter icon"></i></button>
+            {{/if}}
+            {{#if linkedin}}
+            <button class="ui linkedin button" href="{{linkedin}}"><i class="linkedin icon"></i></button>
+            {{/if}}
             <button id="contact" class="waves-effect waves-light btn">Contact</button>
-            {{> uniPrompt}}
           </div>
 
         </div>
@@ -74,23 +78,21 @@
       {{/each}}
     </div>
   </div>
+  {{> uniPrompt }}
 </template>
 
 <template name="uniPrompt">
-  <div id="uni-modal" class="ui modal">
-    <i class="close icon"></i>    
+  <div class="ui modal">
     <div class="header">What is your UNI?</div>
     <div class="content">
-      <form class="ui form">
-        <div class="field">
-          <input type="text" name="uni" />
-          <label for="uni">UNI</label>
-        </div>
-        <div class="actions">
-          <div class="ui red cancel button">Cancel</div>
-          <div type="submit" class="ui blue button">Send Request</div>
-        </div>
-      </form>
+      <div class="field">
+        <input type="text" name="senderUni" id="senderUni" />
+        <label for="senderUni">UNI</label>
+      </div>
+      <div class="actions">
+        <button id="cancel" class="ui negative close cancel button">Cancel</button>
+        <button id="submitRequest" class="ui primary approve button">Send Request</button>
+      </div>
     </div>
   </div>
 </template>

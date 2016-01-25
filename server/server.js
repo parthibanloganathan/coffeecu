@@ -78,8 +78,8 @@ var SendEmailToUni = function (senderUni, senderName, receiverUni, receiverName)
   var from = 'do-not-reply@teaatcolumbia.com';
   var subject = 'Tea@Columbia: Request from ' + senderName;
   var body = "Hi " + receiverName + ",\n\n" + 
-    senderName + "(cc'ed) would like to meet you. Please respond to them if you have the time to chat. Joe in NoCo, Brad's in the Journalism building, Brownie's Cafe in Avery, Carleton Lounge in Mudd and Cafe East in Lerner are some great places to meet on campus. Hope both of you have fun!\n\n" + 
-    "Note that if you would like to stop receiving these coffee requests, please delete your account at teaatcolumbia.info or contact Parthi at parthiban.loganathan@columbia.edu.";
+    senderName + " (cc'ed) would like to meet you. Please respond to them if you have the time to chat. May we suggest meeting at Joe's in NoCo, Brad's in the Journalism building, Brownie's Cafe in Avery, Carleton Lounge in Mudd or Cafe East in Lerner. Hope you have a great time talking!\n\n" + 
+    "Note that if you would like to stop receiving these coffee requests, please delete your account at teaatcolumbia.info or contact parthiban.loganathan@columbia.edu.";
 
   SendEmail(to, cc, from, subject, body);
 

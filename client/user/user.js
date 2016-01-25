@@ -176,7 +176,7 @@ Template.profileupdate.helpers({
 });
 
 Template.profileupdate.events({
-  'submit form': function (event) {
+  'submit .profileupdate': function (event) {
     event.preventDefault();
 
     var name = event.target.name.value;
