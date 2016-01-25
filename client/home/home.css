@@ -11,9 +11,10 @@
 .person {
   width: 300px;
   min-width: 300px;
-  padding: 0 50px 0 50px; 
+  margin: 0 150px 0 150px; 
+  padding: 0 150px 0 150px; 
 }
 
 .person profilepic {
-  width: 100px;
+  width: 250px;
 }
