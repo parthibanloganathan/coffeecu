@@ -1,7 +1,12 @@
 <template name="Home">
-  {{> parallax}}
+  {{> overlay}}
+  {{>meetingsMade}}
+  {{> people}}
+</template>
 
+<template name="overlay">
   <div class="overlay-on-parallax">
+    {{> parallax }}
     <h1 class="ui center aligned icon header">
       <i class="coffee icon"></i>
       <div class="content title-text">
@@ -9,13 +14,11 @@
       </div>
     </h1>
 
-    <div class="intro-text">
+    <div class="welcome">
       {{welcome}}
     </div>
-  </div>
 
-  {{>meetingsMade}}
-  {{> people}}
+  </div>
 </template>
 
 <template name="parallax">
@@ -27,8 +30,8 @@
 </template>
 
 <template name="meetingsMade">
-  <div class="ui centered grid">
-    <div class="ui statistic">
+  <div class="ui centered grid meetings-made">
+    <div class="ui inverted large statistic">
       <div class="value">
         {{meetings}}
       </div>
@@ -40,16 +43,20 @@
 </template>
 
 <template name="people">
-  <div class="ui accordion">
+  <div class="ui accordion people-home">
     <div class="ui four column doubling stackable grid container">
       {{#each people}}
-      <div class="four wide column">
+      <div class="five wide column">
         <div class="ui raised segment person">
 
           <div class="title">
             <div class="ui centered grid">
-              <img src="{{image}}" class="profilepic ui medium rounded image"/>
-              <h2>{{name}}</h2>
+              <div class="row">
+                <img src="{{image}}" class="profilepic ui rounded image"/>
+              </div>
+              <div class="row">
+                <h2 class="name">{{name}}</h2>
+              </div>
             </div>
           </div>
 

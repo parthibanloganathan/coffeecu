@@ -8,13 +8,24 @@
   color: white;
 }
 
-.person {
-  width: 300px;
-  min-width: 300px;
-  margin: 0 150px 0 150px; 
-  padding: 0 150px 0 150px; 
+.meetings-made {
+  width: 100%;
+  background: #64B5F6;
+  padding: 100px;
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  height: 150px;
 }
 
-.person profilepic {
-  width: 250px;
+.meetings-made .statistic {
+  padding: 20px;
+}
+
+.people-home {
+  margin-top: 50px;
+}
+
+.people-home .person {
+  width: 300px;
 }
