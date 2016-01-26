@@ -1,4 +1,8 @@
 Template.nav.rendered = function () {
+  // For hamburger button when navbar is too narrow
+  $(".button-collapse").sideNav();
+
+  // To activate links
   $('.menu .item')
   .state();
 };

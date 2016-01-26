@@ -1,10 +1,10 @@
 <template name="nav">
   <nav class="blue lighten-2">
     <div class="nav-wrapper">
-      <a href="/" class="brand-logo"><i class="coffee icon"></i></a>
+      <a href="/" class="brand-logo">Tea@Columbia</a>
       <ul id="nav-mobile" class="right">
         <li>
-          <a href="/"><i class="home icon"></i>Home</a>
+          <a href="/"><i class="material-icons">home</i></a>
         </li>
 
         {{#if currentUser}}
@@ -32,7 +32,7 @@
 </template>
 
 <template name="userprofile">
-  <a href="/user/{{id}}"><i class="user icon"></i>Your Profile</a>
+  <a href="/user/{{id}}"><i class="material-icons">account circle</i></a>
 </template>
 
 <template name="login">
