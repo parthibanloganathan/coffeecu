@@ -14,15 +14,30 @@ Template.Home.helpers({
   }
 });
 
+Template.meetingsMade.rendered = function () {
+  // Update #meetings every second
+  Meteor.setInterval(function () {
+    Meteor.call('countMeetings', function (error, response) {
+      Session.set('meetings', response);
+    });
+  }, 1000);
+};
+
 Template.meetingsMade.helpers({
-  'meetings': function() {
-    return MeetingsCollection.find().fetch().length; 
+  'meetings': function () {
+    return Session.get('meetings');
   }
 });
 
 Template.people.helpers({
   'people': function () {
     return PeopleCollection.find().fetch();
+  },
+  'peopleIndex': function () {
+    return PeopleIndex;
+  },
+  'inputAttributes': function () {
+    return {placeholder: "Search by name, school, major, etc..."};
   }
 });
 

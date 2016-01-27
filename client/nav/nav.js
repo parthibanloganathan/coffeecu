@@ -3,8 +3,7 @@ Template.nav.rendered = function () {
   $(".button-collapse").sideNav();
 
   // To activate links
-  $('.menu .item')
-  .state();
+  $('.menu .item').state();
 };
 
 Template.logout.events({

@@ -35,44 +35,49 @@
 </template>
 
 <template name="people">
-  <div class="ui accordion people-home">
-    <div class="ui four column doubling stackable grid container">
-      {{#each people}}
-      <div class="five wide column">
-        <div class="ui raised segment person">
+  <div class="people-home">
+    <div class="searchbox">
+      {{> EasySearch.Input index=peopleIndex attributes=inputAttributes }}
+    </div>
+    <div class="ui accordion">
+      <div class="ui four column doubling stackable grid container">
+        {{#EasySearch.Each index=peopleIndex }}
+        <div class="five wide column">
+          <div class="ui raised segment person">
 
-          <div class="title">
-            <div class="ui centered grid">
-              <div class="row">
-                <img src="{{image}}" class="profilepic ui rounded image"/>
-              </div>
-              <div class="row">
-                <h2 class="name">{{name}}</h2>
+            <div class="title">
+              <div class="ui centered grid">
+                <div class="row">
+                  <img src="{{image}}" class="profilepic ui rounded image"/>
+                </div>
+                <div class="row">
+                  <h2 class="name">{{name}}</h2>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div class="content">
-            <p>{{school}}</p>
-            <p><b>Studies:</b> {{major}}</p>
-            <p><b>About:</b> {{about}}</p>
-            <p><b>Likes:</b> {{likes}}</p>
-            <p><b>Contact me for:</b> {{contactfor}}</p>
-            {{#if facebook}}
-            <button class="ui facebook button" href="{{facebook}}"><i class="facebook icon"></i></button>
-            {{/if}}
-            {{#if twitter}}
-            <button class="ui twitter button" href="{{twitter}}"><i class="twitter icon"></i></button>
-            {{/if}}
-            {{#if linkedin}}
-            <button class="ui linkedin button" href="{{linkedin}}"><i class="linkedin icon"></i></button>
-            {{/if}}
-            <button id="contact" class="waves-effect waves-light btn">Contact</button>
-          </div>
+            <div class="content">
+              <p>{{school}}</p>
+              <p><b>Studies:</b> {{major}}</p>
+              <p><b>About:</b> {{about}}</p>
+              <p><b>Likes:</b> {{likes}}</p>
+              <p><b>Contact me for:</b> {{contactfor}}</p>
+              {{#if facebook}}
+              <button class="ui facebook button" href="{{facebook}}"><i class="facebook icon"></i></button>
+              {{/if}}
+              {{#if twitter}}
+              <button class="ui twitter button" href="{{twitter}}"><i class="twitter icon"></i></button>
+              {{/if}}
+              {{#if linkedin}}
+              <button class="ui linkedin button" href="{{linkedin}}"><i class="linkedin icon"></i></button>
+              {{/if}}
+              <button id="contact" class="waves-effect waves-light btn">Contact</button>
+            </div>
 
+          </div>
         </div>
+        {{/EasySearch.Each}}
       </div>
-      {{/each}}
     </div>
   </div>
   {{> uniPrompt }}

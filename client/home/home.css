@@ -27,3 +27,7 @@
 .people-home .person {
   width: 300px;
 }
+
+.people-home .searchbox {
+  margin: 50px 0 50px 0;
+}

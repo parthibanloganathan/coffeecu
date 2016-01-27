@@ -37,3 +37,4 @@ accounts-google
 seba:minifiers-autoprefixer
 tomi:upload-server
 tomi:upload-jquery
+easy:search

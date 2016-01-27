@@ -7,9 +7,10 @@ Meteor.publish('people-pending', function () {
 });
 
 Meteor.methods({
+  countMeetings: function () {
+    return MeetingsCollection.find().fetch().length;
+  },
   processSendRequest: function (senderUni, receiverUni, receiverName) {
-    console.log("Got this far");
-
     if (MeetingsCollection.find({sender_uni: senderUni, receiver_uni: receiverUni}).fetch().length > 0) {
       console.log("Meeting already made");
       return;

@@ -66,6 +66,14 @@ MeetingsCollection.deny({
   }
 });
 
+// Search box
+PeopleIndex = new EasySearch.Index({
+  collection: PeopleCollection,
+  fields: ['name', 'school', 'major', 'contactfor', 'availability', 'likes'],
+  engine: new EasySearch.MongoTextIndex(),
+  name: 'peopleIndex'
+});
+
 Meteor.methods({
   insertPendingUser: function (id,
                         username,
