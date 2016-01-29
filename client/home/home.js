@@ -8,7 +8,7 @@ Template.people.rendered = function () {
   });
 };
 
-Template.Home.helpers({
+Template.overlay.helpers({
   'welcome': function () {
     return data.welcome;
   }
@@ -37,7 +37,9 @@ Template.people.helpers({
     return PeopleIndex;
   },
   'inputAttributes': function () {
-    return {placeholder: "Search by name, school, major, etc..."};
+    return {
+      placeholder: 'Search by name, school, major, etc...'
+    };
   }
 });
 

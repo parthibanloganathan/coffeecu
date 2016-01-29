@@ -10,5 +10,10 @@ nav a:active {
 
 nav a:visited {
   color: white;
-  text-decoration: none;  
+  text-decoration: none; 
+}
+
+.login {
+  margin: 100px auto 0 auto;
+  width: 400px;
 }

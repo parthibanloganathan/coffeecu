@@ -1,26 +1,28 @@
 <template name="nav">
   <nav class="blue lighten-2">
     <div class="nav-wrapper">
-      <a href="/" class="brand-logo">Tea@Columbia</a>
-      <ul id="nav-mobile" class="right">
-        <li>
-          <a href="/"><i class="material-icons">home</i></a>
-        </li>
+      <div class="ui container">
+        <a href="/" class="brand-logo center">Tea@Columbia</a>
+        <ul id="nav-mobile" class="right">
+          <li>
+            <a href="/"><i class="material-icons">home</i></a>
+          </li>
 
-        {{#if currentUser}}
+          {{#if currentUser}}
           <li>
             {{> userprofile}}
           </li>
-        {{/if}}
+          {{/if}}
 
-        <li>
-        {{#if currentUser}}
+          <li>
+            {{#if currentUser}}
             {{> logout}}
-        {{else}}
+            {{else}}
             <a href="/login">Sign In</a>
-        {{/if}}
-        </li>     
-      </ul>
+            {{/if}}
+          </li>     
+        </ul>
+      </div>
     </div>
   </nav>
 </template>
@@ -32,11 +34,13 @@
 </template>
 
 <template name="userprofile">
-  <a href="/user/{{id}}"><i class="material-icons">account circle</i></a>
+  <a href="/user/{{id}}"><i class="material-icons">account_circle</i></a>
 </template>
 
 <template name="login">
-  <div class="ui center aligned grid">
-    {{> atForm}}
+  <div class="ui container">
+    <div class="login">
+      {{> atForm}}
+    </div>
   </div>
 </template>

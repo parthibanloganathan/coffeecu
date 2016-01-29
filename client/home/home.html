@@ -8,27 +8,30 @@
   <div class="top-block">
     {{> parallax }}
     <div class="welcome">
+      {{#markdown}}
       {{welcome}}
+      {{/markdown}}
     </div>
   </div>
 </template>
 
 <template name="parallax">
-  <div class="darken-parallax">
-    <div class="parallax-container">
-      <div class="parallax"><img src="/img/parallax/{{randomParallaxImage}}.jpg"></div>
-    </div>
+  <div class="parallax-container">
+    <div class="parallax"><img src="/img/parallax/{{randomParallaxImage}}.jpg"></div>
+    <div class="parallax-overlay"></div>
   </div>
 </template>
 
 <template name="meetingsMade">
-  <div class="ui centered grid meetings-made">
-    <div class="ui inverted large statistic">
-      <div class="value">
-        {{meetings}}
-      </div>
-      <div class="label">
-        meetings made
+  <div class="meetings-made">
+    <div class="ui centered grid">
+      <div class="ui inverted large statistic">
+        <div class="value">
+          {{meetings}}
+        </div>
+        <div class="label">
+          meetings made
+        </div>
       </div>
     </div>
   </div>
@@ -37,6 +40,7 @@
 <template name="people">
   <div class="people-home">
     <div class="searchbox">
+      <h3 class="ui header">Search for Columbia students to meet</h3>
       {{> EasySearch.Input index=peopleIndex attributes=inputAttributes }}
     </div>
     <div class="ui accordion">
@@ -63,15 +67,17 @@
               <p><b>Likes:</b> {{likes}}</p>
               <p><b>Contact me for:</b> {{contactfor}}</p>
               {{#if facebook}}
-              <button class="ui facebook button" href="{{facebook}}"><i class="facebook icon"></i></button>
+              <a class="ui facebook button" href="{{facebook}}"><i class="facebook icon"></i></a>
               {{/if}}
               {{#if twitter}}
-              <button class="ui twitter button" href="{{twitter}}"><i class="twitter icon"></i></button>
+              <a class="ui twitter button" href="{{twitter}}"><i class="twitter icon"></i ></a>
               {{/if}}
               {{#if linkedin}}
-              <button class="ui linkedin button" href="{{linkedin}}"><i class="linkedin icon"></i></button>
+              <a class="ui linkedin button" href="{{linkedin}}"><i class="linkedin icon"></i></a>
               {{/if}}
-              <button id="contact" class="waves-effect waves-light btn">Contact</button>
+              <div class="ui center aligned contact-button">
+                <button id="contact" class="waves-effect waves-light btn">Contact</button>
+              </div>
             </div>
 
           </div>

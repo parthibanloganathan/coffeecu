@@ -49,6 +49,7 @@ Meteor.methods({
                                       name: userToMove.name,
                                       uni: userToMove.uni,
                                       school: userToMove.school,
+                                      year: userToMove.year,
                                       major: userToMove.major,
                                       about: userToMove.about,
                                       likes: userToMove.likes,

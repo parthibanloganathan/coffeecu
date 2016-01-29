@@ -88,7 +88,7 @@ Template.profileupdate.rendered = function () {
             prompt : "Please tell us what people should definitely contact you about. You're clearly an expert in some areas or have words of wisdom to pass down. Share it!"
           },
           {
-            type   : 'maxLength[100]',
+            type   : 'maxLength[150]',
             prompt : "You must be very wise to have so many things to be contacted for. Can you keep it to 150 characters?"
           }
         ]
@@ -148,6 +148,8 @@ Template.profileupdate.rendered = function () {
     }
   });
 
+  $('.ui.dropdown').dropdown();
+
   // Populate radio button
   var user = SearchCollectionsToPopulateProfile(Meteor.userId());
   if (user) {
@@ -182,6 +184,7 @@ Template.profileupdate.events({
     var name = event.target.name.value;
     var uni = event.target.uni.value;
     var school = event.target.school.value;
+    var year = event.target.year.value;
     var major = event.target.major.value;
     var about = event.target.about.value;
     var likes = event.target.likes.value;
@@ -202,6 +205,7 @@ Template.profileupdate.events({
                 name,
                 uni,
                 school,
+                year,
                 major,
                 about,
                 likes,

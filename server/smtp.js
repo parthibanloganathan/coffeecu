@@ -1,6 +1,6 @@
 Meteor.startup(function(){
-  var username = Meteor.settings.private.sendgrid.username;
-  var password = Meteor.settings.private.sendgrid.password;
+  var username = Meteor.settings.private.mailgun.username;
+  var password = Meteor.settings.private.mailgun.password;
 
   Meteor.Mailgun.config({
     username: username,

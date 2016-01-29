@@ -1,3 +1,11 @@
+Accounts.validateNewUser( function (user) {
+  if (/@columbia\.edu$/.test(user.emails[0].address.toLowerCase())) {
+    return true;
+  } else {
+    throw new Meteor.Error(403, "Use a @columbia.edu email address.");
+  }
+});
+
 Accounts.emailTemplates.siteName = "Tea@Columbia";
 
 Accounts.emailTemplates.from = "Tea@Columbia <do-not-reply@teaatcolumbia.info>";

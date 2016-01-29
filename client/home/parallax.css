@@ -1,4 +1,4 @@
-.darken-parallax {
+.parallax-container {
   position: absolute;
   left: 0px;
   right: 0px;
@@ -7,6 +7,13 @@
   height: 500px;
 }
 
-.parallax-container {
-  height: 500px;
+.parallax-overlay { 
+  position: absolute;
+  margin-top: 4px;
+  height: 492px;
+  width: 100%;
+  left: 0px;
+  right: 0px;
+  background: black;
+  opacity: 0.3;
 }
