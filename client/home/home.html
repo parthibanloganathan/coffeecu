@@ -1,24 +1,28 @@
 <template name="Home">
-  {{> overlay}}
-  {{>meetingsMade}}
+  {{> logo}}
+  {{> parallax}}
+  {{> intro}}
+  {{> meetingsMade}}
   {{> people}}
-</template>
-
-<template name="overlay">
-  <div class="top-block">
-    {{> parallax }}
-    <div class="welcome">
-      {{#markdown}}
-      {{welcome}}
-      {{/markdown}}
-    </div>
-  </div>
 </template>
 
 <template name="parallax">
   <div class="parallax-container">
     <div class="parallax"><img src="/img/parallax/{{randomParallaxImage}}.jpg"></div>
     <div class="parallax-overlay"></div>
+  </div>
+</template>
+
+<template name="logo">
+  <div class="ui center aligned logo">
+    <img src="/img/logo.png" class="brand-image"/>
+    <h2 class="brand-title">Tea at Columbia</h2>
+  </div>
+</template>
+
+<template name="intro">
+  <div class="welcome">
+    {{#markdown}}{{welcome}}{{/markdown}}
   </div>
 </template>
 

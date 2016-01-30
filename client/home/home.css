@@ -1,11 +1,22 @@
-.top-block {
-  height: 500px;
+.logo {
+  height: 400px;
+}
+
+.brand-image {
+  height: 250px;
+  margin-top: 20px;
+}
+
+.brand-title {
+  font-family: 'Dancing Script', cursive;
+  color: white;
+  font-size: 4em;
 }
 
 .welcome {
-  margin: auto;
-  font-size: 1.3em;
-  color: white;
+  margin: 20px auto 30px auto;
+  max-width: 1024px;
+  font-size: 1.6em;
 }
 
 .meetings-made {
@@ -15,15 +26,14 @@
   right: 0px;
   width: 100%;
   height: 120px;
-  margin-top: -10px;
 }
 
 .meetings-made .statistic {
-  padding-top: 22px;
+  padding-top: 24px;
 }
 
 .people-home {
-  margin-top: 150px;
+  margin-top: 200px;
 }
 
 .people-home .person {

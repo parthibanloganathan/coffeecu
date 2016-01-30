@@ -4,13 +4,13 @@
   right: 0px;
   top: 60px;
   width: 100%;
-  height: 500px;
+  height: 400px;
 }
 
-.parallax-overlay { 
+.parallax-overlay {
   position: absolute;
   margin-top: 4px;
-  height: 492px;
+  height: 395px;
   width: 100%;
   left: 0px;
   right: 0px;

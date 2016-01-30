@@ -8,7 +8,7 @@ Template.people.rendered = function () {
   });
 };
 
-Template.overlay.helpers({
+Template.intro.helpers({
   'welcome': function () {
     return data.welcome;
   }
