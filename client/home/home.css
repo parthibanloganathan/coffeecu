@@ -1,10 +1,14 @@
 .logo {
+  position: absolute;
+  margin-top: -400px;
+  margin-left: 400px;
   height: 400px;
+  z-index: 2;
 }
 
 .brand-image {
   height: 250px;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .brand-title {
@@ -14,7 +18,7 @@
 }
 
 .welcome {
-  margin: 20px auto 30px auto;
+  margin: 420px auto 30px auto;
   max-width: 1024px;
   font-size: 1.6em;
 }
