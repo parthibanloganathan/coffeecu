@@ -1,7 +1,6 @@
 Template.Admin.helpers({
   'userIsAdmin': function () {
     return true;
-    //return Meteor.settings.public.admins.indexOf(Meteor.userId()) > -1;
   }
 });
 
@@ -21,6 +20,8 @@ Template.displayPendingPeople.events({
     Meteor.call('rejectPendingUser', id, reason);
   },
   'click #accept': function () {
+    event.preventDefault();
+
     var id = this.owner;
     Meteor.call('moveUserToMaster', id);
   }

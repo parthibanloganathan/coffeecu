@@ -148,13 +148,14 @@ Template.profileupdate.rendered = function () {
     }
   });
 
-  $('.ui.dropdown').dropdown();
-
   // Populate radio button
   var user = SearchCollectionsToPopulateProfile(Meteor.userId());
   if (user) {
     $('#' + user.school).prop('checked', true);
   }
+
+  // Initialize and populate dropdown
+  $('.ui.dropdown').val(user.year);
 
   // Callback for photo url in meteor-uploads
   Meteor.startup(function () {
@@ -182,7 +183,8 @@ Template.profileupdate.events({
     event.preventDefault();
 
     var name = event.target.name.value;
-    var uni = event.target.uni.value;
+    var email = Meteor.user().emails[0].address;
+    var uni = email.substr(0, email.indexOf('@'));
     var school = event.target.school.value;
     var year = event.target.year.value;
     var major = event.target.major.value;
@@ -197,11 +199,11 @@ Template.profileupdate.events({
     if (Session.get('UploadedImageUrl')) {
       image = Session.get('UploadedImageUrl');
     }
-    Session.set('UploadedImageUrl', '');      
+    Session.set('UploadedImageUrl', '');
 
     Meteor.call('insertPendingUser',
                 Meteor.userId(),
-                Meteor.user().emails[0],
+                email,
                 name,
                 uni,
                 school,
@@ -218,29 +220,9 @@ Template.profileupdate.events({
                );
 
                Materialize.toast('Your profile is currently under review and will be posted once approved.', 4000);
-               Session.set('message', 'Your profile is currently under review and will be posted once approved.');
   },
   'click #deleteprofile': function() {
     Meteor.call('deleteUser', Meteor.userId());
     Materialize.toast('Your profile has been successfully deleted.', 4000)
-    Session.set('message', 'Your profile has been successfully deleted.');
-  }
-});
-
-Template.formMessage.events({
-  'click .message .close': function (event) {
-    $(event.target)
-    .closest('.message')
-    .transition('fade');
-    Session.set('message', 'default');
-  }
-});
-
-Template.formMessage.helpers({
-  'isMessageSet': function () {
-    return Session.get('message') != 'default';
-  },
-  'message': function () {
-    return Session.get('message');
   }
 });

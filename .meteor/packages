@@ -10,8 +10,6 @@ accounts-password
 iron:router
 fortawesome:fontawesome
 udondan:googlefonts
-fourseven:scss
-mizzao:bootboxjs
 email
 meteor-base
 mobile-experience
@@ -32,10 +30,11 @@ semantic:ui
 flemay:less-autoprefixer
 useraccounts:core
 useraccounts:iron-routing
-useraccounts:materialize
-accounts-google
 seba:minifiers-autoprefixer
 tomi:upload-server
 tomi:upload-jquery
 easy:search
 markdown
+useraccounts:materialize
+fourseven:scss
+materialize:materialize-custom

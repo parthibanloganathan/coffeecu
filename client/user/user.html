@@ -1,7 +1,6 @@
 <template name="User">
   {{#if currentUser}}
   {{> profileupdate}}
-  {{> formMessage}}
   {{/if}}
 </template>
 
@@ -34,31 +33,21 @@
         </div>
 
         <div class="field">
-          <label>UNI</label>
-          <input type="text" name="uni" value="{{user.uni}}" placeholder="rtl1234" />
-        </div>
-
-        <div class="field">
           <label>What do you study?</label>
           <input type="text" name="major" value="{{user.major}}" placeholder="Economics" />
         </div>
 
         <div class="field">
           <label>Year</label>
-          <div class="ui selection dropdown">
-            <input type="hidden" name="year">
-            <i class="dropdown icon"></i>
-            <div class="default text">Year</div>
-            <div class="menu">
-              <div class="item" data-value="2016">2016</div>
-              <div class="item" data-value="2017">2017</div>
-              <div class="item" data-value="2018">2018</div>
-              <div class="item" data-value="2019">2019</div>
-            </div>
-          </div>
+          <select name="year" class="ui dropdown">
+            <option value="2016">2016</option>
+            <option value="2017">2017</option>
+            <option value="2018">2018</option>
+            <option value="2019">2019</option>
+          </select>
         </div>
 
-        <div class="field radio-inline">
+        <div class="field">
           <label>School</label>
           <input name="school" type="radio" id="SEAS" value="SEAS" />
           <label for="SEAS">SEAS</label>
@@ -66,6 +55,8 @@
           <label for="CC">CC</label>
           <input name="school" type="radio" id="GS" value="GS" />
           <label for="GS">GS</label>
+          <input name="school" type="radio" id="BC" value="BC" />
+          <label for="BC">BC</label>
         </div>
 
       </div>
@@ -85,7 +76,7 @@
 
     <div class="field">
       <label>What are some things people should contact you for? (150 chars)</label>
-      <textarea type="text" name="contactfor" value="{{user.contactfor}}" placeholder="learnign how to dance, career advice for prospective mascots, understanding relativistic quantum field theory" rows="3"></textarea>
+      <textarea type="text" name="contactfor" value="{{user.contactfor}}" placeholder="learning how to dance, career advice for prospective mascots, understanding relativistic quantum field theory" rows="3"></textarea>
     </div>
 
     <div class="field">
@@ -132,15 +123,4 @@
     </div>
 
   </form>
-</template>
-
-<template name="formMessage">
-  {{#if isMessageSet}}
-  <div class="ui message">
-    <i class="close icon"></i>
-    <div class="header">
-      {{message}}
-    </div>
-  </div>
-  {{/if}}
 </template>

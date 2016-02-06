@@ -7,13 +7,15 @@ Meteor.publish('people-pending', function () {
 });
 
 Meteor.methods({
+  isAdmin: function () {
+    return Meteor.settings.private.admins.indexOf(Meteor.userId()) > -1;    
+  },
   countMeetings: function () {
     return MeetingsCollection.find().fetch().length;
   },
-  processSendRequest: function (senderUni, receiverUni, receiverName) {
+  processSendRequest: function (senderUni, receiverEmail, receiverUni, receiverName) {
     if (MeetingsCollection.find({sender_uni: senderUni, receiver_uni: receiverUni}).fetch().length > 0) {
-      console.log("Meeting already made");
-      return;
+      return "You've already sent a coffee request to " + receiverName;
     }
 
     if (senderUni !== null) {
@@ -24,7 +26,7 @@ Meteor.methods({
         senderName = uni_details[0].name;
 
         this.unblock();
-        SendEmailToUni(senderUni, senderName, receiverUni, receiverName);        
+        SendEmailForCoffee(senderUni, senderName, receiverUni, receiverEmail, receiverName);
       } else {
         if (VerifyUni(senderUni)) {
           this.unblock();
@@ -32,9 +34,9 @@ Meteor.methods({
           var senderName = GetFirstName(senderUni);
           UniCollection.insert({uni: senderUni, name: senderName});   
 
-          SendEmailToUni(senderUni, senderName, receiverUni, receiverName);
+          SendEmailForCoffee(senderUni, senderName, receiverUni, receiverEmail, receiverName);
         } else {
-          console.log("Failed to send email");
+          return "Invalid UNI";
         }
       }
     }
@@ -65,23 +67,23 @@ Meteor.methods({
 
                                     // Send email
                                     var to = Meteor.users.findOne({'_id': id}).emails[0].address;
-                                    var from = 'do-not-reply@teaatcolumbia.com';
-                                    var subject = 'Tea@Columbia: Profile update declined';
+                                    var from = 'do-not-reply@coffeecu.com';
+                                    var subject = 'Coffee at Columbia: Profile update declined';
                                     var body = "Hi,\n\n" + 
-                                      "Your recent profile update request to Tea@Columbia was rejected.\n\nWhy was it declined: " + reason + "\n\nPlease make the above changes and request an update to your profile again. " + 
-                                      "If you have any questions about teaatcolumbia.info, please contact Parthi at parthiban.loganathan@columbia.edu.\n\nThank you!";
+                                      "Your recent profile update request to Coffee at Columbia was rejected.\n\nWhy was it declined: " + reason + "\n\nPlease make the above changes and request an update to your profile again. " + 
+                                      "If you have any questions, please contact Parthi at parthiban.loganathan@columbia.edu.\n\nThank you!";
                                     SendEmail(to, "", from, subject, body); 
   }
 });
 
-var SendEmailToUni = function (senderUni, senderName, receiverUni, receiverName) {
-  var to = receiverUni + '@columbia.edu';
+var SendEmailForCoffee = function (senderUni, senderName, receiverUni, receiverEmail, receiverName) {
+  var to = receiverEmail;
   var cc = senderUni + '@columbia.edu';
-  var from = 'do-not-reply@teaatcolumbia.com';
-  var subject = 'Tea@Columbia: Request from ' + senderName;
+  var from = 'do-not-reply@coffeecu.com';
+  var subject = 'Coffee at Columbia: Request from ' + senderName;
   var body = "Hi " + receiverName + ",\n\n" + 
     senderName + " (cc'ed) would like to meet you. Please respond to them if you have the time to chat. May we suggest meeting at Joe's in NoCo, Brad's in the Journalism building, Brownie's Cafe in Avery, Carleton Lounge in Mudd or Cafe East in Lerner. Hope you have a great time talking!\n\n" + 
-    "Note that if you would like to stop receiving these coffee requests, please delete your account at teaatcolumbia.info or contact parthiban.loganathan@columbia.edu.";
+    "Note that if you would like to stop receiving these coffee requests, please delete your account at coffeecu.com or contact parthiban.loganathan@columbia.edu.";
 
   SendEmail(to, cc, from, subject, body);
 
@@ -116,5 +118,5 @@ var GetFirstName = function (uni) {
 };
 
 var LogMeeting = function(senderUni, receiverUni) {
-  MeetingsCollection.insert({sender_uni: uni1, receiver_uni: uni2});
+  MeetingsCollection.insert({sender_uni: senderUni, receiver_uni: receiverUni});
 };

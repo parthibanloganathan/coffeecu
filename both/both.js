@@ -76,77 +76,77 @@ PeopleIndex = new EasySearch.Index({
 
 Meteor.methods({
   insertPendingUser: function (id,
-                        username,
-                        name,
-                        uni,
-                        school,
-                        year,
-                        major,
-                        about,
-                        likes,
-                        contactfor,
-                        availability,
-                        twitter,
-                        facebook,
-                        linkedin,
-                        image
-                       ) {
-                         if (!Meteor.userId()) {
-                           throw new Meteor.Error('not-authorized');
-                         }
+                               username,
+                               name,
+                               uni,
+                               school,
+                               year,
+                               major,
+                               about,
+                               likes,
+                               contactfor,
+                               availability,
+                               twitter,
+                               facebook,
+                               linkedin,
+                               image
+                              ) {
+                                if (!Meteor.userId()) {
+                                  throw new Meteor.Error('not-authorized');
+                                }
 
-                         PendingPeopleCollection.update(
-                           {owner: id},
-                           {$set: {
-                             owner: id, 
-                             username: username,        
-                             name: name,
-                             uni: uni,
-                             school: school,
-                             year: year,
-                             major: major,
-                             about: about,
-                             likes: likes,
-                             contactfor: contactfor,
-                             availability: availability,
-                             twitter: twitter,
-                             facebook: facebook,
-                             linkedin: linkedin,
-                             image: image,
-                           }},
-                           {upsert: true});
-                           RejectedPeopleCollection.remove({owner: id});
-                       },
-                       moveUserToMaster: function (id) {
-                         var userToMove = PendingPeopleCollection.findOne({owner: id});
-                         PeopleCollection.update({owner: id}, 
-                                                 {$set: {
-                                                   owner: id, 
-                                                   username: userToMove.username,        
-                                                   name: userToMove.name,
-                                                   uni: userToMove.uni,
-                                                   school: userToMove.school,
-                                                   year: year,
-                                                   major: userToMove.major,
-                                                   about: userToMove.about,
-                                                   likes: userToMove.likes,
-                                                   contactfor: userToMove.contactfor,
-                                                   availability: userToMove.availability,
-                                                   twitter: userToMove.twitter,
-                                                   facebook: userToMove.facebook,
-                                                   linkedin: userToMove.linkedin,
-                                                   image: userToMove.image,
-                                                 }},
-                                                 {upsert: true});
-                                                 PendingPeopleCollection.remove({owner: id});
-                                                 RejectedPeopleCollection.remove({owner: id});
-                       },
-                       deleteUser: function (id) {
-                         if (!Meteor.userId()) {
-                           throw new Meteor.Error('not-authorized');
-                         }
-                         PeopleCollection.remove({owner: id});
-                         PendingPeopleCollection.remove({owner: id});
-                         RejectedPeopleCollection.remove({owner: id});                         
-                       }
+                                PendingPeopleCollection.update(
+                                  {owner: id},
+                                  {$set: {
+                                    owner: id, 
+                                    username: username,        
+                                    name: name,
+                                    uni: uni,
+                                    school: school,
+                                    year: year,
+                                    major: major,
+                                    about: about,
+                                    likes: likes,
+                                    contactfor: contactfor,
+                                    availability: availability,
+                                    twitter: twitter,
+                                    facebook: facebook,
+                                    linkedin: linkedin,
+                                    image: image,
+                                  }},
+                                  {upsert: true});
+                                  RejectedPeopleCollection.remove({owner: id});
+                              },
+                              moveUserToMaster: function (id) {
+                                var userToMove = PendingPeopleCollection.findOne({owner: id});
+                                PeopleCollection.update({owner: id}, 
+                                                        {$set: {
+                                                          owner: id, 
+                                                          username: userToMove.username,        
+                                                          name: userToMove.name,
+                                                          uni: userToMove.uni,
+                                                          school: userToMove.school,
+                                                          year: userToMove.year,
+                                                          major: userToMove.major,
+                                                          about: userToMove.about,
+                                                          likes: userToMove.likes,
+                                                          contactfor: userToMove.contactfor,
+                                                          availability: userToMove.availability,
+                                                          twitter: userToMove.twitter,
+                                                          facebook: userToMove.facebook,
+                                                          linkedin: userToMove.linkedin,
+                                                          image: userToMove.image,
+                                                        }},
+                                                        {upsert: true});
+                                                        PendingPeopleCollection.remove({owner: id});
+                                                        RejectedPeopleCollection.remove({owner: id});
+                              },
+                              deleteUser: function (id) {
+                                if (!Meteor.userId()) {
+                                  throw new Meteor.Error('not-authorized');
+                                }
+                                PeopleCollection.remove({owner: id});
+                                PendingPeopleCollection.remove({owner: id});
+                                RejectedPeopleCollection.remove({owner: id});                         
+                              }
 });
