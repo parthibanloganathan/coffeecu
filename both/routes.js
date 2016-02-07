@@ -1,5 +1,6 @@
 Router.configure({
-  layoutTemplate: 'ApplicationLayout'
+  layoutTemplate: 'ApplicationLayout',
+  notFoundTemplate: '404'
 });
 
 Router.route('/', function () {
@@ -62,14 +63,14 @@ AccountsTemplates.configure({
       "meteor-developer": "fa fa-rocket"
     },
     title: {
-      forgotPwd: "Recover Your Password"
+      forgotPwd: "Recover your password"
     },
   },
 });
 
 
 AccountsTemplates.configure({
-  defaultLayout: 'ApplicationLayout',
+  defaultLayout: 'ApplicationLayout'
 });
 
 AccountsTemplates.configureRoute('signIn', {

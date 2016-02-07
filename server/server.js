@@ -14,7 +14,7 @@ Meteor.methods({
     return MeetingsCollection.find().fetch().length;
   },
   processSendRequest: function (senderUni, receiverEmail, receiverUni, receiverName) {
-    if (MeetingsCollection.find({sender_uni: senderUni, receiver_uni: receiverUni}).fetch().length > 0) {
+    if(MeetingsCollection.find({sender_uni: senderUni, receiver_uni: receiverUni}).fetch().length > 0) {
       return "You've already sent a coffee request to " + receiverName;
     }
 
@@ -22,12 +22,13 @@ Meteor.methods({
       // Check UNI cache first
       var uni_details = UniCollection.find( {uni: senderUni} ).fetch();
 
+      // If in cache, use that first
       if (uni_details.length > 0) {
         senderName = uni_details[0].name;
 
         this.unblock();
         SendEmailForCoffee(senderUni, senderName, receiverUni, receiverEmail, receiverName);
-      } else {
+      } else { // else, call API to check validity of UNI
         if (VerifyUni(senderUni)) {
           this.unblock();
 
@@ -42,6 +43,11 @@ Meteor.methods({
     }
   },
   rejectPendingUser: function (id, reason) {
+    // Only admin can reject a user
+    if (!IsAdmin()) {
+      return;
+    }
+
     // Move to rejected users
     var userToMove = PendingPeopleCollection.findOne({owner: id});
     RejectedPeopleCollection.update({owner: id}, 
@@ -73,7 +79,85 @@ Meteor.methods({
                                       "Your recent profile update request to Coffee at Columbia was rejected.\n\nWhy was it declined: " + reason + "\n\nPlease make the above changes and request an update to your profile again. " + 
                                       "If you have any questions, please contact Parthi at parthiban.loganathan@columbia.edu.\n\nThank you!";
                                     SendEmail(to, "", from, subject, body); 
-  }
+  },
+  insertPendingUser: function (id,
+                               username,
+                               name,
+                               uni,
+                               school,
+                               year,
+                               major,
+                               about,
+                               likes,
+                               contactfor,
+                               availability,
+                               twitter,
+                               facebook,
+                               linkedin,
+                               image
+                              ) {
+                                if (!Meteor.userId()) {
+                                  throw new Meteor.Error('not-authorized');
+                                }
+
+                                PendingPeopleCollection.update(
+                                  {owner: id},
+                                  {$set: {
+                                    owner: id, 
+                                    username: username,        
+                                    name: name,
+                                    uni: uni,
+                                    school: school,
+                                    year: year,
+                                    major: major,
+                                    about: about,
+                                    likes: likes,
+                                    contactfor: contactfor,
+                                    availability: availability,
+                                    twitter: twitter,
+                                    facebook: facebook,
+                                    linkedin: linkedin,
+                                    image: image,
+                                  }},
+                                  {upsert: true});
+                                  RejectedPeopleCollection.remove({owner: id});
+                              },
+                              moveUserToMaster: function (id) {
+                                // Only admin can move user to master
+                                if (!IsAdmin()) {
+                                  return;
+                                }
+                                var userToMove = PendingPeopleCollection.findOne({owner: id});
+                                PeopleCollection.update({owner: id}, 
+                                                        {$set: {
+                                                          owner: id, 
+                                                          username: userToMove.username,        
+                                                          name: userToMove.name,
+                                                          uni: userToMove.uni,
+                                                          school: userToMove.school,
+                                                          year: userToMove.year,
+                                                          major: userToMove.major,
+                                                          about: userToMove.about,
+                                                          likes: userToMove.likes,
+                                                          contactfor: userToMove.contactfor,
+                                                          availability: userToMove.availability,
+                                                          twitter: userToMove.twitter,
+                                                          facebook: userToMove.facebook,
+                                                          linkedin: userToMove.linkedin,
+                                                          image: userToMove.image,
+                                                        }},
+                                                        {upsert: true});
+                                                        PendingPeopleCollection.remove({owner: id});
+                                                        RejectedPeopleCollection.remove({owner: id});
+                              },
+                              deleteUser: function (id) {
+                                if (!Meteor.userId()) {
+                                  throw new Meteor.Error('not-authorized');
+                                }
+                                PeopleCollection.remove({owner: id});
+                                PendingPeopleCollection.remove({owner: id});
+                                RejectedPeopleCollection.remove({owner: id});                         
+                              }
 });
 
 var SendEmailForCoffee = function (senderUni, senderName, receiverUni, receiverEmail, receiverName) {
@@ -93,13 +177,16 @@ var SendEmailForCoffee = function (senderUni, senderName, receiverUni, receiverE
 var VerifyUni = function (uni) {
   var convertAsyncToSync  = Meteor.wrapAsync(HTTP.get),
     resultOfAsyncToSync = convertAsyncToSync('http://uniatcu.herokuapp.com/exists?uni=' + uni, {});
-  return resultOfAsyncToSync.data.exists;
+  console.log(resultOfAsyncToSync);
+  if(resultOfAsyncToSync.data.exists == 'true') {
+    return true;
+  } else {
+    return false;
+  }
 };
 
 var SendEmail = function (to, cc, from, subject, body) {
   check([to, cc, from, subject, body], [String]);
-
-  console.log("Sending email");
 
   Meteor.Mailgun.send({
     to: to,
@@ -119,4 +206,8 @@ var GetFirstName = function (uni) {
 
 var LogMeeting = function(senderUni, receiverUni) {
   MeetingsCollection.insert({sender_uni: senderUni, receiver_uni: receiverUni});
+};
+
+var IsAdmin = function() {
+  return Meteor.settings.private.admins.indexOf(Meteor.userId()) > -1;  
 };
