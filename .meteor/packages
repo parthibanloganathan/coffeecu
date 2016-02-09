@@ -36,3 +36,6 @@ markdown
 useraccounts:materialize
 fourseven:scss
 materialize:materialize-custom
+accounts-google
+service-configuration
+accounts-ui

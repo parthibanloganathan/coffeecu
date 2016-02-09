@@ -19,3 +19,12 @@ Template.userprofile.helpers({
   }
 });
 
+// Verify email
+Meteor.startup(function(){
+  if (Accounts._verifyEmailToken) {
+    Accounts.verifyEmail(Accounts._verifyEmailToken, function(error) {
+      Accounts._enableAutoLogin();
+      Router.go('/user/' + Meteor.userId());      
+    });
+  }
+});

@@ -20,6 +20,17 @@ Router.route('/uploads/:userid', function () {
   var id = params.userid; 
 });
 
+// Make sure user is verified
+Router.onBeforeAction(function(){
+  if (Meteor.loggingIn()){
+    this.render('User');
+  } else if (Meteor.user() && !Meteor.user().emails[0].verified){
+    this.render('Verification');
+  } else {
+    this.next();
+  }
+});
+
 AccountsTemplates.configure({
   // Behavior
   confirmPassword: true,
@@ -27,8 +38,9 @@ AccountsTemplates.configure({
   forbidClientAccountCreation: false,
   overrideLoginErrors: true,
   sendVerificationEmail: true,
-  lowercaseUsername: false,
+  lowercaseUsername: true,
   focusFirstInput: true,
+  socialLoginStyle: "popup",
 
   // Appearance
   showAddRemoveServices: false,
@@ -44,10 +56,6 @@ AccountsTemplates.configure({
   positiveValidation: true,
   positiveFeedback: true,
   showValidating: true,
-
-  // Privacy Policy and Terms of Use
-  privacyUrl: 'privacy',
-  termsUrl: 'terms-of-use',
 
   // Redirects
   homeRoutePath: '/',

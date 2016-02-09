@@ -168,7 +168,6 @@ Template.profileupdate.rendered = function () {
     // Callback for photo url in meteor-uploads
     Meteor.startup(function () {
       Uploader.finished = function(index, fileInfo, templateContext) {
-        console.log(fileInfo.finalUrl);
         Session.set('UploadedImageUrl', fileInfo.finalUrl);
       };
     });

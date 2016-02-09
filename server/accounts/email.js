@@ -1,5 +1,12 @@
 Accounts.validateNewUser( function (user) {
-  if (/[a-z]{2,3}\d{4}@(barnard|columbia)\.edu$/.test(user.emails[0].address.toLowerCase())) {
+  var email;
+  if (user.services.google) {
+    email = user.services.google.email;
+  } else if (user.services.password) {
+    email = user.emails[0].address.toLowerCase();
+  }
+
+  if (/[a-z]{2,3}\d{4}@(barnard|columbia)\.edu$/.test(email)) {
     return true;
   } else {
     throw new Meteor.Error(403, "Use a <UNI>@columbia.edu or <UNI>@barnard.edu email address.");
@@ -8,10 +15,20 @@ Accounts.validateNewUser( function (user) {
 
 Accounts.emailTemplates.siteName = "Coffee at Columbia";
 
-Accounts.emailTemplates.from = "Coffee at Columbia <do-not-reply@teaatcolumbia.info>";
+Accounts.emailTemplates.from = "Coffee at Columbia <do-not-reply@coffeecu.com>";
 
+// Acconut verification
+Accounts.emailTemplates.verifyEmail.subject = function(user) {
+  return 'Coffee at Columbia - Confirm your email address';
+};
+
+Accounts.emailTemplates.verifyEmail.text = function(user, url) {
+  return 'Thank you for registering for Coffee at Columbia. Please click on the following link to verify your email address: \n\n' + url;
+};
+
+// Reset password
 Accounts.emailTemplates.resetPassword.subject = function (user) {
-    return "Tea@Columbia - Reset password for " + user.profile.displayName;
+    return "Coffee at Columbia - Reset password for " + user.profile.displayName;
 };
 
 Accounts.emailTemplates.resetPassword.text = function (user, url) {

@@ -1,11 +1,12 @@
-# Tea@Columbia
+# Coffee at Columbia
 
 Dependencies
 ------------
 For login:
 - accounts-password
-- fourseven:scss (to compile SCSS for materialize)
-- installed [materialize SCSS](http://materializecss.com/getting-started.html) manually to change colors in `_variables.sccs` for materialize theme for meteor:user-accounts
+- accounts-google
+- acccounts-ui
+- service-configuration
 - useraccounts:core
 - useraccounts:materialize
 - useraccounts:iron-routing
@@ -13,6 +14,7 @@ For login:
 For styling:
 - materialize:materialize-custom
 - semantic:ui
+- fourseven:scss (to compile SCSS for materialize)
 
 For email:
 - cunneen:mailgun (need to create Mailgun account too)
@@ -20,7 +22,11 @@ For email:
 For search:
 - easy:search
 
-Routing:
+For image upload:
+- tomi:upload-server
+- tomi:upload-jquery
+
+For routing:
 - iron:router
 
 

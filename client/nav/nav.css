@@ -17,3 +17,13 @@ nav a:visited {
   margin: 50px auto 0 auto;
   width: 400px;
 }
+
+.verify {
+  margin-top: 50px;
+}
+
+.verify .image {
+  margin-top: 100px;
+  margin: auto;
+  size: 300px;
+}
