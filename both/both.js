@@ -1,23 +1,3 @@
-SearchCollectionsToPopulateProfile = function (id) {
-  // Check rejected first
-  var person = RejectedPeopleCollection.findOne({owner: id});
-
-  if (person) {
-    return person;
-  } else {
-    // then check pending
-    person = PendingPeopleCollection.findOne({owner: id});
-  }
-
-  if (person) {
-    return person;
-  } else {
-    // finally check master
-    person = PeopleCollection.findOne({owner: id});
-  }
-  return person;
-};
-
 // User submits profile update -> inserted into PendingPeopleCollection
 // If approved, -> moved from PendingPeopleCollection to PeopleCollection
 // If rejected, -> moved from PendingPeopleCollection to RejectedPeopleCollection
@@ -27,8 +7,28 @@ PeopleCollection = new Mongo.Collection('people-master');
 PendingPeopleCollection = new Mongo.Collection('people-pending');
 RejectedPeopleCollection = new Mongo.Collection('people-rejected');
 
-UniCollection = new Mongo.Collection('uni');
-MeetingsCollection = new Mongo.Collection('meetings');
+Meteor.methods({
+  searchCollectionsToPopulateProfile: function (id) {
+    if (id != Meteor.userId()) {
+      throw new Meteor.Error("not-authorized");
+    }
+
+    // Check pending first
+    var person = PendingPeopleCollection.findOne({owner: id});
+
+    if (!person) {
+      // then check rejected
+      person = RejectedPeopleCollection.findOne({owner: id});
+    }
+    
+    if (!person) {
+      // finally check master
+      person = PeopleCollection.findOne({owner: id});
+    }
+   
+    return person;
+  }
+});
 
 PeopleCollection.deny({
   update: function() {
@@ -54,7 +54,7 @@ PendingPeopleCollection.deny({
   }
 });
 
-MeetingsCollection.deny({
+RejectedPeopleCollection.deny({
   update: function() {
     return true;
   },

@@ -1,4 +1,4 @@
-Meteor.subscribe('people');
+Meteor.subscribe('people-master');
 
 Session.set('currentlySelected', null);
 
@@ -45,15 +45,15 @@ Template.people.helpers({
 
 Template.people.events({
   'click #contact': function () {
-    Session.set('currentlySelected', { username: this.username, uni: this.uni, name: this.name.split(' ')[0] });
+    Session.set('currentlySelected', { owner: this.owner, uni: this.uni, name: this.name.split(' ')[0] });
     $('.ui.modal').modal({
       onApprove: function(event) {
-        var receiverEmail = Session.get('currentlySelected').username;
+        var receiver = Session.get('currentlySelected').owner;
         var receiverUni = Session.get('currentlySelected').uni;
         var receiverName = Session.get('currentlySelected').name;
         var senderUni = $("#senderUni").val();
 
-        Meteor.call('processSendRequest', senderUni, receiverEmail, receiverUni, receiverName, function (error, response) {
+        Meteor.call('processSendRequest', senderUni, receiver, receiverUni, receiverName, function (error, response) {
           if (error) {
             Materialize.toast('Failed to send email', 4000);          
             console.log(error);

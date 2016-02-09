@@ -1,26 +1,20 @@
-Meteor.publish('people-master', function () {
-  return PeopleCollection.find();
-});
-
-Meteor.publish('people-pending', function () {
-  return PendingPeopleCollection.find();
-});
-
 Meteor.methods({
   isAdmin: function () {
-    return Meteor.settings.private.admins.indexOf(Meteor.userId()) > -1;    
+    return IsAdmin(Meteor.userId());
   },
   countMeetings: function () {
     return MeetingsCollection.find().fetch().length;
   },
-  processSendRequest: function (senderUni, receiverEmail, receiverUni, receiverName) {
-    if(MeetingsCollection.find({sender_uni: senderUni, receiver_uni: receiverUni}).fetch().length > 0) {
+  processSendRequest: function (senderUni, receiver, receiverUni, receiverName) {
+    if(MeetingsCollection.find({ sender_uni: senderUni, receiver_uni: receiverUni }).fetch().length > 0) {
       return "You've already sent a coffee request to " + receiverName;
     }
 
+    var receiverEmail = PeopleCollection.findOne({ owner: receiver }).username;
+
     if (senderUni !== null) {
       // Check UNI cache first
-      var uni_details = UniCollection.find( {uni: senderUni} ).fetch();
+      var uni_details = UniCollection.find({ uni: senderUni }).fetch();
 
       // If in cache, use that first
       if (uni_details.length > 0) {
@@ -40,11 +34,12 @@ Meteor.methods({
           return "Invalid UNI";
         }
       }
+      return "Email sent to " + receiverName;
     }
   },
   rejectPendingUser: function (id, reason) {
     // Only admin can reject a user
-    if (!IsAdmin()) {
+    if (!IsAdmin(Meteor.userId())) {
       return;
     }
 
@@ -69,10 +64,10 @@ Meteor.methods({
                                       image: userToMove.image,
                                     }},
                                     {upsert: true});
-                                    PendingPeopleCollection.remove({owner: id});
+                                    PendingPeopleCollection.remove({ owner: id });
 
                                     // Send email
-                                    var to = Meteor.users.findOne({'_id': id}).emails[0].address;
+                                    var to = Meteor.users.findOne({ '_id': id }).emails[0].address;
                                     var from = 'do-not-reply@coffeecu.com';
                                     var subject = 'Coffee at Columbia: Profile update declined';
                                     var body = "Hi,\n\n" + 
@@ -120,15 +115,15 @@ Meteor.methods({
                                     image: image,
                                   }},
                                   {upsert: true});
-                                  RejectedPeopleCollection.remove({owner: id});
+                                  RejectedPeopleCollection.remove({ owner: id });
                               },
                               moveUserToMaster: function (id) {
                                 // Only admin can move user to master
-                                if (!IsAdmin()) {
+                                if (!IsAdmin(Meteor.userId())) {
                                   return;
                                 }
                                 var userToMove = PendingPeopleCollection.findOne({owner: id});
-                                PeopleCollection.update({owner: id}, 
+                                PeopleCollection.update({ owner: id }, 
                                                         {$set: {
                                                           owner: id, 
                                                           username: userToMove.username,        
@@ -151,12 +146,12 @@ Meteor.methods({
                                                         RejectedPeopleCollection.remove({owner: id});
                               },
                               deleteUser: function (id) {
-                                if (!Meteor.userId()) {
+                                if (!IsAdmin(Meteor.userId()) && id != Meteor.userId()) {
                                   throw new Meteor.Error('not-authorized');
                                 }
-                                PeopleCollection.remove({owner: id});
-                                PendingPeopleCollection.remove({owner: id});
-                                RejectedPeopleCollection.remove({owner: id});                         
+                                PeopleCollection.remove({ owner: id });
+                                PendingPeopleCollection.remove({ owner: id });
+                                RejectedPeopleCollection.remove({ owner: id });                         
                               }
 });
 
@@ -208,6 +203,6 @@ var LogMeeting = function(senderUni, receiverUni) {
   MeetingsCollection.insert({sender_uni: senderUni, receiver_uni: receiverUni});
 };
 
-var IsAdmin = function() {
-  return Meteor.settings.private.admins.indexOf(Meteor.userId()) > -1;  
+IsAdmin = function(id) {
+  return Meteor.settings.private.admins.indexOf(id) > -1;  
 };

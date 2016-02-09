@@ -1,6 +1,15 @@
+Meteor.subscribe('people-rejected');
+Session.set('isAdmin', false);
+
+Template.Admin.rendered = function () {
+  Meteor.call('isAdmin', function (error, response) {
+    Session.set('isAdmin', response);
+  });
+};
+
 Template.Admin.helpers({
   'userIsAdmin': function () {
-    return true;
+    return Session.get('isAdmin');
   }
 });
 
@@ -35,8 +44,7 @@ Template.displayPeople.helpers({
 
 Template.displayPeople.events({
   'click #delete': function () {
-    var id = this.owner;
-    Meteor.call('deleteUser', id);
+    Meteor.call('deleteUser', Meteor.userId());
   }
 });
 
