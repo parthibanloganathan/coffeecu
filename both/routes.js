@@ -21,11 +21,11 @@ Router.route('/uploads/:userid', function () {
 });
 
 // Make sure user is verified
-Router.onBeforeAction(function(){
+Router.onBeforeAction(function () {
   if (Meteor.loggingIn()){
     this.render('User');
-  } else if (Meteor.user() && !Meteor.user().emails[0].verified){
-    this.render('Verification');
+  } else if (Meteor.user() && Meteor.user().emails && !Meteor.user().emails[0].verified) {
+    this.render('verification');
   } else {
     this.next();
   }

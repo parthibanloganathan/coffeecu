@@ -2,7 +2,7 @@ Accounts.validateNewUser( function (user) {
   var email;
   if (user.services.google) {
     email = user.services.google.email;
-  } else if (user.services.password) {
+  } else {
     email = user.emails[0].address.toLowerCase();
   }
 
@@ -11,6 +11,11 @@ Accounts.validateNewUser( function (user) {
   } else {
     throw new Meteor.Error(403, "Use a <UNI>@columbia.edu or <UNI>@barnard.edu email address.");
   }
+});
+
+// Make email from services accessible
+Meteor.publish("user-data", function () {
+    return Meteor.users.find({_id: this.userId}, {fields: {'services.google.email': 1}});
 });
 
 Accounts.emailTemplates.siteName = "Coffee at Columbia";

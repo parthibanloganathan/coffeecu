@@ -1,4 +1,7 @@
-Meteor.subscribe('people-rejected');
+Tracker.autorun(function () {
+  Meteor.subscribe('people-rejected');
+});
+
 Session.set('isAdmin', false);
 
 Template.Admin.rendered = function () {

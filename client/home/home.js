@@ -1,4 +1,6 @@
-Meteor.subscribe('people-master');
+Tracker.autorun(function () {
+  Meteor.subscribe('people-master');
+});
 
 Session.set('currentlySelected', null);
 

@@ -1,4 +1,7 @@
-Meteor.subscribe('people-pending');
+Tracker.autorun(function () {
+  Meteor.subscribe('people-pending');
+  Meteor.subscribe('user-data');
+});
 
 Session.set('user', {});
 
@@ -192,7 +195,14 @@ Template.profileupdate.events({
     event.preventDefault();
 
     var name = event.target.name.value;
-    var email = Meteor.user().emails[0].address;
+
+    var email;
+    if (Meteor.user().services.google) {
+      email = Meteor.user().services.google.email;
+    } else {
+      email = Meteor.user().emails[0].address.toLowerCase();
+    }
+
     var uni = email.substr(0, email.indexOf('@'));
     var school = event.target.school.value;
     var year = event.target.year.value;
@@ -204,6 +214,7 @@ Template.profileupdate.events({
     var twitter = event.target.twitter.value;
     var facebook = event.target.facebook.value;
     var linkedin = event.target.linkedin.value;
+
     var image = event.target.image.src;
     if (Session.get('UploadedImageUrl')) {
       image = Session.get('UploadedImageUrl');
@@ -231,7 +242,8 @@ Template.profileupdate.events({
                Materialize.toast('Your profile is currently under review and will be posted once approved.', 4000);
   },
   'click #deleteprofile': function() {
+    event.preventDefault();    
     Meteor.call('deleteUser', Meteor.userId());
-    Materialize.toast('Your profile has been successfully deleted.', 4000)
+    Materialize.toast('Your profile has been successfully deleted.', 4000);
   }
 });
