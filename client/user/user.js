@@ -24,25 +24,21 @@ Template.profileupdate.rendered = function () {
           }
         ]
       },
-      uni: {
-        identifier  : 'uni',
-        rules: [
-          {
-            type   : 'empty',
-            prompt : 'Please enter your UNI.'
-          },
-          {
-            type   : 'maxLength[7]',
-            prompt : 'Valid UNIs are at most 7 characters.'
-          }
-        ]
-      },
       school: {
         identifier  : 'school',
         rules: [
           {
             type   : 'checked',
             prompt : 'Please select a school'
+          }
+        ]
+      },
+      year: {
+        identifier  : 'year',
+        rules: [
+          {
+            type   : 'empty',
+            prompt : 'Please select when you graduate'
           }
         ]
       },
@@ -67,8 +63,8 @@ Template.profileupdate.rendered = function () {
             prompt : 'Please tell us something about yourself.'
           },
           {
-            type   : 'maxLength[250]',
-            prompt : "We're excited that you want to share so much about yourself! Please keep it to 250 characters though."
+            type   : 'maxLength[300]',
+            prompt : "We're excited that you want to share so much about yourself! Please keep it to 300 characters though."
           }
         ]
       },
@@ -80,8 +76,8 @@ Template.profileupdate.rendered = function () {
             prompt : 'Please tell us what you like.'
           },
           {
-            type   : 'maxLength[100]',
-            prompt : "You like a lot of things! Any chance you can you bring it down to 100 characters?"
+            type   : 'maxLength[150]',
+            prompt : "You like a lot of things! Any chance you can you bring it down to 150 characters?"
           }
         ]
       },
@@ -93,8 +89,8 @@ Template.profileupdate.rendered = function () {
             prompt : "Please tell us what people should definitely contact you about. You're clearly an expert in some areas or have words of wisdom to pass down. Share it!"
           },
           {
-            type   : 'maxLength[150]',
-            prompt : "You must be very wise to have so many things to be contacted for. Can you keep it to 150 characters?"
+            type   : 'maxLength[250]',
+            prompt : "You must be very wise to have so many things to be contacted for. Can you keep it to 250 characters?"
           }
         ]
       },
@@ -106,8 +102,8 @@ Template.profileupdate.rendered = function () {
             prompt : "Please tell us when you're generally free to chat with folks."
           },
           {
-            type   : 'maxLength[100]',
-            prompt : "List your availability in 100 characters or less please."
+            type   : 'maxLength[150]',
+            prompt : "List your availability in 150 characters or less please."
           }
         ]
       },
@@ -180,9 +176,8 @@ Template.profileupdate.rendered = function () {
 
 Template.profileupdate.helpers({
   'userIdData': function () {
-    var user = Session.get('user');
     return {
-      id: user.owner
+      id: Meteor.userId()
     };
   },
   'user': function () {
