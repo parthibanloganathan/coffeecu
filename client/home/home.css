@@ -45,6 +45,11 @@
   width: 300px;
 }
 
+.people-home .person .profilepic {
+  height: 300px;
+  width: 300px;
+}
+
 .people-home .searchbox {
   margin: 50px 0 50px 0;
 }
