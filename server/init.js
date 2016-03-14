@@ -9,7 +9,7 @@ Meteor.startup(function () {
     },
     finished: function (fileInfo, formFields) { // construct final url baseUrl/uploads/profilePic/<id>_dp.jpg
       //fileInfo.finalUrl = fileInfo.baseUrl + 'profilePic' + fileInfo.path;
-      fileInfo.finalUrl = fileInfo.baseUrl.substring(0,-1) + fileInfo.path;
+      fileInfo.finalUrl = "/upload" + fileInfo.path;
     },
     maxFileSize: 10000000, // 10 MB 
     mimeTypes: {
