@@ -92,3 +92,26 @@ AccountsTemplates.configureRoute('signIn', {
     }
   }
 });
+
+// For SEO via ms-seo
+SeoCollection.update(
+  {
+    route_name: '/'
+  },
+  {
+    $set: {
+      route_name: '/',
+      title: 'Coffee at Columbia',
+      meta: {
+        'description': 'Grab coffee with awesome Columbia students. Make friends, get mentors, help underclassmen in the Columbia community.'
+      },
+      og: {
+        'title': 'Coffee at Columbia'
+      }
+    }
+  },
+  {
+    upsert: true
+  }
+);
+

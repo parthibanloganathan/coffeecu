@@ -1,5 +1,6 @@
-// For image uplods using meteor-uploads
 Meteor.startup(function () {
+  
+  // For image uplods using meteor-uploads
   UploadServer.init({
     tmpDir: process.env.PWD + '/.uploads/tmp',
     uploadDir: process.env.PWD + '/.uploads/',
@@ -18,5 +19,5 @@ Meteor.startup(function () {
       "png": "image/png"
     },
     overwrite: true
-  });
+  }); 
 });
