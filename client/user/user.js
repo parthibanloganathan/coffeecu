@@ -63,8 +63,8 @@ Template.profileupdate.rendered = function () {
             prompt : 'Please tell us something about yourself.'
           },
           {
-            type   : 'maxLength[300]',
-            prompt : "We're excited that you want to share so much about yourself! Please keep it to 300 characters though."
+            type   : 'maxLength[400]',
+            prompt : "We're excited that you want to share so much about yourself! Please keep it to 400 characters though."
           }
         ]
       },
