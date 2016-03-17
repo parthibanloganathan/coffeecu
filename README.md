@@ -29,6 +29,14 @@ For image upload:
 For routing:
 - iron:router
 
+For bug tracking:
+- meteorhacks:kadira
+
+For SEO:
+- manuelschoebel:ms-seo
+
+For recaptcha:
+- bratanon:recaptcha
 
 Hacks:
 -----
