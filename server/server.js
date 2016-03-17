@@ -5,7 +5,14 @@ Meteor.methods({
   countMeetings: function () {
     return MeetingsCollection.find().fetch().length;
   },
-  processSendRequest: function (senderUni, receiver, receiverUni, receiverName) {
+  processSendRequest: function (senderUni, receiver, receiverUni, receiverName, recaptcha) {
+    // Check recaptcha
+    if(!reCAPTCHA.verifyCaptcha(this.connection.clientAddress, recaptcha)) {
+      return "We're not sending that request since we suspect that you're a robot";
+    }
+
+    console.log("we got this far");
+
     if(MeetingsCollection.find({ sender_uni: senderUni, receiver_uni: receiverUni }).fetch().length > 0) {
       return "You've already sent a coffee request to " + receiverName;
     }
@@ -172,7 +179,6 @@ var SendEmailForCoffee = function (senderUni, senderName, receiverUni, receiverE
 var VerifyUni = function (uni) {
   var convertAsyncToSync  = Meteor.wrapAsync(HTTP.get),
     resultOfAsyncToSync = convertAsyncToSync('http://uniatcu.herokuapp.com/exists?uni=' + uni, {});
-  console.log(resultOfAsyncToSync);
   if(resultOfAsyncToSync.data.exists == 'true') {
     return true;
   } else {

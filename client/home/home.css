@@ -62,3 +62,7 @@
 .people-home .person .contact-button {
   margin-top: 10px;
 }
+
+.recaptcha-box {
+  margin: 20px 0 20px 0;
+}

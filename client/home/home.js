@@ -1,3 +1,9 @@
+Meteor.startup(function() {
+    reCAPTCHA.config({
+        sitekey: Meteor.settings.public.recaptcha.key
+    });
+});
+
 Tracker.autorun(function () {
   Meteor.subscribe('people-master');
 });
@@ -54,8 +60,9 @@ Template.people.events({
         var receiverUni = Session.get('currentlySelected').uni;
         var receiverName = Session.get('currentlySelected').name;
         var senderUni = $("#senderUni").val();
+        var recaptcha = reCAPTCHA.getResponse("1");
 
-        Meteor.call('processSendRequest', senderUni, receiver, receiverUni, receiverName, function (error, response) {
+        Meteor.call('processSendRequest', senderUni, receiver, receiverUni, receiverName, recaptcha, function (error, response) {
           if (error) {
             Materialize.toast('Failed to send email', 4000);          
             console.log(error);
@@ -63,6 +70,8 @@ Template.people.events({
             Materialize.toast(response, 4000);            
           }
         });
+
+        reCAPTCHA.reset("1");
       }
     }).modal('show');
   }

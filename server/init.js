@@ -1,5 +1,11 @@
 Meteor.startup(function () {
-  
+
+  // For recaptcha
+  reCAPTCHA.config({
+    privatekey: Meteor.settings.private.recaptcha.secret
+  });
+
+
   // For image uplods using meteor-uploads
   UploadServer.init({
     tmpDir: process.env.PWD + '/.uploads/tmp',

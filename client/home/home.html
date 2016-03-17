@@ -101,6 +101,10 @@
       <div class="field">
         <input type="text" name="senderUni" id="senderUni" />
         <label for="senderUni">UNI</label>
+        <div class="field recaptcha-box">
+          <label>Complete the reCAPTCHA before sending your request</label>
+          {{> reCAPTCHA widget_id="1"}}
+        </div>
       </div>
       <div class="actions">
         <button id="cancel" class="ui negative close cancel button">Cancel</button>
