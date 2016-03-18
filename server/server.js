@@ -74,13 +74,13 @@ Meteor.methods({
                                     PendingPeopleCollection.remove({ owner: id });
 
                                     // Send email
-                                    var to = Meteor.users.findOne({ '_id': id }).emails[0].address;
+                                    var to = userToMove.username;
                                     var from = 'do-not-reply@coffeecu.com';
                                     var subject = 'Coffee at Columbia: Profile update declined';
                                     var body = "Hi,\n\n" + 
-                                      "Your recent profile update request to Coffee at Columbia was rejected.\n\nWhy was it declined: " + reason + "\n\nPlease make the above changes and request an update to your profile again. " + 
-                                      "If you have any questions, please contact Parthi at parthiban.loganathan@columbia.edu.\n\nThank you!";
-                                    SendEmail(to, "", from, subject, body); 
+                                      "Your recent profile update request to Coffee at Columbia was rejected.\n\nWhy was it declined: " + reason + "\n\nPlease make the above changes and request an update to your profile again at http://coffeecu.com. " + 
+                                      "\n\nThank you!";
+                                    SendEmail(to, "", from, subject, body);
   },
   insertPendingUser: function (id,
                                username,
@@ -168,8 +168,8 @@ var SendEmailForCoffee = function (senderUni, senderName, receiverUni, receiverE
   var from = 'do-not-reply@coffeecu.com';
   var subject = 'Coffee at Columbia: Request from ' + senderName;
   var body = "Hi " + receiverName + ",\n\n" + 
-    senderName + " (cc'ed) would like to meet you. Please respond to them if you have the time to chat. May we suggest meeting at Joe's in NoCo, Brad's in the Journalism building, Brownie's Cafe in Avery, Carleton Lounge in Mudd or Cafe East in Lerner. Hope you have a great time talking!\n\n" + 
-    "Note that if you would like to stop receiving these coffee requests, please delete your account at coffeecu.com or contact parthiban.loganathan@columbia.edu.";
+    senderName + " (cc'ed) would like to meet you. Please respond to them if you have the time to chat. Some great places to meet at Columbia are: Joe's in NoCo, Brad's in the Journalism building, Brownie's Cafe in Avery, Carleton Lounge in Mudd or Cafe East in Lerner. Hope you have a great time talking!\n\n" + 
+    "Visit http://coffeecu.com to meet more Columbia students.";
 
   SendEmail(to, cc, from, subject, body);
 
