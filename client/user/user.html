@@ -15,14 +15,12 @@
       <div class="ten wide field center aligned">
         <div class="photo field">
           <label>Upload Photo</label>
-          <object data="{{user.image}}" name="image">
-            <img src="/img/roaree.jpg" />
-          </object>
+          <img src="{{user.image}}" name="image" onerror="if (this.src != '/img/roaree.jpg') this.src = '/img/roaree.jpg';">          
         </div>
 
         <div class="field">
           {{> upload_semanticUI contentType='images' formData=userIdData }}
-          <div class="ui label helptext">Please upload an image of at least 250x250 px resolution.</div>
+          <div class="ui label helptext">Please upload a square image of at least 300x300 px resolution. Keep it under 1000x1000 px.</div>
         </div>
       </div>
 
