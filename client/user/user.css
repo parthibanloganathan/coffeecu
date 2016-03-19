@@ -10,11 +10,6 @@ form.profileupdate {
   margin: 20px;
 }
 
-.form.profileupdate.photo object {
-  height: 250px;
-  width: 250px;
-}
-
 .form.profileupdate .photo img {
   height: 250px;
   width: 250px;

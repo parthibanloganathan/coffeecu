@@ -15,7 +15,11 @@
       <div class="ten wide field center aligned">
         <div class="photo field">
           <label>Upload Photo</label>
-          <img src="{{user.image}}" name="image" onerror="if (this.src != '/img/roaree.jpg') this.src = '/img/roaree.jpg';">          
+          {{#if user.image}}
+          <img src="{{user.image}}" name="image" id="profile-image">   
+          {{else}}
+          <img src="/img/roaree.jpg" name="image" id="profile-image">
+          {{/if}}
         </div>
 
         <div class="field">

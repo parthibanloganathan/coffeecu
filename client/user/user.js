@@ -213,6 +213,7 @@ Template.profileupdate.events({
     var image = event.target.image.src;
     if (Session.get('UploadedImageUrl')) {
       image = Session.get('UploadedImageUrl');
+      $('#profile-image').attr('src',image);
     }
     Session.set('UploadedImageUrl', '');
 
