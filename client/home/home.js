@@ -46,7 +46,7 @@ Template.people.helpers({
   },
   'inputAttributes': function () {
     return {
-      placeholder: 'Search by name, UNI, school, major, etc...'
+      placeholder: 'Search by name, school, major, contact for, availability and likes'
     };
   }
 });

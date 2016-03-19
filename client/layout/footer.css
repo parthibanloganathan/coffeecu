@@ -1,3 +1,7 @@
 .footer {
   margin-top: 50px;
 }
+
+.footer .heart {
+  color: #64B5F6;
+}

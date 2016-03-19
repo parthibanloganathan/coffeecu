@@ -88,6 +88,13 @@
           </div>
         </div>
         {{/EasySearch.Each}}
+
+        {{> EasySearch.LoadMore index=peopleIndex}}
+
+        {{#EasySearch.IfNoResults index=peopleIndex}}
+          <div class="no-results">No results found</div>
+        {{/EasySearch.IfNoResults}}
+
       </div>
     </div>
   </div>
