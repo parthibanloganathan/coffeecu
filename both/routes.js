@@ -71,7 +71,9 @@ AccountsTemplates.configure({
       "meteor-developer": "fa fa-rocket"
     },
     title: {
-      forgotPwd: "Recover your password"
+      forgotPwd: "Recover your password",
+      signIn: "Sign in with your @columbia.edu address",
+      signUp: "Sign up with your @columbia.edu address"  
     },
   },
 });
