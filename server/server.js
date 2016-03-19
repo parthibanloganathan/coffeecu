@@ -11,7 +11,9 @@ Meteor.methods({
       return "We're not sending that request since we suspect that you're a robot";
     }
 
-    console.log("we got this far");
+    if(BlacklistCollection.find({ uni: senderUni }).fetch().length > 0) {
+      return "The UNI " + senderUni + " has been blacklisted";
+    }
 
     if(MeetingsCollection.find({ sender_uni: senderUni, receiver_uni: receiverUni }).fetch().length > 0) {
       return "You've already sent a coffee request to " + receiverName;
@@ -169,7 +171,7 @@ var SendEmailForCoffee = function (senderUni, senderName, receiverUni, receiverE
   var subject = 'Coffee at Columbia: Request from ' + senderName;
   var body = "Hi " + receiverName + ",\n\n" + 
     senderName + " (cc'ed) would like to meet you. Please respond to them if you have the time to chat. Some great places to meet at Columbia are: Joe's in NoCo, Brad's in the Journalism building, Brownie's Cafe in Avery, Carleton Lounge in Mudd or Cafe East in Lerner. Hope you have a great time talking!\n\n" + 
-    "Visit http://coffeecu.com to meet more Columbia students.";
+    "Visit http://coffeecu.com to meet more people.";
 
   SendEmail(to, cc, from, subject, body);
 
