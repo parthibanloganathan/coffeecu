@@ -168,6 +168,7 @@ Template.profileupdate.rendered = function () {
     Meteor.startup(function () {
       Uploader.finished = function(index, fileInfo, templateContext) {
         Session.set('UploadedImageUrl', fileInfo.finalUrl);
+        $('#profile-image').attr('src', fileInfo.finalUrl + "?preventcache=" + Date.now());
       };
     });
 
@@ -213,7 +214,6 @@ Template.profileupdate.events({
     var image = event.target.image.src;
     if (Session.get('UploadedImageUrl')) {
       image = Session.get('UploadedImageUrl');
-      $('#profile-image').attr('src',image);
     }
     Session.set('UploadedImageUrl', '');
 
