@@ -159,6 +159,15 @@ Template.profileupdate.rendered = function () {
       $('#' + user.school).prop('checked', true);
     }
 
+    // Populate check
+    if (user && user.make_public) {
+      $('#make_public').prop('checked', true);
+    }
+
+    if (!user) {
+      $('#make_public').prop('checked', true);
+    }
+
     // Initialize and populate dropdown
     if (user) {
       $('.ui.dropdown').val(user.year);
@@ -210,6 +219,7 @@ Template.profileupdate.events({
     var twitter = event.target.twitter.value;
     var facebook = event.target.facebook.value;
     var linkedin = event.target.linkedin.value;
+    var make_public = event.target.make_public.checked;
 
     var image = event.target.image.src;
     if (Session.get('UploadedImageUrl')) {
@@ -232,6 +242,7 @@ Template.profileupdate.events({
                 twitter,
                 facebook,
                 linkedin,
+                make_public,
                 image
                );
 

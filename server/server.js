@@ -70,6 +70,7 @@ Meteor.methods({
                                       twitter: userToMove.twitter,
                                       facebook: userToMove.facebook,
                                       linkedin: userToMove.linkedin,
+                                      make_public: userToMove.make_public,
                                       image: userToMove.image,
                                     }},
                                     {upsert: true});
@@ -98,6 +99,7 @@ Meteor.methods({
                                twitter,
                                facebook,
                                linkedin,
+                               make_public,
                                image
                               ) {
                                 if (!Meteor.userId()) {
@@ -121,6 +123,7 @@ Meteor.methods({
                                     twitter: twitter,
                                     facebook: facebook,
                                     linkedin: linkedin,
+                                    make_public: make_public,
                                     image: image,
                                   }},
                                   {upsert: true});
@@ -148,6 +151,7 @@ Meteor.methods({
                                                           twitter: userToMove.twitter,
                                                           facebook: userToMove.facebook,
                                                           linkedin: userToMove.linkedin,
+                                                          make_public: userToMove.make_public,
                                                           image: userToMove.image,
                                                         }},
                                                         {upsert: true});

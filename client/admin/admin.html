@@ -26,6 +26,13 @@
           <b>Name:</b> <p>{{name}}</p>
           <b>School:</b> <p>{{school}}</p>
           <b>Year:</b> <p>{{year}}</p>
+          <b>
+          {{#if make_public}}
+          Public
+          {{else}}
+          Private
+          {{/if}}
+          </b>
         </div>
 
         <div class="five wide field">
