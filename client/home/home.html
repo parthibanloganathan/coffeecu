@@ -56,9 +56,11 @@
 
             <div class="title">
               <div class="ui centered grid">
+                {{#if make_public}}
                 <div class="row">
                   <img src="{{image}}" class="profilepic ui rounded image"/>
                 </div>
+                {{/if}}
                 <div class="row">
                   <h2 class="name">{{name}}</h2>
                 </div>
@@ -66,6 +68,7 @@
             </div>
 
             <div class="content">
+              {{#if make_public}}
               <p>{{school}} {{year}}</p>
               <p><b>Studies:</b> {{major}}</p>
               <p><b>About:</b> {{about}}</p>
@@ -81,6 +84,7 @@
               {{#if linkedin}}
               <a target="_blank" class="ui linkedin button" href="{{linkedin}}"><i class="linkedin icon"></i></a>
               {{/if}}
+              {{/if}}              
               <div class="ui center aligned contact-button">
                 <button id="contact" class="waves-effect waves-light btn">Grab coffee</button>
               </div>
