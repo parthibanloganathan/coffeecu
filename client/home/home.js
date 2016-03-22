@@ -48,6 +48,9 @@ Template.people.helpers({
     return {
       placeholder: 'Search by name, school, major, contact for, availability and likes'
     };
+  },
+  'makeVisible': function () {
+    return this.make_public || Meteor.userId();
   }
 });
 

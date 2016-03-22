@@ -56,7 +56,7 @@
 
             <div class="title">
               <div class="ui centered grid">
-                {{#if make_public}}
+                {{#if makeVisible}}
                 <div class="row">
                   <img src="{{image}}" class="profilepic ui rounded image"/>
                 </div>
@@ -68,7 +68,7 @@
             </div>
 
             <div class="content">
-              {{#if make_public}}
+              {{#if makeVisible}}
               <p>{{school}} {{year}}</p>
               <p><b>Studies:</b> {{major}}</p>
               <p><b>About:</b> {{about}}</p>
