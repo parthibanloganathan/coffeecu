@@ -70,6 +70,7 @@ Meteor.methods({
                                       twitter: userToMove.twitter,
                                       facebook: userToMove.facebook,
                                       linkedin: userToMove.linkedin,
+                                      website: userToMove.website,
                                       make_public: userToMove.make_public,
                                       image: userToMove.image,
                                     }},
@@ -99,6 +100,7 @@ Meteor.methods({
                                twitter,
                                facebook,
                                linkedin,
+                               website,
                                make_public,
                                image
                               ) {
@@ -123,6 +125,7 @@ Meteor.methods({
                                     twitter: twitter,
                                     facebook: facebook,
                                     linkedin: linkedin,
+                                    website: website,
                                     make_public: make_public,
                                     image: image,
                                   }},
@@ -151,6 +154,7 @@ Meteor.methods({
                                                           twitter: userToMove.twitter,
                                                           facebook: userToMove.facebook,
                                                           linkedin: userToMove.linkedin,
+                                                          website: userToMove.website,
                                                           make_public: userToMove.make_public,
                                                           image: userToMove.image,
                                                         }},

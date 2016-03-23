@@ -137,6 +137,16 @@ Template.profileupdate.rendered = function () {
           }
         ]
       },
+      website: {
+        identifier  : 'website',
+        optional: true,
+        rules: [
+          {
+            type   : 'url',
+            prompt : "Please enter a valid URL (with the 'https://' part). eg - https://www.columbia.edu"
+          }
+        ]
+      },
       agreement: {
         identifier  : 'agreement',
         rules: [
@@ -219,6 +229,7 @@ Template.profileupdate.events({
     var twitter = event.target.twitter.value;
     var facebook = event.target.facebook.value;
     var linkedin = event.target.linkedin.value;
+    var website = event.target.website.value;
     var make_public = event.target.make_public.checked;
 
     var image = event.target.image.src;
@@ -242,6 +253,7 @@ Template.profileupdate.events({
                 twitter,
                 facebook,
                 linkedin,
+                website,
                 make_public,
                 image
                );
