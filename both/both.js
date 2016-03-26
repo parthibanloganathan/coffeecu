@@ -71,5 +71,8 @@ PeopleIndex = new EasySearch.Index({
   collection: PeopleCollection,
   fields: ['name', 'school', 'major', 'contactfor', 'availability', 'likes'],
   engine: new EasySearch.MongoTextIndex(),
-  name: 'peopleIndex'
+  name: 'peopleIndex',
+  sort: function () {
+    return [["priority", "asc"]];
+  }
 });
