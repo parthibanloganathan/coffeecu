@@ -33,14 +33,13 @@ Accounts.emailTemplates.verifyEmail.text = function(user, url) {
 
 // Reset password
 Accounts.emailTemplates.resetPassword.subject = function (user) {
-    return "Coffee at Columbia - Reset password for " + user.profile.displayName;
+    return "Coffee at Columbia - Reset password";
 };
 
 Accounts.emailTemplates.resetPassword.text = function (user, url) {
     var signature = "Coffee at Columbia bot";
 
-    return "Dear " + user.profile.displayName + ",\n\n" +
-        "Click the following link to reset your password:\n" +
+    return "Click the following link to reset your password:\n" +
         url + "\n\n" +
         "Cheers,\n" +
         "Your friends at Coffee at Columbia";
