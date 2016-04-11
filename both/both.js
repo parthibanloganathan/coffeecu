@@ -69,8 +69,8 @@ RejectedPeopleCollection.deny({
 // Search box
 PeopleIndex = new EasySearch.Index({
   collection: PeopleCollection,
-  fields: ['name', 'school', 'major', 'contactfor', 'availability', 'likes'],
-  engine: new EasySearch.MongoTextIndex(),
+  fields: ['name', 'school', 'major', 'contactfor', 'availability', 'likes', 'about', 'uni', 'priority'],
+  engine: new EasySearch.Minimongo(),
   name: 'peopleIndex',
   sort: function () {
     return [["priority", "asc"]];
