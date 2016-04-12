@@ -1,6 +1,6 @@
 # Coffee at Columbia
 
-To run locally, clone the repo with `git clone --recrusrive https://github.com/parthibanloganathan/coffeecu.git` so that you get the submodule for https://github.com/parthibanloganathan/materialize-custom as well.
+To run locally, clone the repo with `git clone --recursive https://github.com/parthibanloganathan/coffeecu.git` so that you get the submodule for [materialize-custom](https://github.com/parthibanloganathan/materialize-custom) as well.
 
 You need to create a file called `settings.json` at `coffeecu/` formatted as follows:
 ```
@@ -42,7 +42,9 @@ You need to create a file called `settings.json` at `coffeecu/` formatted as fol
 
 ```
 
-Just run `./run.sh` to start the app and view at `http://localhost:3000`.
+Install Meteor first with `curl https://install.meteor.com/ | sh`. Finally perform `./run.sh` to start the app and view it in your browser at `http://localhost:3000`.
+
+Only tested on Chrome. ¯\_(ツ)_/¯
 
 
 Dependencies
