@@ -1,5 +1,50 @@
 # Coffee at Columbia
 
+To run locally, clone the repo with `git clone --recrusrive https://github.com/parthibanloganathan/coffeecu.git` so that you get the submodule for https://github.com/parthibanloganathan/materialize-custom as well.
+
+You need to create a file called `settings.json` at `coffeecu/` formatted as follows:
+```
+{
+  "public": {
+    "recaptcha": {
+      "key": [
+        "<RECAPTCHA KEY>"
+      ]
+    }
+  },
+  "private": {
+    "mailgun": {
+      "username": [
+        "<MAILGUN USERNAME>"        
+      ],
+      "password": [
+        "<MAILGUN PASSOWRD>"
+      ]
+    },
+    "google": {
+      "clientId": [
+        "<GOOGLE CLIENT ID>"
+      ],
+      "secret": [
+        "<GOOGLE CLIENT SECRET>"
+      ]
+    },
+    "recaptcha": {
+      "secret": [
+        "<RECAPTCHA SECRET>"
+      ]
+    },
+    "admins": [
+      "<ID OF ADMIN>"
+    ]
+  }
+}
+
+```
+
+Just run `./run.sh` to start the app and view at `http://localhost:3000`.
+
+
 Dependencies
 ------------
 For login:
