@@ -1,3 +1,4 @@
+/*
 var interval = 86400000; // 1 day
 Meteor.setInterval( function () {
   // Randomize order of candidates once a day
@@ -7,3 +8,4 @@ Meteor.setInterval( function () {
   // hard code myself into top 3
   PeopleCollection.update({uni: "pl2487"}, {$set: {priority: Math.round(Math.random()*(3 - min) + min)} });
 }, interval);
+*/
