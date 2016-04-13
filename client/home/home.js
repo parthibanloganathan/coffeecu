@@ -46,7 +46,12 @@ Template.people.helpers({
   },
   'inputAttributes': function () {
     return {
-      placeholder: 'Search by name, school, major, contact for, availability and likes'
+      placeholder: 'Search by name, school, UNI, major, about, contact for, availability and likes'
+    };
+  },
+  'loadButtonAttributes': function () {
+    return {
+      class: 'waves-effect waves-light btn load-more-button'
     };
   },
   'makeVisible': function () {

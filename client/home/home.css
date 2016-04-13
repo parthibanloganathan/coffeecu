@@ -41,6 +41,11 @@
   margin-top: 200px;
 }
 
+.people-home .load-more-button {
+  margin: 30px auto;
+  display: block; 
+}
+
 .people-home .person {
   width: 300px;
 }

@@ -98,14 +98,14 @@
           </div>
         </div>
         {{/EasySearch.Each}}
-
-        {{> EasySearch.LoadMore index=peopleIndex}}
-
-        {{#EasySearch.IfNoResults index=peopleIndex}}
-          <div class="no-results">No results found</div>
-        {{/EasySearch.IfNoResults}}
-
       </div>
+
+      {{> EasySearch.LoadMore index=peopleIndex attributes=loadButtonAttributes count=50}}
+
+      {{#EasySearch.IfNoResults index=peopleIndex}}
+      <div class="no-results">No results found</div>
+      {{/EasySearch.IfNoResults}}
+
     </div>
   </div>
   {{> uniPrompt }}
