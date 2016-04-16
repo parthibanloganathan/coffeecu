@@ -13,12 +13,6 @@ Session.set('currentlySelected', null);
 Template.people.rendered = function () {
   $(document).ready(function(){
     $('.ui.accordion').accordion({exclusive: true});
-
-    window.onscroll = function(ev) { if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-      setTimeout(function(){
-        $('.load-more-button').click();
-      }, 100);
-    }};
   });
 };
 
@@ -78,10 +72,10 @@ Template.people.events({
 
         Meteor.call('processSendRequest', senderUni, receiver, receiverUni, receiverName, recaptcha, function (error, response) {
           if (error) {
-            Materialize.toast('Failed to send email', 4000);
+            Materialize.toast('Failed to send email', 4000);          
             console.log(error);
           } else {
-            Materialize.toast(response, 4000);
+            Materialize.toast(response, 4000);            
           }
         });
 
