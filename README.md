@@ -44,7 +44,7 @@ You need to create a file called `settings.json` at `coffeecu/` formatted as fol
 
 Install Meteor first with `curl https://install.meteor.com/ | sh`. Finally perform `./run.sh` to start the app and view it in your browser at `http://localhost:3000`.
 
-Only tested on Chrome. ¯\_(ツ)_/¯
+Only tested on Chrome. ¯\\\_(ツ)_/¯
 
 
 Dependencies
